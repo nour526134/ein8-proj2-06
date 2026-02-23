@@ -1,7 +1,6 @@
 class Configurator:
     """
     Configuration parameters for the environment.
-    Contains ONLY fixed parameters (do not change during an episode).
     """
 
     def __init__(

@@ -3,12 +3,18 @@ import numpy as np
 from stable_baselines3 import PPO
 
 from rl.training.config import PPOConfig
-from rl.env.modal_env import ModalShiftEnv
+from rl.env.park_ride_env import ParkOrRide
 from rl.training.metrics import compute_decision_metrics, summarize_metrics
+from rl.simulators.car_simulator import CarSimulator  #a modifier par aiche si incorrect
+from rl.simulators.train_service import TrainService  # a modifier par Manal si incorrect
+from rl.env.cfg import Configurator
 
 
 def evaluate(model_path: str, n_episodes: int = 20) -> dict:
-    env = ModalShiftEnv()
+    car_sim = CarSimulator() 
+    train_svc = TrainService() 
+    config = Configurator()
+    env = ParkOrRide(car_sim,train_svc,config)
     model = PPO.load(model_path)
 
     episode_rewards = []
