@@ -1,0 +1,54 @@
+1. Module CarSimulator (simulateur voiture / trafic)
+reset(seed=None) -> Cette fonction initialise un nouveau scénario de conduite.
+Elle doit remettre à zéro le temps de simulation, positionner la voiture dans un état initial réaliste 
+(position, distance à la destination, distance aux gares) et initialiser le niveau de trafic.
+Si un seed est fourni, il doit être utilisé pour radomiser.
+
+
+advance(dt_min):
+Cette fonction fait avancer la simulation de la voiture dans le temps.
+Elle doit augmenter le temps courant de dt_min, mettre à jour la position du véhicule, recalculer les distances restantes et adapter la vitesse en fonction du trafic.
+Concrètement, c’est cette fonction qui simule la progression du trajet routier entre deux instants.
+
+
+get_metrics():
+Cette fonction retourne l’état courant du système côté voiture sous forme de dictionnaire.
+Elle doit fournir:
+le temps courant de simulation (en minutes),
+la distance restante jusqu’à la gare la plus proche (en kilomètres),
+la distance restante jusqu’à la destination finale (en kilomètres),
+le niveau de trafic normalisé entre 0 et 1.
+Ces informations sont utilisées directement pour construire l’observation donnée à l’agent PPO.
+
+get_dist_to_station_km():
+Cette fonction retourne uniquement la distance entre la voiture et la gare la plus proche.
+Elle est utilisée dans la phase de reset pour déterminer si le véhicule est suffisamment proche d’une gare pour déclencher la décision Park-or-Ride.
+
+get_closest_station_id()
+Cette fonction doit identifier la gare la plus proche de la position actuelle du véhicule et retourner son identifiant.
+Cet identifiant est ensuite utilisé par le TrainService pour récupérer les horaires correspondants à la bonne gare.
+
+get_time_min():
+Cette fonction retourne le temps courant de la simulation en minutes.
+Elle est nécessaire pour interroger correctement les horaires de train, qui dépendent du temps.
+
+car_time_to_station():
+Cette fonction estime le temps de trajet en voiture jusqu’à la gare la plus proche, en minutes.
+Ce calcul doit tenir compte du trafic courant et de la distance restante.
+Cette valeur est utilisée pour évaluer le coût de l’option train.
+
+car_time_to_dest():
+Cette fonction estime le temps de trajet restant en voiture jusqu’à la destination finale.
+Elle doit intégrer la distance restante et l’état du trafic.
+C’est cette valeur qui est utilisée lorsque l’agent décide de continuer en voiture.
+
+
+2. Module TrainService (horaires et trajets ferroviaires)
+
+train_wait_time(station_id, current_time)
+Cette fonction retourne le temps d’attente avant le prochain train disponible à la gare considérée, en minutes.
+Le calcul doit dépendre de l’heure courante de simulation et de l’horaire réel des trains.
+Par exemple, si le prochain train arrive dans 8 minutes, la fonction doit retourner 8.
+
+train_trip_time(station_id)
+Cette fonction retourne la durée du trajet en train depuis la gare choisie jusqu’à la destination finale , en minutes.
