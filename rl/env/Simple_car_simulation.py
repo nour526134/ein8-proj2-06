@@ -49,7 +49,7 @@ class CarSimulator:
         # j'ai besoin de cette fonction menal qui me donne un dictionnaire de station avec leur id lon lat 
         self.stations = load_stops()
 
-        self.G = ox.graph_from_file(osm_path, simplify=True)
+        self.G = ox.graph_from_xml(osm_path, simplify=True)
 
         self.current_hour = 8.0
         self.position_lat = None
@@ -133,8 +133,8 @@ class CarSimulator:
     def advance(self, dt_min):
         """Avance le long du chemin OSM pendant dt_min minutes"""
         speed = self.speed_kmh(self.current_saturation)
-        distance_step = speed*dt_min / 60.0  # km
-
+        distance_step = speed*dt_min / 60.0  
+        distance_traveled=0.0
         while distance_step > 0 and self.current_index < len(self.path_nodes)-1:
             n1 = self.path_nodes[self.current_index]
             n2 = self.path_nodes[self.current_index + 1]
@@ -153,13 +153,7 @@ class CarSimulator:
                 self.position_lon +=ratio*(self.G.nodes[n2]['x'] - self.G.nodes[n1]['x'])
                 distance_step = 0
 
-        self.remaining_distance_km = sum(
-            distance_km(
-                self.G.nodes[self.path_nodes[i]]['y'], self.G.nodes[self.path_nodes[i]]['x'],
-                self.G.nodes[self.path_nodes[i+1]]['y'], self.G.nodes[self.path_nodes[i+1]]['x']
-            )
-            for i in range(self.current_index, len(self.path_nodes)-1)
-        )
+        self.remaining_distance_km -=distance_traveled
 
         self.current_hour += dt_min / 60.0
         self.current_saturation = self.traffic_level(self.current_hour)
