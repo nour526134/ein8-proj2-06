@@ -5,19 +5,6 @@ import osmnx as ox
 import networkx as nx
 
 
-def distance_km(lat1, lon1, lat2, lon2):
-    """Distance orthodromique (Haversine) entre deux points GPS"""
-    R = 6371.0
-    dlat = math.radians(lat2 - lat1)
-    dlon = math.radians(lon2 - lon1)
-    a =math.sin(dlat / 2)**2+math.cos(math.radians(lat1))*math.cos(math.radians(lat2))*math.sin(dlon / 2)**2
-    c = 2*math.atan2(math.sqrt(a), math.sqrt(1 - a))
-    return R*c
-
-
-
-
-
 class CarSimulator:
     """
     Simulateur de voiture réaliste sur graphe OSM
@@ -43,29 +30,27 @@ class CarSimulator:
         self.base = 0.25
         self.morning_peak = 0.45
         self.evening_peak = 0.50
-        self.morning_hour = 8.0
-        self.evening_hour = 17.5
+        self.morning_hour = 8
+        self.evening_hour = 17
 
         # j'ai besoin de cette fonction menal qui me donne un dictionnaire de station avec leur id lon lat 
         self.stations = load_stops()
 
         self.G = ox.graph_from_xml(osm_path, simplify=True)
 
-        self.current_hour = 8.0
-        self.position_lat = None
+        self.current_hour =8
+        self.position_lat =None
         self.position_lon = None
-        self.path_nodes = []  
+        self.path_nodes =[]  
         self.current_index = 0
         self.closest_station_id = None
         self.station_lat = None
         self.station_lon = None
-        self.remaining_distance_km = 0.0
-        self.dist_to_station_km = 0.0
-        self.current_saturation = 0.0
-
+        self.remaining_distance_km = 0
+        self.dist_to_station_km = 0
+        self.current_saturation = 0
+        self.dest_path_nodes = []
  
-    def clamp(self, x, lo=0.0, hi=1.0):
-        return max(lo, min(hi, x))
 
     def traffic_level(self, hour):
         """Niveau de saturation du trafic (0 à 1)"""
@@ -73,11 +58,11 @@ class CarSimulator:
         evening = math.exp(-((hour-self.evening_hour) ** 2) / (2 * self.sigma ** 2))
         mu = self.base + self.morning_peak*morning + self.evening_peak * evening
         noise = self.rng.uniform(-self.noise_amp, self.noise_amp)
-        return self.clamp(mu + noise)
+        return max(0,(min(mu + noise),1))
 
     def speed_kmh(self, saturation):
         """Vitesse actuelle selon saturation"""
-        return self.v_min + (1.0-saturation)*(self.v_max - self.v_min)
+        return self.v_min + (1-saturation)*(self.v_max - self.v_min)
 
 
     def nearest_node(self, lat, lon):
@@ -94,7 +79,7 @@ class CarSimulator:
         """Réinitialise la simulation et choisit un trajet réaliste"""
         if seed is not None:
             self.rng.seed(seed)
-        self.current_hour = 8.0
+        self.current_hour = 8
 
         start_station=self.rng.choice(self.stations)
         dest_station=self.rng.choice([s for s in self.stations if s != start_station])
@@ -102,51 +87,40 @@ class CarSimulator:
         self.position_lat=start_station["lat"]+self.rng.uniform(-0.001, 0.001)
         self.position_lon=start_station["lon"]+self.rng.uniform(-0.001, 0.001)
 
-        self.path_nodes = self.shortest_path(
-            self.position_lat, self.position_lon,
-            dest_station["lat"], dest_station["lon"]
-        )
+        self.path_nodes = self.shortest_path(self.position_lat, self.position_lon,dest_station["lat"], dest_station["lon"])
         self.current_index = 0
 
-        self.remaining_distance_km = sum(
-            distance_km(
-                self.G.nodes[self.path_nodes[i]]['y'], self.G.nodes[self.path_nodes[i]]['x'],
-                self.G.nodes[self.path_nodes[i+1]]['y'], self.G.nodes[self.path_nodes[i+1]]['x']
-            )
-            for i in range(len(self.path_nodes)-1)
-        )
+        self.remaining_distance_km =nx.path_weight(self.G, self.path_nodes, weigth="length")/1000
 
         self.current_saturation=self.traffic_level(self.current_hour)
-        closest = min(
-            self.stations,
-            key=lambda s: distance_km(self.position_lat, self.position_lon, s["lat"], s["lon"])
-        )
+
+        car_node=self.nearest_node(self.position_lat,self.position_lon)
+
+        closest = min(self.stations, key=lambda s: (nx.shortest_path_length(self.G,car_node,self.nearest_node(s["lat"], s["lon"]), weight="length")))
+        
         self.closest_station_id=closest["id"]
         self.station_lat=closest["lat"]
         self.station_lon=closest["lon"]
-        self.dist_to_station_km=distance_km(
-            self.position_lat, self.position_lon,
-            closest["lat"], closest["lon"]
-        )
+        self.dest_path_nodes=self.shortest_path(self.position_lat, self.position_lon,closest["lat"], closest["lon"])
+        self.dist_to_station_km=nx.path_weight(self.G, self.dest_path_nodes, weigth="length")/1000
 
 
     def advance(self, dt_min):
         """Avance le long du chemin OSM pendant dt_min minutes"""
         speed = self.speed_kmh(self.current_saturation)
-        distance_step = speed*dt_min / 60.0  
-        distance_traveled=0.0
+        distance_step = speed*dt_min / 60
+        distance_traveled=0
         while distance_step > 0 and self.current_index < len(self.path_nodes)-1:
             n1 = self.path_nodes[self.current_index]
             n2 = self.path_nodes[self.current_index + 1]
-            d = distance_km(
-                self.G.nodes[n1]['y'], self.G.nodes[n1]['x'],
-                self.G.nodes[n2]['y'], self.G.nodes[n2]['x']
-            )
+            edge_data = self.G.get_edge_data(n1, n2)
+            d =edge_data[0]["length"]/1000
             if distance_step >= d:
                 self.current_index+= 1
                 self.position_lat=self.G.nodes[n2]['y']
                 self.position_lon=self.G.nodes[n2]['x']
                 distance_step -=d
+                distance_traveled+=d
             else:
                 ratio = distance_step/d
                 self.position_lat +=ratio*(self.G.nodes[n2]['y'] - self.G.nodes[n1]['y'])
@@ -154,9 +128,10 @@ class CarSimulator:
                 distance_step = 0
 
         self.remaining_distance_km -=distance_traveled
-
-        self.current_hour += dt_min / 60.0
-        self.current_saturation = self.traffic_level(self.current_hour)
+        time=self.current_hour
+        self.current_hour += dt_min / 60
+        if self.current_hour-time > 0.5:
+            self.current_saturation = self.traffic_level(self.current_hour)
 
 
     def get_metrics(self):
@@ -178,8 +153,8 @@ class CarSimulator:
 
     def car_time_to_station(self):
         speed = self.speed_kmh(self.current_saturation)
-        return 60.0*self.dist_to_station_km /max(speed, 1e-6)
+        return 60*self.dist_to_station_km /max(speed, 1e-6)
 
     def car_time_to_dest(self):
         speed = self.speed_kmh(self.current_saturation)
-        return 60.0*self.remaining_distance_km / max(speed, 1e-6)
+        return 60*self.remaining_distance_km / max(speed, 1e-6)
