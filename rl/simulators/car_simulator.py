@@ -8,7 +8,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from src.gtfs_service import load_stops 
+from src.gtfs_service import GTFSService
 
 class CarSimulator:
     """
@@ -38,8 +38,18 @@ class CarSimulator:
         self.morning_hour = 8
         self.evening_hour = 17
 
-        # j'ai besoin de cette fonction menal qui me donne un dictionnaire de station avec leur id lon lat
-        self.stations = load_stops()
+        # Charger les stations GTFS
+        gtfs_service = GTFSService("data/gtfs")
+        stops_df = gtfs_service.load_stops(stop_areas_only=True)
+        
+        # Convertir en dictionnaire {stop_id: {'lat': ..., 'lon': ..., 'name': ...}}
+        self.stations = {}
+        for _, row in stops_df.iterrows():
+            self.stations[row['stop_id']] = {
+                'lat': row['lat'],
+                'lon': row['lon'],
+                'name': row['stop_name']
+            }
 
         self.G = ox.graph_from_xml(osm_path, simplify=True)
 
