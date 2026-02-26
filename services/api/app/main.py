@@ -6,11 +6,11 @@ from services.api.app.routers.decision import router as decision_router
 
 
 
-serveur = FastAPI(title="Modal Shift API", version="0.1.0")
+app = FastAPI(title="Modal Shift API", version="0.1.0")
 
-@serveur.get("/health")
+@app.get("/health")
 def health():
     return {"status": "ok"}
 
-serveur.include_router(trains_router)
-serveur.include_router(decision_router)
+app.include_router(trains_router)
+app.include_router(decision_router)
