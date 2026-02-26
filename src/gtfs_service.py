@@ -94,6 +94,145 @@ class GTFSService:
         
         return result.reset_index(drop=True)
     
+    def train_wait_time(self, station_id, current_time):
+        """
+        Retourne le temps d'attente avant le prochain train (en minutes)
+        
+        Args:
+            station_id: ID de la gare (StopArea ou StopPoint)
+            current_time: Heure actuelle ("HH:MM:SS" ou datetime)
+            
+        Returns:
+            float: Temps d'attente en minutes (ou None si aucun train)
+        """
+        # Convertir current_time en string si c'est un datetime
+        if isinstance(current_time, datetime):
+            current_time_str = current_time.strftime("%H:%M:%S")
+        else:
+            current_time_str = current_time
+        
+        # Récupérer le prochain train
+        trains = self.get_next_trains(station_id, current_time_str, limit=1)
+        
+        if len(trains) == 0:
+            return None
+        
+        # Calculer le temps d'attente
+        next_train_time = trains.iloc[0]['departure_time']
+        
+        # Parser les heures
+        wait_minutes = self._calculate_time_difference(current_time_str, next_train_time)
+        
+        return wait_minutes
+    
+    def train_trip_time(self, station_id, destination_id):
+        """
+        Retourne la durée du trajet en train depuis la gare jusqu'à la destination (en minutes)
+        
+        Args:
+            station_id: ID de la gare de départ (StopArea ou StopPoint)
+            destination_id: ID de la gare d'arrivée (StopArea ou StopPoint)
+            
+        Returns:
+            float: Durée du trajet en minutes (moyenne si plusieurs trips)
+                   None si aucune connexion trouvée
+        """
+        # Convertir en StopPoints si nécessaire
+        origin_stop_ids = self._get_queryable_stop_ids(station_id)
+        dest_stop_ids = self._get_queryable_stop_ids(destination_id)
+        
+        if not origin_stop_ids or not dest_stop_ids:
+            return None
+        
+        # Chercher des trips qui passent par origine ET destination
+        trip_durations = []
+        
+        for origin_sid in origin_stop_ids:
+            for dest_sid in dest_stop_ids:
+                duration = self._find_trip_duration(origin_sid, dest_sid)
+                if duration is not None:
+                    trip_durations.append(duration)
+        
+        if not trip_durations:
+            return None
+        
+        # Retourner la durée moyenne
+        return sum(trip_durations) / len(trip_durations)
+    
+    def _find_trip_duration(self, origin_stop_id, dest_stop_id):
+        """
+        Trouve la durée d'un trip entre deux stops
+        
+        Returns:
+            float: Durée en minutes, ou None si pas de connexion
+        """
+        # Charger stop_times
+        stop_times = self.stop_times_mgr.stop_times
+        
+        # Trips qui passent par l'origine
+        origin_times = stop_times[stop_times['stop_id'] == origin_stop_id].copy()
+        
+        # Trips qui passent par la destination
+        dest_times = stop_times[stop_times['stop_id'] == dest_stop_id].copy()
+        
+        # Trips en commun
+        common_trips = set(origin_times['trip_id']) & set(dest_times['trip_id'])
+        
+        if not common_trips:
+            return None
+        
+        durations = []
+        
+        for trip_id in common_trips:
+            origin_row = origin_times[origin_times['trip_id'] == trip_id].iloc[0]
+            dest_row = dest_times[dest_times['trip_id'] == trip_id].iloc[0]
+            
+            # Vérifier que destination est après origine (stop_sequence)
+            if dest_row['stop_sequence'] > origin_row['stop_sequence']:
+                departure = origin_row['departure_time']
+                arrival = dest_row['arrival_time']
+                
+                duration_min = self._calculate_time_difference(departure, arrival)
+                durations.append(duration_min)
+        
+        if not durations:
+            return None
+        
+        # Retourner la durée minimale (trajet le plus rapide)
+        return min(durations)
+
+
+    
+    def _calculate_time_difference(self, time1, time2):
+        """
+        Calcule la différence entre deux heures GTFS (en minutes)
+        
+        Args:
+            time1: Heure de début ("HH:MM:SS")
+            time2: Heure de fin ("HH:MM:SS")
+            
+        Returns:
+            float: Différence en minutes (time2 - time1)
+        """
+        def parse_gtfs_time(time_str):
+            """Parse une heure GTFS (peut dépasser 24h)"""
+            parts = time_str.split(':')
+            hours = int(parts[0])
+            minutes = int(parts[1])
+            seconds = int(parts[2])
+            return hours * 60 + minutes + seconds / 60
+        
+        minutes1 = parse_gtfs_time(time1)
+        minutes2 = parse_gtfs_time(time2)
+        
+        diff = minutes2 - minutes1
+        
+        # Gérer le cas où on passe minuit
+        if diff < 0:
+            diff += 24 * 60
+        
+        return diff
+    
     def _get_queryable_stop_ids(self, stop_id):
         """
         Convertit un stop_id en liste de stop_ids utilisables
