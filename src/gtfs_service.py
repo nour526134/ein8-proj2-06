@@ -62,6 +62,38 @@ class GTFSService:
         """Retourne les gares principales"""
         return self.stops_mgr.get_major_stations()
     
+    def load_stops(self, stop_areas_only=True):
+        """
+        Retourne toutes les stations avec leurs coordonnées
+        
+        Args:
+            stop_areas_only: Si True, ne retourne que les StopAreas (gares principales)
+                           Si False, retourne tous les stops (y compris StopPoints)
+        
+        Returns:
+            DataFrame avec colonnes: stop_id, stop_name, lat, lon, location_type
+        """
+        stops = self.stops_mgr.get_all_stops()
+        
+        # Filtrer selon le type
+        if stop_areas_only and 'location_type' in stops.columns:
+            stops = stops[stops['location_type'] == 1]
+        
+        # Sélectionner les colonnes importantes
+        columns = ['stop_id', 'stop_name', 'lat', 'lon']
+        if 'location_type' in stops.columns:
+            columns.append('location_type')
+        
+        available_columns = [col for col in columns if col in stops.columns]
+        
+        result = stops[available_columns].copy()
+        
+        # Filtrer les stops sans coordonnées
+        if 'lat' in result.columns and 'lon' in result.columns:
+            result = result.dropna(subset=['lat', 'lon'])
+        
+        return result.reset_index(drop=True)
+    
     def _get_queryable_stop_ids(self, stop_id):
         """
         Convertit un stop_id en liste de stop_ids utilisables
@@ -187,6 +219,10 @@ if __name__ == "__main__":
     # Rechercher Bordeaux
     print(" Recherche 'Bordeaux Saint-Jean':")
     bordeaux = service.find_station("Bordeaux Saint-Jean")
+
+    all_stations = service.load_stops(stop_areas_only=True)
+    print(f" {len(all_stations)} stations trouvées")
+    print(all_stations.head())
     
     if len(bordeaux) > 0:
         # Prendre la première StopArea
