@@ -8,7 +8,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from src.gtfs_service import load_stop 
+from src.gtfs_service import load_stops 
 
 class CarSimulator:
     """
