@@ -40,7 +40,6 @@ class ParkOrRide(gym.Env):
         self.action_space = gym.spaces.Discrete(2)
 
     def _norm(self, value, max_value):
-        """Normalize value into [0,1]"""
         if max_value <= 0:
             return 0.0
         return float(np.clip(value / max_value, 0.0, 1.0))
@@ -55,10 +54,10 @@ class ParkOrRide(gym.Env):
         metrics = self.sim.get_metrics()
         self.current_metrics = metrics
 
-        dist_station = metrics.get("dist_to_station_km", self.cfg.max_dist_station_km)
-        dist_dest = metrics.get("dist_to_dest_km", self.cfg.max_dist_dest_km)
-        traffic = np.clip(metrics.get("traffic_level", 0.5), 0.0, 1.0)
-        time_min = metrics.get("time_min", 0.0)
+        dist_station = metrics["dist_to_station_km"]
+        dist_dest = metrics["dist_to_dest_km"]
+        traffic = metrics["traffic"]
+        time_min = metrics["time_min"]
 
         eta_car_dest = self.sim.car_time_to_dest()
         eta_car_station = self.sim.car_time_to_station()
@@ -104,19 +103,11 @@ class ParkOrRide(gym.Env):
 
         for _ in range(self.cfg.max_iterations):
             self.current_steps += 1
-
             self.sim.advance(self.cfg.dt_min)
-
             dist_station = self.sim.get_dist_to_station_km()
-
             if dist_station <= self.cfg.decision_distance_km:
                 self.station_id = self.sim.get_closest_station_id()
-
                 current_time = self.sim.get_time_min()
-
-                if hasattr(self.ts, "reset"):
-                    self.ts.reset(self.station_id, current_time)
-
                 obs = self._get_observation()
                 return obs, {"reset": "success", "station_id": self.station_id}
 
@@ -178,7 +169,8 @@ class ParkOrRide(gym.Env):
             }
         )
 
-        obs = self._get_observation()
+                """Debug rendering"""
+obs = self._get_observation()
         return obs, float(self.reward), True, False, info
 
     def render(self, mode="human"):
@@ -187,14 +179,18 @@ class ParkOrRide(gym.Env):
             return
 
         m = self.current_metrics if self.current_metrics else {}
+        time_in_min=m['time_min']
+        dist_stat=m['dist_to_station_km']
+        dist_d=m['dist_to_dest_km']
+        traf=m['traffic']
         print(
             f"Step={self.current_steps} | "
             f"Terminated={self.terminated} | "
             f"Truncated={self.truncated} | "
             f"Reward={self.reward:.2f} | "
             f"Station={self.station_id} | "
-            f"Time={m.get('time_min', None)} | "
-            f"Dist_station={m.get('dist_to_station_km', None)} | "
-            f"Dist_dest={m.get('dist_to_dest_km', None)} | "
-            f"Traffic={m.get('traffic_level', None)}"
+            f"Time={time_in_min} | "
+            f"Dist_station={dist_stat} | "
+            f"Dist_dest={dist_d} | "
+            f"Traffic={traf}"
         )
