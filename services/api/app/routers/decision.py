@@ -1,37 +1,45 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
+import numpy as np
+from stable_baselines3 import PPO
 
 
 router = APIRouter(prefix="/decision", tags=["decision"])
 
+
+# Chargement du modèle une seule fois au démarrage
+model = PPO.load("models/ppo_modal_decision")
+
+
 class DecisionRequest(BaseModel):
-    dist_to_station_km: float          
-    car_time_to_station_min: float     
-    next_train_in_min: float           
-    train_delay_min: float             
-    train_travel_time_min: float      
-    parking_available: int             
+    dist_station: float          
+    dist_dest: float  
+    traffic: float
+    eta_car_dest: float           
+    eta_car_station: float             
+    train_wait: float      
+    train_trip: int             
 
-
-def heuristic(req: DecisionRequest) -> int:
-    """
-    Règle simple :
-    - Si parking disponible ET train dans moins de 10 min → PARK_AND_RIDE
-    - Sinon → DRIVE
-    """
-    if req.parking_available == 1 and req.next_train_in_min <= 10:
-        return 1  # PARK_AND_RIDE
-    return 0      # DRIVE
 
 
 @router.post("")
 def decide(req: DecisionRequest):
-    """
-    Reçoit la situation de l'utilisateur et retourne la recommandation.
-    """
-    action = heuristic(req)
-    label = "PARK_AND_RIDE" if action == 1 else "DRIVE"
+    # Convertir la requête en vecteur numpy pour le modèle
+    obs = np.array([
+        req.dist_station,
+        req.dist_dest,
+        req.traffic,
+        req.eta_car_dest,
+        req.eta_car_station,
+        req.train_wait,
+        req.train_trip
+    ], dtype=np.float32)
+
+    # Le modèle PPO prend la décision
+    action, _ = model.predict(obs, deterministic=True)
+    action = int(action)
+
     return {
         "action": action,
-        "label": label
+        "label": "PARK_AND_RIDE" if action == 1 else "DRIVE"
     }
