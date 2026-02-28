@@ -42,11 +42,11 @@ class GTFSService:
         
         # Charger calendar_dates si disponible
         try:
-            self.calendar_dates = pd.read_csv(f"{gtfs_path}/calendar_dates.txt")
-            print(f" calendar_dates.txt chargé ({len(self.calendar_dates):,} dates)")
+            self.calendar_dates = pd.read_csv(f"{gtfs_path}/calendar_dates.csv")
+            print(f" calendar_dates.csv chargé ({len(self.calendar_dates):,} dates)")
         except FileNotFoundError:
             self.calendar_dates = None
-            print(" Pas de fichier calendar_dates.txt")
+            print(" Pas de fichier calendar_dates.csv")
         
         print("\n" + "*" * 30)
         print("  Service GTFS prêt à utiliser !")

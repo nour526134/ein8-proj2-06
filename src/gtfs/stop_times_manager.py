@@ -1,5 +1,5 @@
 """
-Gestionnaire des horaires (stop_times.txt)
+Gestionnaire des horaires (stop_times.csv)
 ATTENTION: Fichier volumineux, chargement optimisé
 """
 import pandas as pd
@@ -26,7 +26,7 @@ class StopTimesManager:
         
         # Charger avec optimisation mémoire
         self.stop_times = pd.read_csv(
-            f"{gtfs_path}/stop_times.txt",
+            f"{gtfs_path}/stop_times.csv",
             usecols=columns,
             dtype={
                 'trip_id': 'str',

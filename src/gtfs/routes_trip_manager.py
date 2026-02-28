@@ -1,6 +1,6 @@
 
 """
-Gestionnaire des lignes et voyages (routes.txt, trips.txt)
+Gestionnaire des lignes et voyages (routes.csv, trips.csv)
 """
 import pandas as pd
 
@@ -14,8 +14,8 @@ class RoutesTripsManager:
         """
         print(" Chargement des lignes et voyages...")
         
-        self.routes = pd.read_csv(f"{gtfs_path}/routes.txt")
-        self.trips = pd.read_csv(f"{gtfs_path}/trips.txt")
+        self.routes = pd.read_csv(f"{gtfs_path}/routes.csv")
+        self.trips = pd.read_csv(f"{gtfs_path}/trips.csv")
         
         print(f" {len(self.routes):,} lignes")
         print(f" {len(self.trips):,} voyages")
