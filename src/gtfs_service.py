@@ -9,6 +9,8 @@ Version SIMPLIFIÉE : ignore le calendrier
 # from src.gtfs.routes_trip_manager import RoutesTripsManager
 # from src.gtfs.stop_times_manager import StopTimesManager
 
+from unittest import result
+
 import pandas as pd
 from datetime import datetime
 
@@ -306,6 +308,121 @@ class GTFSService:
             'all_remaining_stops': remaining_stops,
             'total_remaining_stops': len(remaining_stops)
     }
+
+    def get_reachable_stations(self, station_id, current_time=None, min_trips=1):
+        """
+        Retourne toutes les gares accessibles depuis une gare (qui partagent au moins un trip)
+        
+        Args:
+            station_id: Gare de départ
+            current_time: Heure actuelle (optionnel, pour filtrer les trains futurs)
+            min_trips: Nombre minimum de trips communs
+            
+        Returns:
+            DataFrame: gares accessibles avec colonnes:
+                - destination_station_id
+                - destination_station_name
+                - destination_lat
+                - destination_lon
+                - trip_count: nombre de trips qui y vont
+                - sample_trip_id: exemple de trip
+        """
+        # Convertir en StopPoints
+        origin_stop_ids = self._get_queryable_stop_ids(station_id)
+        
+        if not origin_stop_ids:
+            return pd.DataFrame()
+        
+        # Trouver tous les trips passant par cette gare
+        stop_times = self.stop_times_mgr.stop_times
+        
+        origin_trips = stop_times[stop_times['stop_id'].isin(origin_stop_ids)].copy()
+        
+        # Filtrer par heure si spécifié
+        if current_time is not None:
+            if isinstance(current_time, datetime):
+                current_time = current_time.strftime("%H:%M:%S")
+            origin_trips = origin_trips[origin_trips['departure_time'] >= current_time]
+        
+        trip_ids = origin_trips['trip_id'].unique()
+        
+        # Trouver tous les arrêts de ces trips
+        all_stops_of_trips = stop_times[stop_times['trip_id'].isin(trip_ids)].copy()
+        
+        # Exclure la gare de départ
+        destination_stops = all_stops_of_trips[~all_stops_of_trips['stop_id'].isin(origin_stop_ids)]
+        
+        # Grouper par stop_id pour compter les trips
+        reachable = destination_stops.groupby('stop_id').agg({
+            'trip_id': ['count', 'first']
+        }).reset_index()
+        
+        reachable.columns = ['stop_id', 'trip_count', 'sample_trip_id']
+        
+        # Filtrer par nombre minimum de trips
+        reachable = reachable[reachable['trip_count'] >= min_trips]
+        
+        # Joindre avec stops pour avoir les noms et coordonnées
+        stops = self.stops_mgr.stops
+        
+        reachable = reachable.merge(
+            stops[['stop_id', 'stop_name', 'stop_lat', 'stop_lon', 'parent_station', 'location_type']],
+            on='stop_id',
+            how='left'
+        )
+        
+        # Ajouter station_name (StopArea)
+        if 'parent_station' in reachable.columns and 'location_type' in stops.columns:
+            stopareas = stops[stops['location_type'] == 1][['stop_id', 'stop_name']].copy()
+            stopareas = stopareas.rename(columns={'stop_id': 'parent_station', 'stop_name': 'station_name'})
+            
+            reachable = reachable.merge(stopareas, on='parent_station', how='left')
+            reachable['station_name'] = reachable['station_name'].fillna(reachable['stop_name'])
+        else:
+            reachable['station_name'] = reachable['stop_name']
+        
+        # Grouper par StopArea pour éviter les doublons
+        if 'parent_station' in reachable.columns:
+            reachable_grouped = reachable.groupby('parent_station').agg({
+                'station_name': 'first',
+                'stop_lat': 'first',
+                'stop_lon': 'first',
+                'trip_count': 'sum',
+                'sample_trip_id': 'first'
+            }).reset_index()
+            
+            reachable_grouped = reachable_grouped.rename(columns={'parent_station': 'destination_station_id'})
+        else:
+            reachable_grouped = reachable.rename(columns={
+                'stop_id': 'destination_station_id',
+                'station_name': 'destination_station_name'
+            })
+        
+        # Nettoyer les colonnes
+        result_columns = [
+            'destination_station_id',
+            'station_name',
+            'stop_lat',
+            'stop_lon',
+            'trip_count',
+            'sample_trip_id'
+        ]
+        
+        available = [col for col in result_columns if col in reachable_grouped.columns]
+        result = reachable_grouped[available].copy()
+        
+        if 'station_name' in result.columns:
+            result = result.rename(columns={'station_name': 'destination_station_name'})
+        
+        result = result.rename(columns={
+            'stop_lat': 'destination_lat',
+            'stop_lon': 'destination_lon'
+        })
+        
+        # Trier par nombre de trips (plus accessible en premier)
+        result = result.sort_values('trip_count', ascending=False)
+        
+        return result.reset_index(drop=True)
     def train_wait_time(self, station_id, current_time):
         """
         Retourne le temps d'attente avant le prochain train (en minutes)
