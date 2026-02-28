@@ -207,16 +207,11 @@ class CarSimulator:
 
 
 if __name__ == "__main__":
-    # Chemin vers ton fichier GraphML
     graph_path = "data/osm/bordeaux_network.graphml"
 
-    # Créer le simulateur
     sim = CarSimulator(graph_path)
-
-    # Reset du simulateur
     sim.reset(seed=42)
 
-    # Afficher les informations principales
     print("Voiture initialisée")
     print(f"Position lat/lon : {sim.position_lat:.6f}, {sim.position_lon:.6f}")
     print(f"Closest station : {sim.get_closest_station_id()}")
@@ -224,7 +219,6 @@ if __name__ == "__main__":
     print(f"Destination distance totale : {sim.remaining_distance_km:.3f} km")
     print(f"Trafic initial : {sim.current_saturation:.2f}")
 
-    # Tester advance()
     sim.advance(dt_min=5)
     print("\nAprès 5 minutes d'avance :")
     print(f"Position lat/lon : {sim.position_lat:.6f}, {sim.position_lon:.6f}")
