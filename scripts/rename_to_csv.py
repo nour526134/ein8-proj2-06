@@ -19,7 +19,7 @@ else:
     for txt_file in sorted(txt_files):
         csv_file = txt_file.with_suffix('.csv')
         txt_file.rename(csv_file)
-        print(f"   ✅ {txt_file.name} → {csv_file.name}")
+        print(f"    {txt_file.name} → {csv_file.name}")
     
     print(f"\n Renommage terminé !")
     
