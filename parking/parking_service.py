@@ -2,10 +2,10 @@ import math
 import networkx as nx
 import osmnx as ox
 
-class ParkingServiceWalk:
+class ParkingService:
     def __init__(self,parkings, walk_speed_kmh=5.0):
         self.Gw =ox.graph_from_place(
-        "Paris, France",network_type="walk",simplify=True)
+        "Bordeaux, France",network_type="walk",simplify=True)
         self.G_walk = ox.utils_graph.get_undirected(self.G_walk)
         self.parkings = parkings
         self.walk_speed_kmh = walk_speed_kmh
