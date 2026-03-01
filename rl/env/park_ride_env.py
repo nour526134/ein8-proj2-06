@@ -1,6 +1,7 @@
 import numpy as np
 import gymnasium as gym
 
+
 class ParkOrRide(gym.Env):
     """
     Gym Environment for Park-or-Ride (V1 SIMPLE VERSION - NO PARKING).
@@ -16,18 +17,21 @@ class ParkOrRide(gym.Env):
 
     metadata = {"render_modes": ["human"], "render_fps": 30}
 
-    def __init__(self, car_simulator, train_service, configurator):
+    def __init__(self, car_simulator, train_service,parking_service, configurator):
         super().__init__()
         self.sim = car_simulator
         self.ts = train_service
+        self.ps=parking_service
         self.cfg = configurator
+
         self.truncated = False
         self.terminated = False
         self.reward = 0.0
         self.current_steps = 0
         self.station_id = None
         self.current_metrics = {}
-
+        self.parking_id=None
+        self.dest_id=None
         # Observation:
         # [dist_station, dist_dest, traffic, eta_car_dest, eta_car_station, train_wait, train_trip]
         self.observation_space = gym.spaces.Box(
@@ -44,6 +48,13 @@ class ParkOrRide(gym.Env):
             return 0.0
         return float(np.clip(value / max_value, 0.0, 1.0))
 
+    def _safe_metric(self, metrics: dict, *keys, default=0.0):
+        """Essaye plusieurs noms de clés possibles (pour éviter les KeyError)."""
+        for k in keys:
+            if k in metrics:
+                return metrics[k]
+        return default
+
     def _get_observation(self):
         """
         Build observation vector from:
@@ -51,29 +62,32 @@ class ParkOrRide(gym.Env):
         - Car ETA functions
         - Train service (wait + trip)
         """
-        metrics = self.sim.get_metrics()
+        metrics = self.sim.get_metrics() or {}
         self.current_metrics = metrics
 
-        dist_station = metrics["dist_to_station_km"]
-        dist_dest = metrics["dist_to_dest_km"]
-        traffic = metrics["traffic"]
-        time_min = metrics["time_min"]
+        # Supporte tes 2 conventions possibles:
+        # - dist_to_station_km / dist_to_dest_km / traffic / time_min
+        # - distance_to_station_km / distance_to_dest_km / saturation / time_min
+        dist_station = self._safe_metric(metrics, "dist_to_station_km", "distance_to_station_km", default=0.0)
+        dist_dest = self._safe_metric(metrics, "dist_to_dest_km", "distance_to_dest_km", default=0.0)
+        traffic = self._safe_metric(metrics, "traffic", "saturation", default=0.0)
+        time_min = self._safe_metric(metrics, "time_min", default=0.0)
 
-        eta_car_dest = self.sim.car_time_to_dest()
-        eta_car_station = self.sim.car_time_to_station()
+        eta_car_dest = float(self.sim.car_time_to_dest())
+        eta_car_station = float(self.sim.car_time_to_station())
 
         if self.station_id is None:
-            train_wait = self.cfg.max_wait_min
-            train_trip = self.cfg.max_trip_min
+            train_wait = float(self.cfg.max_wait_min)
+            train_trip = float(self.cfg.max_trip_min)
         else:
-            train_wait = self.ts.train_wait_time(self.station_id, time_min)
-            train_trip = self.ts.train_trip_time(self.station_id)
+            train_wait = float(self.ts.train_wait_time(self.station_id, time_min))
+            train_trip = float(self.ts.train_trip_time(self.station_id))
 
         obs = np.array(
             [
                 self._norm(dist_station, self.cfg.max_dist_station_km),
                 self._norm(dist_dest, self.cfg.max_dist_dest_km),
-                traffic,
+                float(np.clip(traffic, 0.0, 1.0)),
                 self._norm(eta_car_dest, self.cfg.max_eta_min),
                 self._norm(eta_car_station, self.cfg.max_eta_min),
                 self._norm(train_wait, self.cfg.max_wait_min),
@@ -88,12 +102,14 @@ class ParkOrRide(gym.Env):
         """
         Reset environment:
         1. Reset car simulator scenario
-        2. Advance until vehicle is near a station 
+        2. Advance until vehicle is near a station (decision point)
         3. Set current station_id
         4. Return initial observation
         """
-        self.sim.reset(seed=seed)
+        super().reset(seed=seed)
 
+        self.sim.reset(seed=seed)
+        self.dest_id=self.sim.get_dest_id()
         self.truncated = False
         self.terminated = False
         self.reward = 0.0
@@ -104,16 +120,20 @@ class ParkOrRide(gym.Env):
         for _ in range(self.cfg.max_iterations):
             self.current_steps += 1
             self.sim.advance(self.cfg.dt_min)
-            dist_station = self.sim.get_dist_to_station_km()
+            dist_station = float(self.sim.get_dist_to_station_km())
             if dist_station <= self.cfg.decision_distance_km:
                 self.station_id = self.sim.get_closest_station_id()
-                current_time = self.sim.get_time_min()
+                long,lat=self.ts.get_station_coordinates(self.station_id)
+                self.parking_id=self.ps.get_closest_parking_id(long,lat)
                 obs = self._get_observation()
-                return obs, {"reset": "success", "station_id": self.station_id}
+                info = {"reset": "success", "station_id": self.station_id,"parking_id":self.parking_id}
+                return obs, info
 
+        # Pas arrivé au point de décision
         self.truncated = True
         obs = self._get_observation()
-        return obs, {"reset": "truncated_before_decision"}
+        info = {"reset": "truncated_before_decision"}
+        return obs, info
 
     def step(self, action):
         """
@@ -122,23 +142,24 @@ class ParkOrRide(gym.Env):
             1 -> take train (parking assumed next to station)
         Episode terminates immediately after decision.
         """
-
         if not self.action_space.contains(action):
             raise ValueError(f"Invalid action: {action}")
 
         if self.truncated or self.terminated:
-            return self._get_observation(), 0.0, True, True, {"state": "already_ended"}
+            obs = self._get_observation()
+            return obs, 0.0, True, True, {"state": "already_ended"}
 
-        current_time = self.sim.get_time_min()
-        car_station_time = self.sim.car_time_to_station()
-        car_dest_time = self.sim.car_time_to_dest()
+        current_time = float(self.sim.get_time_min())
+        car_station_time = float(self.sim.car_time_to_parking(self.parking.get_lat(),self.parking.get_long()))
+        car_dest_time = float(self.sim.car_time_to_dest())
+        arrival_to_station_time=current_time+self.ps.walk_time_min_parking_to_station(self.parking_id,self.station_id.get_lat(),self.station_id.get_long())
 
         if self.station_id is None:
-            train_wait = self.cfg.max_wait_min
-            train_trip = self.cfg.max_trip_min
+            train_wait = float(self.cfg.max_wait_min)
+            train_trip = float(self.cfg.max_trip_min)
         else:
-            train_wait = self.ts.train_wait_time(self.station_id, current_time)
-            train_trip = self.ts.train_trip_time(self.station_id)
+            train_wait = float(self.ts.train_wait_time(self.station_id,arrival_to_station_time))
+            train_trip = float(self.ts.train_trip_time(self.station_id,self.dest_id))
 
         info = {
             "station_id": self.station_id,
@@ -149,40 +170,39 @@ class ParkOrRide(gym.Env):
             "train_trip_min": train_trip,
         }
 
-        if action == 0:
+        if int(action) == 0:
             total_time = car_dest_time
             mode = "car"
         else:
             total_time = car_station_time + train_wait + train_trip
             mode = "train"
 
-        self.reward = -self.cfg.reward_factor * total_time
+        self.reward = -float(self.cfg.reward_factor) * float(total_time)
         self.terminated = True
         self.truncated = False
 
         info.update(
             {
                 "mode": mode,
-                "total_time_min": total_time,
-                "reward": self.reward,
+                "total_time_min": float(total_time),
+                "reward": float(self.reward),
                 "done_reason": "decision_made",
             }
         )
 
-                """Debug rendering"""
-obs = self._get_observation()
-        return obs, float(self.reward), True, False, info
+        obs = self._get_observation()
+        return obs, float(self.reward), self.terminated, self.truncated, info
 
     def render(self, mode="human"):
-        """Debug rendering"""
         if mode != "human":
             return
 
-        m = self.current_metrics if self.current_metrics else {}
-        time_in_min=m['time_min']
-        dist_stat=m['dist_to_station_km']
-        dist_d=m['dist_to_dest_km']
-        traf=m['traffic']
+        m = self.current_metrics or {}
+        time_in_min = self._safe_metric(m, "time_min", default=None)
+        dist_stat = self._safe_metric(m, "dist_to_station_km", "distance_to_station_km", default=None)
+        dist_dest = self._safe_metric(m, "dist_to_dest_km", "distance_to_dest_km", default=None)
+        traf = self._safe_metric(m, "traffic", "saturation", default=None)
+
         print(
             f"Step={self.current_steps} | "
             f"Terminated={self.terminated} | "
@@ -191,6 +211,6 @@ obs = self._get_observation()
             f"Station={self.station_id} | "
             f"Time={time_in_min} | "
             f"Dist_station={dist_stat} | "
-            f"Dist_dest={dist_d} | "
+            f"Dist_dest={dist_dest} | "
             f"Traffic={traf}"
         )
