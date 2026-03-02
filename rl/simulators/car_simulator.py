@@ -1,14 +1,13 @@
 import math
 import random
-import csv
-import osmnx as ox
+from datetime import datetime
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
+from src.osm.itinerary_manager import ItineraryManager
+from src.gtfs_service import GTFSService
 import networkx as nx
-import sys 
-from pathlib import Path 
 
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-
-from src.gtfs_service import load_stops 
 
 class CarSimulator:
     """
@@ -24,7 +23,7 @@ class CarSimulator:
     - car_time_to_dest()
     """
 
-    def __init__(self, osm_path, v_max_kmh=50.0, v_min_kmh=10.0,
+    def __init__(self, graphml_path, v_max_kmh=50, v_min_kmh=10,
                  sigma=1.5, noise_amp=0.1, seed=None):
         self.v_max = v_max_kmh
         self.v_min = v_min_kmh
@@ -32,18 +31,30 @@ class CarSimulator:
         self.noise_amp = noise_amp
         self.rng = random.Random(seed)
 
+        # Paramètres de trafic
         self.base = 0.25
         self.morning_peak = 0.45
         self.evening_peak = 0.50
-        self.morning_hour = 8
+        self.morning_hour = 8.0
         self.evening_hour = 17
+        # Charger les stations GTFS
+        self.gtfs_service = GTFSService("data/gtfs")
+        stops_df = self.gtfs_service.load_stops()
+        
+        # Convertir en dictionnaire {stop_id: {'lat': ..., 'lon': ..., 'name': ...}}
+        self.stations = {}
+        for _, row in stops_df.iterrows():
+            self.stations[row['stop_id']] = {
+                'lat': row['stop_lat'],
+                'lon': row['stop_lon'],
+                'name': row['stop_name']
+            }
 
-        # j'ai besoin de cette fonction menal qui me donne un dictionnaire de station avec leur id lon lat
-        self.stations = load_stops()
+        # Routeur OSM
+        self.router = ItineraryManager(graphml_path)
 
-        self.G = ox.graph_from_xml(osm_path, simplify=True)
-
-        self.current_hour = 8
+        # État du véhicule
+        self.current_hour = 8.0
         self.position_lat = None
         self.position_lon = None
         self.path_nodes = []
@@ -55,80 +66,88 @@ class CarSimulator:
         self.dist_to_station_km = 0
         self.current_saturation = 0
         self.dest_path_nodes = []
+    
+    def float_hour_to_hhmmss(self,hour_float):
+        """
+        Convertit un float (ex: 8.25) en string "HH:MM:SS"
+        """
+        h = int(hour_float)
+        m = int((hour_float - h) * 60)
+        s = int((((hour_float - h) * 60) - m) * 60)
+        return f"{h:02d}:{m:02d}:{s:02d}"
 
+    
     def traffic_level(self, hour):
+        """Niveau de saturation du trafic (0 à 1)"""
         morning = math.exp(-((hour - self.morning_hour) ** 2) / (2 * self.sigma ** 2))
         evening = math.exp(-((hour - self.evening_hour) ** 2) / (2 * self.sigma ** 2))
         mu = self.base + self.morning_peak * morning + self.evening_peak * evening
         noise = self.rng.uniform(-self.noise_amp, self.noise_amp)
-        return max(0, (min(mu + noise), 1))
+        return max(0, min(mu + noise, 1))
 
     def speed_kmh(self, saturation):
+        """Vitesse actuelle selon saturation"""
         return self.v_min + (1 - saturation) * (self.v_max - self.v_min)
 
-    def nearest_node(self, lat, lon):
-        return ox.distance.nearest_nodes(self.G, X=lon, Y=lat)
-
-    def shortest_path(self, start_lat, start_lon, dest_lat, dest_lon):
-        start_node = self.nearest_node(start_lat, start_lon)
-        end_node = self.nearest_node(dest_lat, dest_lon)
-        return nx.shortest_path(self.G, source=start_node, target=end_node, weight='length')
-
+    
     def reset(self, seed=None):
         if seed is not None:
             self.rng.seed(seed)
-        self.current_hour = 8
+        self.current_hour = self.rng.uniform(6.0, 20.0)
 
-        start_station = self.rng.choice(self.stations)
-        dest_station = self.rng.choice([s for s in self.stations if s != start_station])
+        # Choisir deux stations aléatoires
+        start_station_id = self.rng.choice(list(self.stations.keys()))
+        start_station = self.stations[start_station_id]
+        
+        current_time_str = self.float_hour_to_hhmmss(self.current_hour)
+        reachable_stations = self.gtfs_service.get_reachable_stations(start_station_id, current_time_str)
+        if reachable_stations.empty:
+            raise RuntimeError(f"Aucune station accessible depuis {start_station_id}")
+        dest_station_row = self.rng.choice(reachable_stations.to_dict(orient="records"))
+        dest_station = {
+        "id": dest_station_row["destination_station_id"],
+        "lat": dest_station_row["destination_lat"],
+        "lon": dest_station_row["destination_lon"],
+        "name": dest_station_row["destination_station_name"]
+        }
+        # Position aléatoire proche de la station de départ
+        station_node = self.router.nearest_node(start_station['lat'], start_station['lon'])
+        nearby_nodes = [n for n in self.router.G.nodes if self.router.shortest_distance_km( start_station['lat'], start_station['lon'],
+        self.router.G.nodes[n]['y'], self.router.G.nodes[n]['x']) <= 0.5 ]
+        if not nearby_nodes:
+            nearby_nodes = [station_node]
+        self.position_node = self.rng.choice(nearby_nodes)
+        self.position_lat, self.position_lon = self.router.get_node_coords(self.position_node)
 
-        self.position_lat = start_station["lat"] + self.rng.uniform(-0.001, 0.001)
-        self.position_lon = start_station["lon"] + self.rng.uniform(-0.001, 0.001)
-
-        self.path_nodes = self.shortest_path(
-            self.position_lat,
-            self.position_lon,
-            dest_station["lat"],
-            dest_station["lon"]
+        # Calcul du chemin vers la destination
+        self.path_nodes = self.router.shortest_path(
+            self.position_lat, self.position_lon,
+            dest_station["lat"], dest_station["lon"]
         )
         self.current_index = 0
-
-        self.remaining_distance_km = nx.path_weight(
-            self.G, self.path_nodes, weight="length"
-        ) / 1000
+        self.remaining_distance_km = self.router.path_distance_km(self.path_nodes)
 
         self.current_saturation = self.traffic_level(self.current_hour)
 
-        car_node = self.nearest_node(self.position_lat, self.position_lon)
+        # Nœud courant
+        car_node = self.router.nearest_node(self.position_lat, self.position_lon)
 
-        closest = min(
-            self.stations,
-            key=lambda s: nx.shortest_path_length(
-                self.G,
-                car_node,
-                self.nearest_node(s["lat"], s["lon"]),
-                weight="length"
-            )
-        )
-
-        self.closest_station_id = closest["id"]
+        # Trouver la station la plus proche sur le graphe
+        closest = start_station
+        self.closest_station_id = start_station_id
         self.station_lat = closest["lat"]
         self.station_lon = closest["lon"]
 
-        self.dest_path_nodes = self.shortest_path(
-            self.position_lat,
-            self.position_lon,
-            closest["lat"],
-            closest["lon"]
+        # Chemin vers la station la plus proche
+        self.dest_path_nodes = self.router.shortest_path(
+            self.position_lat, self.position_lon,
+            self.station_lat, self.station_lon
         )
+        self.dist_to_station_km = self.router.path_distance_km(self.dest_path_nodes)
 
-        self.dist_to_station_km = nx.path_weight(
-            self.G,
-            self.dest_path_nodes,
-            weigth="length"
-        ) / 1000
-
+    
     def advance(self, dt_min):
+        """Avance le véhicule le long du chemin"""
         speed = self.speed_kmh(self.current_saturation)
         distance_step = speed * dt_min / 60
         distance_traveled = 0
@@ -136,28 +155,30 @@ class CarSimulator:
         while distance_step > 0 and self.current_index < len(self.path_nodes) - 1:
             n1 = self.path_nodes[self.current_index]
             n2 = self.path_nodes[self.current_index + 1]
-            edge_data = self.G.get_edge_data(n1, n2)
-            d = edge_data[0]["length"] / 1000
+
+            # longueur de l'arête
+            d = self.router.get_edge_length_km(n1, n2)
 
             if distance_step >= d:
                 self.current_index += 1
-                self.position_lat = self.G.nodes[n2]['y']
-                self.position_lon = self.G.nodes[n2]['x']
+                self.position_lat, self.position_lon = self.router.get_node_coords(n2)
                 distance_step -= d
                 distance_traveled += d
             else:
                 ratio = distance_step / d
-                self.position_lat += ratio * (self.G.nodes[n2]['y'] - self.G.nodes[n1]['y'])
-                self.position_lon += ratio * (self.G.nodes[n2]['x'] - self.G.nodes[n1]['x'])
+                lat1, lon1 = self.router.get_node_coords(n1)
+                lat2, lon2 = self.router.get_node_coords(n2)
+                self.position_lat += ratio * (lat2 - lat1)
+                self.position_lon += ratio * (lon2 - lon1)
                 distance_step = 0
 
         self.remaining_distance_km -= distance_traveled
-        time = self.current_hour
+        old_hour = self.current_hour
         self.current_hour += dt_min / 60
-
-        if self.current_hour - time > 0.5:
+        if self.current_hour - old_hour > 0.5:
             self.current_saturation = self.traffic_level(self.current_hour)
 
+   
     def get_metrics(self):
         return {
             "time_min": self.current_hour * 60,
@@ -182,3 +203,24 @@ class CarSimulator:
     def car_time_to_dest(self):
         speed = self.speed_kmh(self.current_saturation)
         return 60 * self.remaining_distance_km / max(speed, 1e-6)
+    
+
+
+if __name__ == "__main__":
+    graph_path = "data/osm/bordeaux_network.graphml"
+
+    sim = CarSimulator(graph_path)
+    sim.reset(seed=42)
+
+    print("Voiture initialisée")
+    print(f"Position lat/lon : {sim.position_lat:.6f}, {sim.position_lon:.6f}")
+    print(f"Closest station : {sim.get_closest_station_id()}")
+    print(f"Distance à la station la plus proche : {sim.get_dist_to_station_km():.3f} km")
+    print(f"Destination distance totale : {sim.remaining_distance_km:.3f} km")
+    print(f"Trafic initial : {sim.current_saturation:.2f}")
+
+    sim.advance(dt_min=5)
+    print("\nAprès 5 minutes d'avance :")
+    print(f"Position lat/lon : {sim.position_lat:.6f}, {sim.position_lon:.6f}")
+    print(f"Distance restante : {sim.remaining_distance_km:.3f} km")
+    print(f"Trafic : {sim.current_saturation:.2f}")

@@ -11,7 +11,8 @@ from rl.env.cfg import Configurator
 
 
 def evaluate(model_path: str, n_episodes: int = 20) -> dict:
-    car_sim = CarSimulator() 
+    graph_path = "data/osm/bordeaux_network.graphml"
+    car_sim = CarSimulator(graph_path) 
     train_svc = TrainService() 
     config = Configurator()
     env = ParkOrRide(car_sim,train_svc,config)

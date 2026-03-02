@@ -1,8 +1,8 @@
 
 
 """
-Gestionnaire des gares (stops.txt)
-Version corrigée pour gérer StopArea vs StopPoint
+Gestionnaire des gares (stops.csv)
+Version  pour gérer StopArea vs StopPoint
 """
 import pandas as pd
 
@@ -15,7 +15,7 @@ class StopsManager:
             gtfs_path: Chemin vers le dossier GTFS
         """
         print(" Chargement des gares...")
-        self.stops = pd.read_csv(f"{gtfs_path}/stops.txt")
+        self.stops = pd.read_csv(f"{gtfs_path}/stops.csv")
         self._clean_data()
         
         #   Identifier le type de structure
@@ -41,7 +41,7 @@ class StopsManager:
     
     def get_stoppoints_only(self):
         """
-        Retourne uniquement les StopPoints (utilisables dans stop_times.txt)
+        Retourne uniquement les StopPoints (utilisables dans stop_times.csv)
         
         Returns:
             DataFrame des StopPoints
@@ -89,7 +89,7 @@ class StopsManager:
     
     def find_usable_stop_id(self, stop_name):
         """
-        Trouve un stop_id utilisable dans stop_times.txt
+        Trouve un stop_id utilisable dans stop_times.csv
         
         Args:
             stop_name: Nom de la gare
