@@ -6,7 +6,7 @@ class PPOConfig:
     seed:int = 42
     total_timesteps:int =200000 
     n_envs:int= 8 #en parallele
-    learning_rate: float = 3e-4
+    learning_rate: float = 3e-4 
     n_steps:int = 2048 # dans chaque env
     batch_size:int =64
     gamma : float =0.99

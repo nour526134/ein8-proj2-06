@@ -6,14 +6,14 @@ from rl.training.config import PPOConfig
 from rl.env.park_ride_env import ParkOrRide
 from rl.training.metrics import compute_decision_metrics, summarize_metrics
 from rl.simulators.car_simulator import CarSimulator  #a modifier par aiche si incorrect
-from rl.simulators.train_service import TrainService  # a modifier par Manal si incorrect
+from src.gtfs_service import GTFSService  # a modifier par Manal si incorrect
 from rl.env.cfg import Configurator
 
 
 def evaluate(model_path: str, n_episodes: int = 20) -> dict:
     graph_path = "data/osm/bordeaux_network.graphml"
     car_sim = CarSimulator(graph_path) 
-    train_svc = TrainService() 
+    train_svc = GTFSService("data/gtfs") 
     config = Configurator()
     env = ParkOrRide(car_sim,train_svc,config)
     model = PPO.load(model_path)
