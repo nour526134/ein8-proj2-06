@@ -69,8 +69,7 @@ class CarSimulator:
         self.current_saturation = 0
         self.dest_path_nodes = []
         self.time_to_park=0.0
-        self.dist_to_park
-    
+        self.dist_id=None
     def float_hour_to_hhmmss(self,hour_float):
         """
         Convertit un float (ex: 8.25) en string "HH:MM:SS"
@@ -114,6 +113,7 @@ class CarSimulator:
         "lon": dest_station_row["destination_lon"],
         "name": dest_station_row["destination_station_name"]
         }
+        self.dest_id=dest_station_row["destination_station_id"]
         # Position aléatoire proche de la station de départ
         station_node = self.router.nearest_node(start_station['lat'], start_station['lon'])
         nearby_nodes = self.router.nodes_within_radius(start_station['lat'], start_station['lon'], radius_km=0.5)
@@ -148,7 +148,18 @@ class CarSimulator:
         )
         self.dist_to_station_km = self.router.path_distance_km(self.dest_path_nodes)
 
-    
+    def car_time_to_parking(self,parking):
+        speed = self.speed_kmh(self.current_saturation)
+        path = self.router.shortest_path(
+            self.position_lat, self.position_lon,
+            parking["lat"], parking["lon"]
+        )
+        dist=self.router.path_distance_km(path)
+        time_to_parking_min=60 * dist / max(speed , 1e-6)
+        return time_to_parking_min
+
+
+
     def advance(self, dt_min):
         """Avance le véhicule le long du chemin"""
         speed = self.speed_kmh(self.current_saturation)
@@ -195,7 +206,10 @@ class CarSimulator:
 
     def get_closest_station_id(self):
         return self.closest_station_id
-
+    
+    def get_dest_id(self):
+        return self.dest_id
+    
     def get_time_min(self):
         return self.current_hour * 60
 
