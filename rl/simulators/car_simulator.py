@@ -199,6 +199,7 @@ class CarSimulator:
             "dist_to_station_km": self.dist_to_station_km,
             "dist_to_dest_km": self.remaining_distance_km,
             "traffic": self.current_saturation,
+            "time_str":self.float_hour_to_hhmmss(self.current_hour * 60)
         }
 
     def get_dist_to_station_km(self):
