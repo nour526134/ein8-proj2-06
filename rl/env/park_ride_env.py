@@ -4,7 +4,7 @@ import gymnasium as gym
 from rl.simulators.car_simulator import CarSimulator
 from src.gtfs_service import GTFSService
 from parking.parking_service import ParkingServiceOSRM
-from rl.cfg import Configurator
+from rl.env.cfg import Configurator
 class ParkOrRide(gym.Env):
     """
     Gym Environment for Park-or-Ride (V1 SIMPLE VERSION - NO PARKING).
