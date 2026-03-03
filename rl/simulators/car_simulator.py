@@ -196,9 +196,9 @@ class CarSimulator:
     def get_metrics(self):
         return {
             "time_min": self.current_hour * 60,
-            "distance_to_station_km": self.dist_to_station_km,
-            "distance_to_dest_km": self.remaining_distance_km,
-            "saturation": self.current_saturation,
+            "dist_to_station_km": self.dist_to_station_km,
+            "dist_to_dest_km": self.remaining_distance_km,
+            "traffic": self.current_saturation,
         }
 
     def get_dist_to_station_km(self):
