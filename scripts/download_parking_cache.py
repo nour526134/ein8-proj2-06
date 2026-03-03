@@ -27,8 +27,6 @@ def main_download_parking_cache():
 
     # --- créer le service ---
     service = ParkingServiceOSRM(
-        parkings=parkings,
-        stations=stations,
         use_public_osrm=True,
         cache_dir="data/cache2",
         profile="walking",   # si souci: "foot"
@@ -66,3 +64,4 @@ def main_download_parking_cache():
 
     print("\n✅ Test terminé.")
 
+main_download_parking_cache()
