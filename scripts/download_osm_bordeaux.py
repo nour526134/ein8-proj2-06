@@ -66,7 +66,7 @@ def download_bordeaux_osm():
         print(f"\n Erreur: {e}")
         return False
 
-if __name__ == "__main__":
+def main_download_osm_graph():
     success = download_bordeaux_osm()
     
     if success:

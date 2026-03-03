@@ -57,10 +57,10 @@ def get_train_stations_bordeaux():
         
         print(f" {len(stations)} gares trouvées\n")
         
-        with open("data/osm/stations.json", 'w', encoding='utf-8') as f:
+        with open("../data/osm/stations.json", 'w', encoding='utf-8') as f:
             json.dump(stations, f, ensure_ascii=False, indent=2)
         
-        pd.DataFrame(stations).to_csv("data/osm/stations.csv", index=False)
+        pd.DataFrame(stations).to_csv("../data/osm/stations.csv", index=False)
         
         print(" Sauvegardé: data/osm/stations.json & .csv")
         
@@ -73,7 +73,7 @@ def get_train_stations_bordeaux():
         print(f" Erreur: {e}")
         return []
 
-if __name__ == "__main__":
+def main_download_trains():
     stations = get_train_stations_bordeaux()
     
     print("\n" + "**" * 30)
