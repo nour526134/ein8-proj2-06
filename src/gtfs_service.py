@@ -94,8 +94,17 @@ class GTFSService:
         if 'stop_lat' in result.columns and 'stop_lon' in result.columns:
             result = result.dropna(subset=['stop_lat', 'stop_lon'])
         
-        return result.reset_index(drop=True)
-    
+        stops_df= result.reset_index(drop=True)
+        
+        # Convertir en dictionnaire {stop_id: {'lat': ..., 'lon': ..., 'name': ...}}
+        stations = {}
+        for _, row in stops_df.iterrows():
+            stations[row['stop_id']] = {
+                'lat': row['stop_lat'],
+                'lon': row['stop_lon'],
+                'name': row['stop_name']
+            }
+        return stations
     def get_all_stops_for_trip(self, trip_id, include_station_name=True):
         """
         Retourne TOUS les arrêts d'un voyage (trip) dans l'ordre
@@ -423,13 +432,16 @@ class GTFSService:
         result = result.sort_values('trip_count', ascending=False)
         
         return result.reset_index(drop=True)
-    def train_wait_time(self, station_id, current_time):
+    def train_wait_time(self, station_id, current_time, destination_id=None):
         """
         Retourne le temps d'attente avant le prochain train (en minutes)
         
         Args:
-            station_id: ID de la gare (StopArea ou StopPoint)
+            station_id: ID de la gare de départ (StopArea ou StopPoint)
             current_time: Heure actuelle ("HH:MM:SS" ou datetime)
+            destination_id: ID de la gare de destination (optionnel)
+                        Si None, cherche n'importe quel train
+                        Si spécifié, cherche un train qui va vers cette destination
             
         Returns:
             float: Temps d'attente en minutes (ou None si aucun train)
@@ -440,19 +452,67 @@ class GTFSService:
         else:
             current_time_str = current_time
         
-        # Récupérer le prochain train
-        trains = self.get_next_trains(station_id, current_time_str, limit=1)
+        # Si pas de destination spécifiée, comportement original
+        if destination_id is None:
+            # Récupérer le prochain train
+            trains = self.get_next_trains(station_id, current_time_str, limit=1)
+            
+            if len(trains) == 0:
+                return None
+            
+            # Calculer le temps d'attente
+            next_train_time = trains.iloc[0]['departure_time']
+            wait_minutes = self._calculate_time_difference(current_time_str, next_train_time)
+            
+            return wait_minutes
         
-        if len(trains) == 0:
+        # Avec destination : chercher le prochain train qui va vers cette destination
+        else:
+            # Récupérer les prochains trains depuis la gare
+            trains = self.get_next_trains(station_id, current_time_str, limit=50)
+            
+            if len(trains) == 0:
+                return None
+            
+            # Convertir les IDs en StopPoints
+            origin_stop_ids = self._get_queryable_stop_ids(station_id)
+            dest_stop_ids = self._get_queryable_stop_ids(destination_id)
+            
+            if not origin_stop_ids or not dest_stop_ids:
+                return None
+            
+            # Chercher le premier train qui va vers la destination
+            for _, train in trains.iterrows():
+                trip_id = train['trip_id']
+                
+                # Vérifier si ce train passe par la destination
+                all_stops = self.get_all_stops_for_trip(trip_id)
+                
+                # Vérifier si la destination est dans les arrêts
+                has_destination = any(stop['stop_id'] in dest_stop_ids for _, stop in all_stops.iterrows())
+                
+                if has_destination:
+                    # Vérifier l'ordre (destination après origine)
+                    origin_seq = None
+                    dest_seq = None
+                    
+                    for _, stop in all_stops.iterrows():
+                        if stop['stop_id'] in origin_stop_ids and origin_seq is None:
+                            origin_seq = stop['stop_sequence']
+                        if stop['stop_id'] in dest_stop_ids and dest_seq is None:
+                            dest_seq = stop['stop_sequence']
+                    
+                    # Si destination est bien après l'origine
+                    if origin_seq is not None and dest_seq is not None and dest_seq > origin_seq:
+                        # Calculer le temps d'attente
+                        next_train_time = train['departure_time']
+                        wait_minutes = self._calculate_time_difference(current_time_str, next_train_time)
+                        
+                        return wait_minutes
+            
+            # Aucun train trouvé vers cette destination
             return None
-        
-        # Calculer le temps d'attente
-        next_train_time = trains.iloc[0]['departure_time']
-        
-        # Parser les heures
-        wait_minutes = self._calculate_time_difference(current_time_str, next_train_time)
-        
-        return wait_minutes
+    
     
     def train_trip_time(self, station_id, destination_id):
         """

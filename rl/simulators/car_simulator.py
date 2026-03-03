@@ -41,17 +41,9 @@ class CarSimulator:
         self.evening_hour = 17
         # Charger les stations GTFS
         self.gtfs_service = GTFSService("data/gtfs")
-        stops_df = self.gtfs_service.load_stops()
+        self.stations = self.gtfs_service.load_stops()
         
-        # Convertir en dictionnaire {stop_id: {'lat': ..., 'lon': ..., 'name': ...}}
-        self.stations = {}
-        for _, row in stops_df.iterrows():
-            self.stations[row['stop_id']] = {
-                'lat': row['stop_lat'],
-                'lon': row['stop_lon'],
-                'name': row['stop_name']
-            }
-
+       
         # Routeur OSM
         self.router = ItineraryManager(graphml_path)
 

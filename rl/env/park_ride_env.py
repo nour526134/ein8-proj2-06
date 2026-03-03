@@ -77,7 +77,9 @@ class ParkOrRide(gym.Env):
             train_trip = float(self.cfg.max_trip_min)
         else:
 
-            train_wait = float(self.ts.train_wait_time(self.station_id, self.dest_id,time_str))
+
+            train_wait = float(self.ts.train_wait_time(self.station_id, time_str, self.dest_id))
+
             train_trip = float(self.ts.train_trip_time(self.station_id,self.dest_id))
 
         obs = np.array(
