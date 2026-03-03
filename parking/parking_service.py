@@ -80,8 +80,8 @@ class ParkingServiceOSRM:
         self.osrm.load_cache(self.route_cache_file)
 
         # index
-        self.station_by_id = {s["id"]: s for s in stations}
-        self.parking_by_id = {p["id"]: p for p in parkings}
+        self.station_by_id = {s["id"]: s for s in self.stations}
+        self.parking_by_id = {p["id"]: p for p in self.parkings}
 
         # résultat: station_id -> dict (parking_id + temps/distance)
         self.best_parking_by_station: Dict[str, Dict[str, Any]] = {}
