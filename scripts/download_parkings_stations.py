@@ -30,7 +30,7 @@ area["name"="Bordeaux Métropole"]->.bm;
   way["amenity"="parking"](area.bm);
   relation["amenity"="parking"](area.bm);
 );
-out center 100;
+out center;
     """
     
     print("\n Requête Overpass API...\n")
@@ -135,3 +135,4 @@ def main_download_parkings():
         print("\n🏢 PREMIERS PARKINGS:")
         for i, p in enumerate(parkings[:3], 1):
             print(f"   {i}. {p['name']} (capacité: {p['capacity']})")
+main_download_parkings()

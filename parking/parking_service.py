@@ -51,17 +51,8 @@ class ParkingServiceOSRM:
         precompute: bool = True,
     ):
         self.parkings = get_parkings()
-        service = GTFSService()
-        stations_dict = service.load_stops()  # ← AJOUTER CETTE LIGNE
-        self.stations = list(stations_dict.values())  # ← MODIFIER CETTE LIGNE
-        self.stations_dict = stations_dict  # ← AJOUTER CETTE LIGNE
-
-            # ✅ CORRECTION CRITIQUE : Convertir dict en liste
-        self.stations = list(stations_dict.values())  # ← LISTE pour itération
-        self.stations_dict = stations_dict  # ← DICT pour accès rapide
-        
-        print(f"✅ {len(self.stations)} stations chargées pour parking service")
-
+        service=GTFSService()
+        self.stations = service.load_stops()
 
         # cache dir
         if not Path(cache_dir).is_absolute():
@@ -115,27 +106,18 @@ class ParkingServiceOSRM:
         out = {}
         failed = 0
 
-        for i, s in enumerate(self.stations, 1):
-            sid = s["id"]
+        for s in self.stations:
+            sid = s
             p = self._closest_parking_haversine(s)
-
-            # ✅ Si pas de parking réel, créer un parking virtuel
+            lon=self.stations[s]["lat"]
+            lat=self.stations[s]["lon"]
             if p is None:
-                print(f"⚠️ Pas de parking réel pour {sid}, création parking virtuel")
-                out[sid] = {
-                    "station_id": sid,
-                    "parking_id": f"virtual_{sid}",
-                    "parking_lat": s["lat"],
-                    "parking_lon": s["lon"],
-                    "parking_name": f"Parking virtuel {s['name']}",
-                    "walk_time_min": 0.0,
-                    "walk_distance_m": 0.0,
-                }
+                failed += 1
                 continue
 
             route = self.osrm.get_route(
                 p["lon"], p["lat"],
-                s["lon"], s["lat"],
+                lon, lat,
                 timeout=10,
                 retry=3,
             )
@@ -145,25 +127,21 @@ class ParkingServiceOSRM:
                 out[sid] = {
                     "station_id": sid,
                     "parking_id": p["id"],
-                    "parking_lat": p["lat"],
-                    "parking_lon": p.get("lon", p.get("long")),  # ✅ Gérer lon/long
-                    "parking_name": p.get("name", str(p["id"])),
-                    "walk_time_min": 5.0,  # Valeur par défaut
-                    "walk_distance_m": 300.0,
+                    "parking_lat":p["lat"],
+                    "parking_long":p["long"],
+                    "walk_time_min": float("inf"),
+                    "walk_distance_m": float("inf"),
                 }
             else:
                 out[sid] = {
                     "station_id": sid,
                     "parking_id": p["id"],
-                    "parking_lat": p["lat"],
-                    "parking_lon": p.get("lon", p.get("long")),  # ✅ Gérer lon/long
-                    "parking_name": p.get("name", str(p["id"])),
+                    "parking_lat":p["lat"],
+                    "parking_long":p["long"],
+                    "parking_name": p.get("name", p["id"]),
                     "walk_time_min": float(route["duration_min"]),
                     "walk_distance_m": float(route["distance_m"]),
                 }
-
-            if i % 50 == 0:
-                print(f"   Progression: {i}/{len(self.stations)}")
 
         self.best_parking_by_station = out
 
@@ -172,10 +150,9 @@ class ParkingServiceOSRM:
 
         self.osrm.save_cache(self.route_cache_file)
 
-        print(f"✅ Terminé en {time.time() - start:.1f}s | échecs OSRM={failed}")
-        print(f"   Toutes les {len(out)} stations ont un parking")
-        print(f"   Fichier: {self.best_file}")
-                    
+        print(f"✅ Terminé en {time.time() - start:.1f}s | échecs={failed}")
+        print(f"   File: {self.best_file}")
+
     # ---------- API ----------
     def get_best_parking_for_station(self,station_id) -> Optional[Dict[str, Any]]:
         return self.best_parking_by_station.get(station_id)
