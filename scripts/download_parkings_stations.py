@@ -25,7 +25,7 @@ area["name"="Bordeaux Métropole"]->.bm;
   way["amenity"="parking"](area.bm);
   relation["amenity"="parking"](area.bm);
 );
-out center;
+out center 2000;
     """
     
     print("\n Requête Overpass API...\n")
