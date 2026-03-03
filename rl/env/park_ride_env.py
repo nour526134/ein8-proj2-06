@@ -16,7 +16,6 @@ class ParkOrRide(gym.Env):
     """
 
     metadata = {"render_modes": ["human"], "render_fps": 30}
-
     def __init__(self, car_simulator, train_service,parking_service, configurator):
         super().__init__()
         self.sim = car_simulator
@@ -47,14 +46,6 @@ class ParkOrRide(gym.Env):
         if max_value <= 0:
             return 0.0
         return float(np.clip(value / max_value, 0.0, 1.0))
-
-    def _safe_metric(self, metrics: dict, *keys, default=0.0):
-        """Essaye plusieurs noms de clés possibles (pour éviter les KeyError)."""
-        for k in keys:
-            if k in metrics:
-                return metrics[k]
-        return default
-
     def _get_observation(self):
         """
         Build observation vector from:
@@ -65,13 +56,10 @@ class ParkOrRide(gym.Env):
         metrics = self.sim.get_metrics() or {}
         self.current_metrics = metrics
 
-        # Supporte tes 2 conventions possibles:
-        # - dist_to_station_km / dist_to_dest_km / traffic / time_min
-        # - distance_to_station_km / distance_to_dest_km / saturation / time_min
-        dist_station = self._safe_metric(metrics, "dist_to_station_km", "distance_to_station_km", default=0.0)
-        dist_dest = self._safe_metric(metrics, "dist_to_dest_km", "distance_to_dest_km", default=0.0)
-        traffic = self._safe_metric(metrics, "traffic", "saturation", default=0.0)
-        time_min = self._safe_metric(metrics, "time_min", default=0.0)
+        dist_station =metrics["dist_to_station_km"]
+        dist_dest =metrics["dist_to_dest_km"]
+        traffic =metrics["traffic"]
+        time_min = metrics["time_min"]
 
         eta_car_dest = float(self.sim.car_time_to_dest())
         eta_car_station = float(self.sim.car_time_to_station())
@@ -150,22 +138,24 @@ class ParkOrRide(gym.Env):
             return obs, 0.0, True, True, {"state": "already_ended"}
 
         current_time = float(self.sim.get_time_min())
-        car_station_time = float(self.sim.car_time_to_parking(self.parking.get_lat(),self.parking.get_long()))
+        car_parking_time = float(self.sim.car_time_to_parking(self.parking_id))
         car_dest_time = float(self.sim.car_time_to_dest())
-        arrival_to_station_time=current_time+self.ps.walk_time_min_parking_to_station(self.parking_id,self.station_id.get_lat(),self.station_id.get_long())
-
+        walk_time=self.ps.walk_time_min_parking_to_station(self.parking_id,self.station_id)
+        arrival_to_station_time=current_time+walk_time
         if self.station_id is None:
             train_wait = float(self.cfg.max_wait_min)
             train_trip = float(self.cfg.max_trip_min)
         else:
             train_wait = float(self.ts.train_wait_time(self.station_id,arrival_to_station_time))
-            train_trip = float(self.ts.train_trip_time(self.station_id,self.dest_id))
+            #################MANAL
+            train_trip = float(self.ts.train_trip_time(self.station_id,self.dest_id)) 
 
         info = {
             "station_id": self.station_id,
             "time_min_at_decision": current_time,
-            "car_time_to_station_min": car_station_time,
+            "car_time_to_parking_min": car_parking_time,
             "car_time_to_dest_min": car_dest_time,
+            "walk_time":walk_time,
             "train_wait_min": train_wait,
             "train_trip_min": train_trip,
         }
@@ -174,7 +164,7 @@ class ParkOrRide(gym.Env):
             total_time = car_dest_time
             mode = "car"
         else:
-            total_time = car_station_time + train_wait + train_trip
+            total_time = car_parking_time +walk_time+ train_wait + train_trip
             mode = "train"
 
         self.reward = -float(self.cfg.reward_factor) * float(total_time)

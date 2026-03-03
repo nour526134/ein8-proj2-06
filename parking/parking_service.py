@@ -1,69 +1,154 @@
-import math
-import networkx as nx
-import osmnx as ox
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
-class ParkingService:
-    def __init__(self,parkings, walk_speed_kmh=5.0):
-        self.Gw =ox.graph_from_place(
-        "Bordeaux, France",network_type="walk",simplify=True)
-        self.G_walk = ox.utils_graph.get_undirected(self.G_walk)
+import json
+import time
+from pathlib import Path
+from typing import List, Dict, Any, Tuple, Optional
+
+import numpy as np
+from osrm_client import OSRMClient
+
+
+def haversine_m(lat1, lon1, lat2, lon2) -> float:
+    """Distance Haversine en mètres."""
+    R = 6371000.0
+    phi1 = np.radians(lat1)
+    phi2 = np.radians(lat2)
+    dphi = np.radians(lat2 - lat1)
+    dlambda = np.radians(lon2 - lon1)
+    a = np.sin(dphi / 2) ** 2 + np.cos(phi1) * np.cos(phi2) * np.sin(dlambda / 2) ** 2
+    c = 2 * np.arctan2(np.sqrt(a), np.sqrt(1 - a))
+    return float(R * c)
+
+
+class ParkingServiceOSRM:
+    """
+    Pour chaque station:
+      - choisir 1 parking (le plus proche via Haversine)
+      - calculer distance/temps exacts via OSRM route
+    """
+
+    def __init__(
+        self,
+        parkings: List[Dict[str, Any]],
+        stations: List[Dict[str, Any]],
+        use_public_osrm: bool = True,
+        local_osrm_url: Optional[str] = None,
+        cache_dir: str = "data/cache",
+        profile: str = "walking",     # si problème: "foot"
+        rate_limit_s: float = 0.3,
+        precompute: bool = True,
+    ):
         self.parkings = parkings
-        self.walk_speed_kmh = walk_speed_kmh
-        self._cache = {}
+        self.stations = stations
 
-    def _nearest_walk_node(self, lat, lon):
-        return ox.distance.nearest_nodes(self.Gw, X=lon, Y=lat)
-
-    def closest_parking_to_station_walk(self, station_lat, station_lon, k=10):
-        """
-        Prend les k parkings “géographiquement” les plus proches,
-        puis choisit celui qui minimise la distance piétonne réelle.
-        """
-        if not self.parkings:
-            return None
-        def approx_dist2(p):
-            return (p["lat"] - station_lat) ** 2 + (p["lon"] - station_lon) ** 2
-        candidates = sorted(self.parkings, key=approx_dist2)[:max(1, k)]
-        s_node = self._nearest_walk_node(station_lat, station_lon)
-
-        best = None
-        best_len = float("inf")
-
-        for p in candidates:
-            p_node = self._nearest_walk_node(p["lat"], p["lon"])
-            key = (p_node, s_node)
-
-            if key in self._cache:
-                length_m = self._cache[key]
-            else:
-                try:
-                    length_m = nx.shortest_path_length(self.Gw, p_node, s_node, weight="length")
-                except nx.NetworkXNoPath:
-                    length_m = float("inf")
-                self._cache[key] = length_m
-
-            if length_m < best_len:
-                best_len = length_m
-                best = p
-
-        return best
-
-    def walk_time_min_parking_to_station(self, parking, station_lat, station_lon):
-        if parking is None:
-            return 0.0
-
-        p_node = self._nearest_walk_node(parking["lat"], parking["lon"])
-        s_node = self._nearest_walk_node(station_lat, station_lon)
-
-        key = (p_node, s_node)
-        if key in self._cache:
-            length_m = self._cache[key]
+        # cache dir
+        if not Path(cache_dir).is_absolute():
+            project_root = Path(__file__).parent.parent
+            self.cache_dir = project_root / cache_dir
         else:
-            try:
-                length_m = nx.shortest_path_length(self.Gw, p_node, s_node, weight="length")
-            except nx.NetworkXNoPath:
-                return 30.0  
-            self._cache[key] = length_m
+            self.cache_dir = Path(cache_dir)
+        self.cache_dir.mkdir(parents=True, exist_ok=True)
+        print(f"📁 Cache directory: {self.cache_dir}")
 
-        dist_km = length_m / 1000.0
-        return 60.0 * dist_km / max(self.walk_speed_kmh, 1e-6)
+        # OSRM client + cache
+        self.osrm = OSRMClient(
+            use_public_api=use_public_osrm,
+            local_url=local_osrm_url,
+            profile=profile,
+            rate_limit_s=rate_limit_s,
+        )
+        self.route_cache_file = self.cache_dir / "osrm_routes_cache.json"
+        self.osrm.load_cache(self.route_cache_file)
+
+        # index
+        self.station_by_id = {s["id"]: s for s in stations}
+        self.parking_by_id = {p["id"]: p for p in parkings}
+
+        # résultat: station_id -> dict (parking_id + temps/distance)
+        self.best_parking_by_station: Dict[str, Dict[str, Any]] = {}
+
+        self.best_file = self.cache_dir / "station_best_parking.json"
+        if precompute:
+            self._precompute_best()
+
+    def _closest_parking_haversine(self, station: Dict[str, Any]) -> Dict[str, Any]:
+        """Retourne le parking le plus proche (approx) via Haversine."""
+        slat, slon = station["lat"], station["lon"]
+        best_p = None
+        best_d = float("inf")
+
+        for p in self.parkings:
+            d = haversine_m(slat, slon, p["lat"], p["lon"])
+            if d < best_d:
+                best_d = d
+                best_p = p
+
+        return best_p
+
+    def _precompute_best(self):
+        """Calcule pour chaque station: parking haversine + OSRM exact."""
+        if self.best_file.exists():
+            with open(self.best_file, "r", encoding="utf-8") as f:
+                self.best_parking_by_station = json.load(f)
+            print(f"✅ Best parking chargé: {len(self.best_parking_by_station)} stations")
+            return
+
+        print("🔄 Calcul station -> (parking haversine) -> OSRM exact ...")
+        start = time.time()
+        out = {}
+        failed = 0
+
+        for i, s in enumerate(self.stations, 1):
+            sid = s["id"]
+            p = self._closest_parking_haversine(s)
+
+            if p is None:
+                failed += 1
+                continue
+
+            route = self.osrm.get_route(
+                p["lon"], p["lat"],
+                s["lon"], s["lat"],
+                timeout=10,
+                retry=3,
+            )
+
+            if route is None:
+                failed += 1
+                out[sid] = {
+                    "station_id": sid,
+                    "parking_id": p["id"],
+                    "walk_time_min": float("inf"),
+                    "walk_distance_m": float("inf"),
+                }
+            else:
+                out[sid] = {
+                    "station_id": sid,
+                    "parking_id": p["id"],
+                    "parking_name": p.get("name", p["id"]),
+                    "walk_time_min": float(route["duration_min"]),
+                    "walk_distance_m": float(route["distance_m"]),
+                }
+
+            if i % 50 == 0:
+                print(f"   Progression: {i}/{len(self.stations)}")
+
+        self.best_parking_by_station = out
+
+        with open(self.best_file, "w", encoding="utf-8") as f:
+            json.dump(out, f, indent=2, ensure_ascii=False)
+
+        self.osrm.save_cache(self.route_cache_file)
+
+        print(f"✅ Terminé en {time.time() - start:.1f}s | échecs={failed}")
+        print(f"   File: {self.best_file}")
+
+    # ---------- API ----------
+
+    def get_best_parking_for_station(self, station_id: str) -> Optional[Dict[str, Any]]:
+        """Retourne dict avec parking_id + walk_time_min + walk_distance_m."""
+        return self.best_parking_by_station.get(station_id)
+    def get_walk_time_station_parking(self,station_id):
+        return self.best_parking_by_station.get(station_id)["walk_time_min"]
