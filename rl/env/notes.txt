@@ -22,7 +22,7 @@ Ces informations sont utilisées directement pour construire l’observation don
 
 get_dist_to_station_km():
 Cette fonction retourne uniquement la distance entre la voiture et la gare la plus proche.
-Elle est utilisée dans la phase de reset pour déterminer si le véhicule est suffisamment proche d’une gare pour déclencher la décision Park-or-Ride.
+Elle est utilisée dans la phase de reset pour déterminer si le véhicule est suffisamment proched’une gare pour déclencher la décision Park-or-Ride.
 
 get_closest_station_id()
 Cette fonction doit identifier la gare la plus proche de la position actuelle du véhicule et retourner son identifiant.

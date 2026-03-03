@@ -14,7 +14,7 @@ def get_train_stations_bordeaux():
     api = overpy.Overpass()
     
     query = """
-    [out:json][timeout:25];
+    [out:json][timeout:60];
     (
       node["railway"="station"](44.7,-0.7,44.95,-0.45);
       node["railway"="halt"](44.7,-0.7,44.95,-0.45);
@@ -79,3 +79,4 @@ def main_download_trains():
     print("\n" + "**" * 30)
     print("  DONNÉES OSM RÉCUPÉRÉES !")
     print("**" * 30)
+main_download_trains()

@@ -2,7 +2,9 @@ from download_gtfs_sncf import main_download_gtfs
 from download_parkings_stations import main_download_parkings
 from download_train_stations import main_download_trains
 from download_osm_bordeaux import main_download_osm_graph
+from download_parking_cache import main_download_parking_cache
 main_download_gtfs()
 main_download_parkings()
 main_download_trains()
 main_download_osm_graph()
+main_download_parking_cache()
