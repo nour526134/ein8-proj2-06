@@ -4,7 +4,7 @@ import gymnasium as gym
 from rl.simulators.car_simulator import CarSimulator
 from src.gtfs_service import GTFSService
 from parking.parking_service import ParkingServiceOSRM
-from cfg import Configurator
+from rl.cfg import Configurator
 class ParkOrRide(gym.Env):
     """
     Gym Environment for Park-or-Ride (V1 SIMPLE VERSION - NO PARKING).
@@ -37,7 +37,7 @@ class ParkOrRide(gym.Env):
         self.current_steps = 0
         self.station_id = None
         self.current_metrics = {}
-        self.parking_id=None
+        self.parking=None
         self.dest_id=None
         # Observation:
         # [dist_station, dist_dest, traffic, eta_car_dest, eta_car_station, train_wait, train_trip]
@@ -119,9 +119,9 @@ class ParkOrRide(gym.Env):
             dist_station = float(self.sim.get_dist_to_station_km())
             if dist_station <= self.cfg.decision_distance_km:
                 self.station_id = self.sim.get_closest_station_id()
-                self.parking_id=self.ps.get_best_parking_for_station(self.station_id)
+                self.parking=self.ps.get_best_parking_for_station(self.station_id)
                 obs = self._get_observation()
-                info = {"reset": "success", "station_id": self.station_id,"parking_id":self.parking_id}
+                info = {"reset": "success", "station_id": self.station_id,"parking_id":self.parking["id"]}
                 return obs, info
 
         # Pas arrivé au point de décision
@@ -145,7 +145,7 @@ class ParkOrRide(gym.Env):
             return obs, 0.0, True, True, {"state": "already_ended"}
 
         current_time = float(self.sim.get_time_min())
-        car_parking_time = float(self.sim.car_time_to_parking(self.parking_id))
+        car_parking_time = float(self.sim.car_time_to_parking(self.parking))
         car_dest_time = float(self.sim.car_time_to_dest())
         walk_time=self.ps.get_walk_time_station_parking(self.station_id)
         arrival_to_station_time=current_time+walk_time
