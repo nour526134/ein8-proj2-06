@@ -2,10 +2,10 @@
 import json
 import time
 from pathlib import Path
-from typing import List, Dict, Any, Tuple, Optional
+from typing import List, Dict, Any, Optional
 
 import numpy as np
-from osrm_client import OSRMClient
+from parking.osrm_client import OSRMClient
 
 
 def haversine_m(lat1, lon1, lat2, lon2) -> float:
