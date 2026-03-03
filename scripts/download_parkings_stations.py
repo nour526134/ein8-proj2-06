@@ -30,7 +30,7 @@ area["name"="Bordeaux Métropole"]->.bm;
   way["amenity"="parking"](area.bm);
   relation["amenity"="parking"](area.bm);
 );
-out center 1000;
+out center 100;
     """
     
     print("\n Requête Overpass API...\n")
@@ -140,8 +140,7 @@ def get_parkings(data_path: str = "data/osm/parkings.csv"):
     print(f"✅ {len(parkings)} parkings chargés depuis {file_path}")
     return parkings
 
-
-if __name__ == "__main__":
+def main_download_parkings():
     parkings = get_parkings_from_osm()
     if parkings:
         # Afficher les 3 premiers parkings
