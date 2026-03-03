@@ -6,7 +6,7 @@ from typing import List, Dict, Any, Optional
 
 import numpy as np
 from parking.osrm_client import OSRMClient
-
+import pandas as pd
 
 def haversine_m(lat1, lon1, lat2, lon2) -> float:
     """Distance Haversine en mètres."""
@@ -19,7 +19,28 @@ def haversine_m(lat1, lon1, lat2, lon2) -> float:
     c = 2 * np.arctan2(np.sqrt(a), np.sqrt(1 - a))
     return float(R * c)
 
-
+def get_parkings(data_path: str = "data/osm/parkings.csv"):
+    """Charge les parkings depuis un fichier CSV"""
+    base_dir = Path.cwd()
+    file_path = base_dir / data_path
+    
+    if not file_path.exists():
+        return []
+    
+    df = pd.read_csv(file_path)
+    parkings = df.to_dict('records')
+    return parkings
+def get_trainstations(data_path: str = "data/osm/stations.csv"):
+    """Charge les parkings depuis un fichier CSV"""
+    base_dir = Path.cwd()
+    file_path = base_dir / data_path
+    
+    if not file_path.exists():
+        return []
+    
+    df = pd.read_csv(file_path)
+    parkings = df.to_dict('records')
+    return parkings
 class ParkingServiceOSRM:
     """
     Pour chaque station:
@@ -29,8 +50,6 @@ class ParkingServiceOSRM:
 
     def __init__(
         self,
-        parkings: List[Dict[str, Any]],
-        stations: List[Dict[str, Any]],
         use_public_osrm: bool = True,
         local_osrm_url: Optional[str] = None,
         cache_dir: str = "data/cache",
@@ -38,8 +57,8 @@ class ParkingServiceOSRM:
         rate_limit_s: float = 0.3,
         precompute: bool = True,
     ):
-        self.parkings = parkings
-        self.stations = stations
+        self.parkings = get_parkings()
+        self.stations = get_trainstations()
 
         # cache dir
         if not Path(cache_dir).is_absolute():

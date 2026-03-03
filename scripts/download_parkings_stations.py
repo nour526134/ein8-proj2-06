@@ -126,19 +126,7 @@ out center 100;
         return []
 
 
-def get_parkings(data_path: str = "data/osm/parkings.csv"):
-    """Charge les parkings depuis un fichier CSV"""
-    base_dir = Path.cwd()
-    file_path = base_dir / data_path
-    
-    if not file_path.exists():
-        print(f"❌ Fichier non trouvé: {file_path}")
-        return []
-    
-    df = pd.read_csv(file_path)
-    parkings = df.to_dict('records')
-    print(f"✅ {len(parkings)} parkings chargés depuis {file_path}")
-    return parkings
+
 
 def main_download_parkings():
     parkings = get_parkings_from_osm()
