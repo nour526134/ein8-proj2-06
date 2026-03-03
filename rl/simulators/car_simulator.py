@@ -21,9 +21,11 @@ class CarSimulator:
     - get_time_min()
     - car_time_to_station()
     - car_time_to_dest()
+    - get_dist_to_parking_km()
+    -get_time_to_reach_parking()
     """
 
-    def __init__(self, graphml_path, v_max_kmh=50, v_min_kmh=10,
+    def __init__(self, graphml_path="data/osm/bordeaux_network.graphml", v_max_kmh=50, v_min_kmh=10,
                  sigma=1.5, noise_amp=0.1, seed=None):
         self.v_max = v_max_kmh
         self.v_min = v_min_kmh
@@ -66,6 +68,8 @@ class CarSimulator:
         self.dist_to_station_km = 0
         self.current_saturation = 0
         self.dest_path_nodes = []
+        self.time_to_park=0.0
+        self.dist_to_park
     
     def float_hour_to_hhmmss(self,hour_float):
         """
@@ -112,8 +116,7 @@ class CarSimulator:
         }
         # Position aléatoire proche de la station de départ
         station_node = self.router.nearest_node(start_station['lat'], start_station['lon'])
-        nearby_nodes = [n for n in self.router.G.nodes if self.router.shortest_distance_km( start_station['lat'], start_station['lon'],
-        self.router.G.nodes[n]['y'], self.router.G.nodes[n]['x']) <= 0.5 ]
+        nearby_nodes = self.router.nodes_within_radius(start_station['lat'], start_station['lon'], radius_km=0.5)
         if not nearby_nodes:
             nearby_nodes = [station_node]
         self.position_node = self.rng.choice(nearby_nodes)
