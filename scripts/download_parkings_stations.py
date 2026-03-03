@@ -4,7 +4,7 @@ import pandas as pd
 from pathlib import Path
 from typing import List, Dict, Any
 
-def get_parkings_from_osm(data_path="../data/osm") -> List[Dict[str, Any]]:
+def get_parkings_from_osm(data_path: str = "data/osm") -> List[Dict[str, Any]]:
     """
     Récupère les parkings de Bordeaux Métropole depuis OSM
     Retourne une liste de dictionnaires
@@ -13,6 +13,11 @@ def get_parkings_from_osm(data_path="../data/osm") -> List[Dict[str, Any]]:
     print("=" * 60)
     print(" RÉCUPÉRATION DES PARKINGS P+R")
     print("=" * 60)
+    
+    # Créer le chemin absolu
+    base_dir = Path.cwd()  # ou Path(__file__).parent pour le dossier du script
+    data_dir = base_dir / data_path
+    print(f"📁 Sauvegarde dans : {data_dir}")
     
     api = overpy.Overpass()
     
@@ -25,7 +30,7 @@ area["name"="Bordeaux Métropole"]->.bm;
   way["amenity"="parking"](area.bm);
   relation["amenity"="parking"](area.bm);
 );
-out center 2000;
+out center 1000;
     """
     
     print("\n Requête Overpass API...\n")
@@ -91,7 +96,6 @@ out center 2000;
             parkings.append(parking)
         
         # Créer le répertoire si nécessaire
-        data_dir = Path(data_path)
         data_dir.mkdir(parents=True, exist_ok=True)
         
         # Sauvegarder en JSON
@@ -122,17 +126,25 @@ out center 2000;
         return []
 
 
-def get_parkings(data_path="../data/osm/parkings.csv"):
-    df = pd.read_csv(data_path)
+def get_parkings(data_path: str = "data/osm/parkings.csv"):
+    """Charge les parkings depuis un fichier CSV"""
+    base_dir = Path.cwd()
+    file_path = base_dir / data_path
+    
+    if not file_path.exists():
+        print(f"❌ Fichier non trouvé: {file_path}")
+        return []
+    
+    df = pd.read_csv(file_path)
     parkings = df.to_dict('records')
+    print(f"✅ {len(parkings)} parkings chargés depuis {file_path}")
     return parkings
 
 
-
-def main_download_parkings():
+if __name__ == "__main__":
     parkings = get_parkings_from_osm()
-    # Afficher les 3 premiers parkings
-    print("\n🏢 PREMIERS PARKINGS:")
-    for p in parkings[:3]:
-        print(f"   - {p}")
-main_download_parkings()
+    if parkings:
+        # Afficher les 3 premiers parkings
+        print("\n🏢 PREMIERS PARKINGS:")
+        for i, p in enumerate(parkings[:3], 1):
+            print(f"   {i}. {p['name']} (capacité: {p['capacity']})")
