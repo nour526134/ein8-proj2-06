@@ -63,7 +63,6 @@ class ParkingServiceOSRM:
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         print(f"📁 Cache directory: {self.cache_dir}")
 
-        # OSRM client + cache
         self.osrm = OSRMClient(
             use_public_api=use_public_osrm,
             local_url=local_osrm_url,
@@ -72,10 +71,6 @@ class ParkingServiceOSRM:
         )
         self.route_cache_file = self.cache_dir / "osrm_routes_cache.json"
         self.osrm.load_cache(self.route_cache_file)
-
-        # index
-        self.station_by_id = {s["id"]: s for s in self.stations}
-        self.parking_by_id = {p["id"]: p for p in self.parkings}
 
         # résultat: station_id -> dict (parking_id + temps/distance)
         self.best_parking_by_station: Dict[str, Dict[str, Any]] = {}
