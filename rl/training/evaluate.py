@@ -11,11 +11,7 @@ from rl.env.cfg import Configurator
 
 
 def evaluate(model_path: str, n_episodes: int = 20) -> dict:
-    graph_path = "data/osm/bordeaux_network.graphml"
-    car_sim = CarSimulator(graph_path) 
-    train_svc = GTFSService("data/gtfs") 
-    config = Configurator()
-    env = ParkOrRide(car_sim,train_svc,config)
+    env = ParkOrRide()
     model = PPO.load(model_path)
 
     episode_rewards = []

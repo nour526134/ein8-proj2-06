@@ -1,13 +1,11 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 import json
 import time
 from pathlib import Path
-from typing import List, Dict, Any, Tuple, Optional
+from typing import List, Dict, Any, Optional
 
 import numpy as np
-from osrm_client import OSRMClient
+from parking.osrm_client import OSRMClient
 
 
 def haversine_m(lat1, lon1, lat2, lon2) -> float:
@@ -120,6 +118,8 @@ class ParkingServiceOSRM:
                 out[sid] = {
                     "station_id": sid,
                     "parking_id": p["id"],
+                    "parking_lat":p["lat"],
+                    "parking_long":p["long"],
                     "walk_time_min": float("inf"),
                     "walk_distance_m": float("inf"),
                 }
@@ -127,6 +127,8 @@ class ParkingServiceOSRM:
                 out[sid] = {
                     "station_id": sid,
                     "parking_id": p["id"],
+                    "parking_lat":p["lat"],
+                    "parking_long":p["long"],
                     "parking_name": p.get("name", p["id"]),
                     "walk_time_min": float(route["duration_min"]),
                     "walk_distance_m": float(route["distance_m"]),
@@ -146,9 +148,9 @@ class ParkingServiceOSRM:
         print(f"   File: {self.best_file}")
 
     # ---------- API ----------
-
-    def get_best_parking_for_station(self, station_id: str) -> Optional[Dict[str, Any]]:
-        """Retourne dict avec parking_id + walk_time_min + walk_distance_m."""
+    def get_best_parking_for_station(self,station_id) -> Optional[Dict[str, Any]]:
         return self.best_parking_by_station.get(station_id)
+    def get_best_parking_for_station_id(self, station_id: str):
+        return self.best_parking_by_station.get(station_id)["station_id"]
     def get_walk_time_station_parking(self,station_id):
         return self.best_parking_by_station.get(station_id)["walk_time_min"]
