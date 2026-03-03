@@ -68,7 +68,7 @@ class ParkOrRide(gym.Env):
         dist_dest =metrics["dist_to_dest_km"]
         traffic =metrics["traffic"]
         time_min = metrics["time_min"]
-
+        time_str=metrics["time_str"]
         eta_car_dest = float(self.sim.car_time_to_dest())
         eta_car_station = float(self.sim.car_time_to_station())
 
@@ -76,7 +76,7 @@ class ParkOrRide(gym.Env):
             train_wait = float(self.cfg.max_wait_min)
             train_trip = float(self.cfg.max_trip_min)
         else:
-            train_wait = float(self.ts.train_wait_time(self.station_id, time_min))
+            train_wait = float(self.ts.train_wait_time(self.station_id, time_str))
             train_trip = float(self.ts.train_trip_time(self.station_id))
 
         obs = np.array(

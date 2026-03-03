@@ -15,10 +15,9 @@ from rl.env.park_ride_env import ParkOrRide
 def main():
 
     cfg = PPOConfig()
-    env = ParkOrRide()
     ensure_dirs(cfg.models_dir, cfg.logs_dir)
     set_global_seed(cfg.seed)
-    env_parallel = DummyVecEnv([lambda: env for _ in range(cfg.n_envs)]) #DummyVecEnv prend liste de fcts
+    env_parallel = DummyVecEnv([lambda: ParkOrRide() for _ in range(cfg.n_envs)]) #DummyVecEnv prend liste de fcts
 
     model = PPO(
         "MlpPolicy", #réseau de neurones Multi-Layer Perceptron adapté aux vecteurs numériques
