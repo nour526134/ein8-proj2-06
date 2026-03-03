@@ -77,7 +77,7 @@ class ParkOrRide(gym.Env):
             train_trip = float(self.cfg.max_trip_min)
         else:
             train_wait = float(self.ts.train_wait_time(self.station_id, time_min))
-            train_trip = float(self.ts.train_trip_time(self.station_id))
+            train_trip = float(self.ts.train_trip_time(self.station_id,self.dest_id))
 
         obs = np.array(
             [
@@ -196,10 +196,10 @@ class ParkOrRide(gym.Env):
             return
 
         m = self.current_metrics or {}
-        time_in_min = self._safe_metric(m, "time_min", default=None)
-        dist_stat = self._safe_metric(m, "dist_to_station_km", "distance_to_station_km", default=None)
-        dist_dest = self._safe_metric(m, "dist_to_dest_km", "distance_to_dest_km", default=None)
-        traf = self._safe_metric(m, "traffic", "saturation", default=None)
+        time_in_min = m["time_min"]
+        dist_stat = m["dist_to_station_km"]
+        dist_dest = m["dist_to_dest_km"]
+        traf = m["traffic"]
 
         print(
             f"Step={self.current_steps} | "
