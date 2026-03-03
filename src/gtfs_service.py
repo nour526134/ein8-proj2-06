@@ -100,6 +100,7 @@ class GTFSService:
         stations = {}
         for _, row in stops_df.iterrows():
             stations[row['stop_id']] = {
+                'id': row['stop_id'], 
                 'lat': row['stop_lat'],
                 'lon': row['stop_lon'],
                 'name': row['stop_name']
