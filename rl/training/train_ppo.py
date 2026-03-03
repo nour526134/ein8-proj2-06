@@ -4,27 +4,18 @@ from stable_baselines3.common.vec_env import DummyVecEnv
 
 from rl.training.config import PPOConfig
 from rl.training.utils import ensure_dirs, set_global_seed
-from rl.simulators.car_simulator import CarSimulator  #a modifier par aiche si incorrect
-from src.gtfs_service import GTFSService 
-from rl.env.cfg import Configurator
+from parking.parking_service import ParkingServiceOSRM
 import sys 
 from pathlib import Path 
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
-
-from src.gtfs_service import GTFSService 
-
-# cette ligne peut etre changer!!!
 from rl.env.park_ride_env import ParkOrRide
 
 
 def main():
 
-    graph_path = "data/osm/bordeaux_network.graphml"
-    car_sim = CarSimulator(graph_path) 
-    train_svc = GTFSService("data/gtfs")
-    config = Configurator()
-    env = ParkOrRide(car_sim,train_svc,config)
+    cfg = PPOConfig()
+    env = ParkOrRide()
     ensure_dirs(cfg.models_dir, cfg.logs_dir)
     set_global_seed(cfg.seed)
     env_parallel = DummyVecEnv([lambda: env for _ in range(cfg.n_envs)]) #DummyVecEnv prend liste de fcts
