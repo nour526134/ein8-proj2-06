@@ -1,7 +1,10 @@
 import numpy as np
 import gymnasium as gym
 
-
+from rl.simulators.car_simulator import CarSimulator
+from src.gtfs_service import GTFSService
+from parking.parking_service import ParkingServiceOSRM
+from cfg import Configurator
 class ParkOrRide(gym.Env):
     """
     Gym Environment for Park-or-Ride (V1 SIMPLE VERSION - NO PARKING).
@@ -16,12 +19,17 @@ class ParkOrRide(gym.Env):
     """
 
     metadata = {"render_modes": ["human"], "render_fps": 30}
-    def __init__(self, car_simulator, train_service,parking_service, configurator):
+    def __init__(self):
+
         super().__init__()
-        self.sim = car_simulator
-        self.ts = train_service
-        self.ps=parking_service
-        self.cfg = configurator
+        car_sim = CarSimulator() 
+        train_svc = GTFSService() 
+        parking_svc=ParkingServiceOSRM()
+        config = Configurator()
+        self.sim = car_sim
+        self.ts = train_svc
+        self.ps=parking_svc
+        self.cfg = config
 
         self.truncated = False
         self.terminated = False
@@ -111,8 +119,7 @@ class ParkOrRide(gym.Env):
             dist_station = float(self.sim.get_dist_to_station_km())
             if dist_station <= self.cfg.decision_distance_km:
                 self.station_id = self.sim.get_closest_station_id()
-                long,lat=self.ts.get_station_coordinates(self.station_id)
-                self.parking_id=self.ps.get_closest_parking_id(long,lat)
+                self.parking_id=self.ps.get_best_parking_for_station(self.station_id)
                 obs = self._get_observation()
                 info = {"reset": "success", "station_id": self.station_id,"parking_id":self.parking_id}
                 return obs, info
@@ -140,7 +147,7 @@ class ParkOrRide(gym.Env):
         current_time = float(self.sim.get_time_min())
         car_parking_time = float(self.sim.car_time_to_parking(self.parking_id))
         car_dest_time = float(self.sim.car_time_to_dest())
-        walk_time=self.ps.walk_time_min_parking_to_station(self.parking_id,self.station_id)
+        walk_time=self.ps.get_walk_time_station_parking(self.station_id)
         arrival_to_station_time=current_time+walk_time
         if self.station_id is None:
             train_wait = float(self.cfg.max_wait_min)
@@ -148,6 +155,7 @@ class ParkOrRide(gym.Env):
         else:
             train_wait = float(self.ts.train_wait_time(self.station_id,arrival_to_station_time))
             #################MANAL
+
             train_trip = float(self.ts.train_trip_time(self.station_id,self.dest_id)) 
 
         info = {
