@@ -84,63 +84,59 @@ class CarSimulator:
         """Vitesse actuelle selon saturation"""
         return self.v_min + (1 - saturation) * (self.v_max - self.v_min)
 
-    
     def reset(self, seed=None):
         if seed is not None:
             self.rng.seed(seed)
-        self.current_hour = self.rng.uniform(6.0, 20.0)
 
-        # Choisir deux stations aléatoires
-        start_station_id = self.rng.choice(list(self.stations.keys()))
-        start_station = self.stations[start_station_id]
-        
-        current_time_str = self.float_hour_to_hhmmss(self.current_hour)
-        reachable_stations = self.gtfs_service.get_reachable_stations(start_station_id, current_time_str)
-        if reachable_stations.empty:
-            raise RuntimeError(f"Aucune station accessible depuis {start_station_id}")
-        dest_station_row = self.rng.choice(reachable_stations.to_dict(orient="records"))
-        dest_station = {
-        "id": dest_station_row["destination_station_id"],
-        "lat": dest_station_row["destination_lat"],
-        "lon": dest_station_row["destination_lon"],
-        "name": dest_station_row["destination_station_name"]
-        }
-        self.dest_id=dest_station_row["destination_station_id"]
-        # Position aléatoire proche de la station de départ
-        station_node = self.router.nearest_node(start_station['lat'], start_station['lon'])
-        nearby_nodes = self.router.nodes_within_radius(start_station['lat'], start_station['lon'], radius_km=0.5)
-        if not nearby_nodes:
-            nearby_nodes = [station_node]
-        self.position_node = self.rng.choice(nearby_nodes)
-        self.position_lat, self.position_lon = self.router.get_node_coords(self.position_node)
+        MAX_RETRIES = 20
+        for attempt in range(MAX_RETRIES):
+            self.current_hour = self.rng.uniform(6.0, 20.0)
 
-        # Calcul du chemin vers la destination
-        self.path_nodes = self.router.shortest_path(
-            self.position_lat, self.position_lon,
-            dest_station["lat"], dest_station["lon"]
-        )
-        if self.path_nodes is None:
-            raise RuntimeError("No valid path found")   
-        self.current_index = 0
-        self.remaining_distance_km = self.router.path_distance_km(self.path_nodes)
+            # Choisir une station de départ aléatoire
+            start_station_id = self.rng.choice(list(self.stations.keys()))
+            start_station = self.stations[start_station_id]
 
-        self.current_saturation = self.traffic_level(self.current_hour)
+            current_time_str = self.float_hour_to_hhmmss(self.current_hour)
+            reachable_stations = self.gtfs_service.get_reachable_stations(start_station_id, current_time_str)
+            if reachable_stations.empty:
+                continue 
 
-        # Nœud courant
-        car_node = self.router.nearest_node(self.position_lat, self.position_lon)
+            dest_station_row = self.rng.choice(reachable_stations.to_dict(orient="records"))
+            dest_station = {
+                "id": dest_station_row["destination_station_id"],
+                "lat": dest_station_row["destination_lat"],
+                "lon": dest_station_row["destination_lon"],
+            }
 
-        # Trouver la station la plus proche sur le graphe
-        closest = start_station
-        self.closest_station_id = start_station_id
-        self.station_lat = closest["lat"]
-        self.station_lon = closest["lon"]
+            # Chercher un nœud de départ valide parmi les proches
+            nearby_nodes = self.router.nodes_within_radius(
+                start_station['lat'], start_station['lon'], radius_km=1.0
+            )
+            self.rng.shuffle(nearby_nodes)
 
-        # Chemin vers la station la plus proche
-        self.dest_path_nodes = self.router.shortest_path(
-            self.position_lat, self.position_lon,
-            self.station_lat, self.station_lon
-        )
-        self.dist_to_station_km = self.router.path_distance_km(self.dest_path_nodes)
+            for candidate_node in nearby_nodes:
+                candidate_lat, candidate_lon = self.router.get_node_coords(candidate_node)
+                path = self.router.shortest_path(
+                    candidate_lat, candidate_lon,
+                    dest_station["lat"], dest_station["lon"]
+                )
+                if path is not None:
+                    self.position_node = candidate_node
+                    self.position_lat  = candidate_lat
+                    self.position_lon  = candidate_lon
+                    self.path_nodes = path
+                    self.dest_id = dest_station["id"]
+                    self.current_index = 0
+                    self.remaining_distance_km = self.router.path_distance_km(path)
+                    self.current_saturation = self.traffic_level(self.current_hour)
+                    self.closest_station_id = start_station_id
+                    self.station_lat = start_station["lat"]
+                    self.station_lon = start_station["lon"]
+                    self.dest_path_nodes = self.router.shortest_path(self.position_lat, self.position_lon,self.station_lat, self.station_lon)
+                    self.dist_to_station_km = self.router.path_distance_km(self.dest_path_nodes)
+                    return  
+
+        raise RuntimeError(f"Aucun chemin valide trouvé après {MAX_RETRIES} tentatives") 
 
     def car_time_to_parking(self,parking):
         speed = self.speed_kmh(self.current_saturation)
