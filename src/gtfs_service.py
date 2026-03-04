@@ -94,7 +94,19 @@ class GTFSService:
         if 'stop_lat' in result.columns and 'stop_lon' in result.columns:
             result = result.dropna(subset=['stop_lat', 'stop_lon'])
         
-        stops_df= result.reset_index(drop=True)
+        # Garder uniquement les StopAreas qui ont des enfants dans stop_times
+        # Garder uniquement les StopAreas dont au moins un enfant Train est dans stop_times
+        valid_stop_ids = set(self.stop_times_mgr.stop_times['stop_id'].unique())
+        all_stops = self.stops_mgr.get_all_stops()
+
+        # Enfants qui sont réellement dans stop_times (pas les Car TER)
+        valid_children = all_stops[
+            all_stops['stop_id'].isin(valid_stop_ids) &
+            all_stops['stop_id'].str.contains('Train', case=False, na=False)
+        ]
+        valid_parents = set(valid_children['parent_station'].dropna().unique())
+        result = result[result['stop_id'].isin(valid_parents)]
+        stops_df = result.reset_index(drop=True)
         
         # Convertir en dictionnaire {stop_id: {'lat': ..., 'lon': ..., 'name': ...}}
         stations = {}
@@ -229,8 +241,8 @@ class GTFSService:
         # Convertir current_time
         if current_time is None:
             current_time = datetime.now().strftime("%H:%M:%S")
-        elif isinstance(current_time, datetime):
-            current_time = current_time.strftime("%H:%M:%S")
+        elif isinstance(current_time, float):
+            current_time =self.float_hour_to_hhmmss(current_time)
         
         # Trouver le prochain train
         next_trains = self.get_next_trains(station_id, current_time, limit=1)
@@ -350,8 +362,8 @@ class GTFSService:
         
         # Filtrer par heure si spécifié
         if current_time is not None:
-            if isinstance(current_time, datetime):
-                current_time = current_time.strftime("%H:%M:%S")
+            if isinstance(current_time, float):
+                current_time = self.float_hour_to_hhmmss(current_time)
             origin_trips = origin_trips[origin_trips['departure_time'] >= current_time]
         
         trip_ids = origin_trips['trip_id'].unique()
@@ -433,6 +445,16 @@ class GTFSService:
         result = result.sort_values('trip_count', ascending=False)
         
         return result.reset_index(drop=True)
+    
+    def float_hour_to_hhmmss(self,hour_float):
+        """
+        Convertit un float (ex: 8.25) en string "HH:MM:SS"
+        """
+        h = int(hour_float)
+        m = int((hour_float - h) * 60)
+        s = int((((hour_float - h) * 60) - m) * 60)
+        return f"{h:02d}:{m:02d}:{s:02d}"
+
     def train_wait_time(self, station_id, current_time, destination_id=None):
         """
         Retourne le temps d'attente avant le prochain train (en minutes)
@@ -448,8 +470,8 @@ class GTFSService:
             float: Temps d'attente en minutes (ou None si aucun train)
         """
         # Convertir current_time en string si c'est un datetime
-        if isinstance(current_time, datetime):
-            current_time_str = current_time.strftime("%H:%M:%S")
+        if isinstance(current_time, float):
+            current_time_str = self.float_hour_to_hhmmss(current_time)
         else:
             current_time_str = current_time
         
@@ -470,7 +492,9 @@ class GTFSService:
         # Avec destination : chercher le prochain train qui va vers cette destination
         else:
             # Récupérer les prochains trains depuis la gare
-            trains = self.get_next_trains(station_id, current_time_str, limit=50)
+            trains = self.get_next_trains(station_id, current_time_str)
+            print(trains)
+            print(f"\n\n[DEBUG 1] Trains trouvés depuis {station_id}: {len(trains)}")
             
             if len(trains) == 0:
                 return None
@@ -478,6 +502,8 @@ class GTFSService:
             # Convertir les IDs en StopPoints
             origin_stop_ids = self._get_queryable_stop_ids(station_id)
             dest_stop_ids = self._get_queryable_stop_ids(destination_id)
+            print(f"\n\n[DEBUG] origin_stop_ids: {origin_stop_ids}")
+            print(f"\n\n[DEBUG] dest_stop_ids: {dest_stop_ids}")
             
             if not origin_stop_ids or not dest_stop_ids:
                 return None
@@ -494,6 +520,7 @@ class GTFSService:
                 
                 if has_destination:
                     # Vérifier l'ordre (destination après origine)
+                    print(f"[DEBUG] Train trouvé vers destination: {trip_id}")
                     origin_seq = None
                     dest_seq = None
                     
@@ -670,10 +697,19 @@ class GTFSService:
         Returns:
             DataFrame des prochains trains
         """
+
+        stop_ids_to_query = self._get_queryable_stop_ids(stop_id)
+        print(f"[DEBUG] stop_ids_to_query={stop_ids_to_query}")
+        print(f"[DEBUG] Exemples stop_id dans stop_times: {self.stop_times_mgr.stop_times['stop_id'].head(10).tolist()}")
+
         if current_time is None:
             current_time = datetime.now().strftime("%H:%M:%S")
         
-        # Convertir StopArea en StopPoint(s) si nécessaire
+        # Dans get_next_trains ou _get_queryable_stop_ids, ajoute :
+        children = self.stops_mgr.get_stoppoints_for_area("StopArea:OCE87582718")
+        print(f"[DEBUG] Enfants de StopArea:OCE87582718 : {len(children)}")
+        print(children[['stop_id', 'stop_name', 'parent_station']].head())
+                # Convertir StopArea en StopPoint(s) si nécessaire
         stop_ids_to_query = self._get_queryable_stop_ids(stop_id)
         
         if not stop_ids_to_query:
