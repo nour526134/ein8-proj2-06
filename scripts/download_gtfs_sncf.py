@@ -68,7 +68,8 @@ def download_gtfs_sncf():
         print("GTFS SNCF installe avec succes")
         print("Bordeaux est bien present ")
     return all_ok
-if __name__ == "__main__":
+
+def main_download_gtfs():
    success = download_gtfs_sncf()
    if not success:
        print("\n erreur lors de l'installation")

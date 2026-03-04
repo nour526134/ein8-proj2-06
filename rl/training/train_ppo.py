@@ -2,11 +2,13 @@
 from stable_baselines3 import PPO
 from stable_baselines3.common.vec_env import DummyVecEnv
 
-from rl.training.config import PPOConfig
-from rl.training.utils import ensure_dirs, set_global_seed
+from config import PPOConfig
+from utils import ensure_dirs, set_global_seed
+import sys 
+from pathlib import Path 
 
-# cette ligne peut etre changer!!!
-from rl.env.modal_env import ModalShiftEnv
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+from rl.env.park_ride_env import ParkOrRide
 
 
 def main():
@@ -14,11 +16,11 @@ def main():
     cfg = PPOConfig()
     ensure_dirs(cfg.models_dir, cfg.logs_dir)
     set_global_seed(cfg.seed)
-    env = DummyVecEnv([lambda: ModalShiftEnv() for _ in range(cfg.n_envs)]) #DummyVecEnv prend liste de fcts
+    env_parallel = DummyVecEnv([lambda: ParkOrRide() for _ in range(cfg.n_envs)]) #DummyVecEnv prend liste de fcts
 
     model = PPO(
         "MlpPolicy", #réseau de neurones Multi-Layer Perceptron adapté aux vecteurs numériques
-        env,
+        env_parallel,
         learning_rate=cfg.learning_rate,
         n_steps=cfg.n_steps,
         batch_size=cfg.batch_size,

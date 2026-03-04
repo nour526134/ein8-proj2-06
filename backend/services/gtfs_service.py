@@ -21,4 +21,3 @@ class GTFSService:
             }
             for _, r in st.iterrows()
         ]
-

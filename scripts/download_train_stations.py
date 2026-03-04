@@ -11,10 +11,11 @@ def get_train_stations_bordeaux():
     print(" RÉCUPÉRATION DES GARES")
     print("=" * 60)
     
+    
     api = overpy.Overpass()
     
     query = """
-    [out:json][timeout:25];
+    [out:json][timeout:60];
     (
       node["railway"="station"](44.7,-0.7,44.95,-0.45);
       node["railway"="halt"](44.7,-0.7,44.95,-0.45);
@@ -57,10 +58,10 @@ def get_train_stations_bordeaux():
         
         print(f" {len(stations)} gares trouvées\n")
         
-        with open("data/osm/stations.json", 'w', encoding='utf-8') as f:
+        with open("../data/osm/stations.json", 'w', encoding='utf-8') as f:
             json.dump(stations, f, ensure_ascii=False, indent=2)
         
-        pd.DataFrame(stations).to_csv("data/osm/stations.csv", index=False)
+        pd.DataFrame(stations).to_csv("../data/osm/stations.csv", index=False)
         
         print(" Sauvegardé: data/osm/stations.json & .csv")
         
@@ -73,9 +74,10 @@ def get_train_stations_bordeaux():
         print(f" Erreur: {e}")
         return []
 
-if __name__ == "__main__":
+def main_download_trains():
     stations = get_train_stations_bordeaux()
     
     print("\n" + "**" * 30)
     print("  DONNÉES OSM RÉCUPÉRÉES !")
     print("**" * 30)
+main_download_trains()
