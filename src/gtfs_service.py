@@ -586,11 +586,8 @@ class GTFSService:
         # Charger stop_times
         stop_times = self.stop_times_mgr.stop_times
         
-        # Trips qui passent par l'origine
-        origin_times = stop_times[stop_times['stop_id'] == origin_stop_id].copy()
-        
-        # Trips qui passent par la destination
-        dest_times = stop_times[stop_times['stop_id'] == dest_stop_id].copy()
+        origin_times = stop_times[stop_times['stop_id'] == origin_stop_id].reset_index(drop=True)
+        dest_times = stop_times[stop_times['stop_id'] == dest_stop_id].reset_index(drop=True)
         
         # Trips en commun
         common_trips = set(origin_times['trip_id']) & set(dest_times['trip_id'])

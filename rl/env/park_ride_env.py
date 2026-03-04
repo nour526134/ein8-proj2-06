@@ -178,9 +178,10 @@ class ParkOrRide(gym.Env):
             train_trip = float(self.cfg.max_trip_min)
         else:
 
-            train_wait = float(self.ts.train_wait_time(self.station_id,arrival_to_station_time,self.dest_id))
-            #################MANAL
-            train_trip = float(self.ts.train_trip_time(self.station_id,self.dest_id)) 
+            train_wait_result = self.ts.train_wait_time(self.station_id, arrival_to_station_time, self.dest_id)
+            train_wait = float(train_wait_result) if train_wait_result is not None else float(self.cfg.max_wait_min)
+            train_trip_result = self.ts.train_trip_time(self.station_id, self.dest_id)
+            train_trip = float(train_trip_result) if train_trip_result is not None else float(self.cfg.max_trip_min)
 
         info = {
             "station_id": self.station_id,
