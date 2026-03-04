@@ -1,7 +1,6 @@
 from fastapi import FastAPI
-from services.api.app.routers.trains import router as trains_router
-from services.api.app.routers.decision import router as decision_router
-
+from backend.api.routers.trains import router as trains_router
+from backend.api.routers.decision import router as decision_router
 
 
 

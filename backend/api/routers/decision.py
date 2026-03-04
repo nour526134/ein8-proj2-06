@@ -7,8 +7,9 @@ from stable_baselines3 import PPO
 router = APIRouter(prefix="/decision", tags=["decision"])
 
 
-# Chargement du modèle une seule fois au démarrage
-model = PPO.load("models/ppo_modal_decision")
+# Chargement du modèle une seule fois au démarrage (temporairement désactivé)
+# model = PPO.load("models/ppo_modal_decision")
+model = None
 
 
 class DecisionRequest(BaseModel):
@@ -18,7 +19,7 @@ class DecisionRequest(BaseModel):
     eta_car_dest: float           
     eta_car_station: float             
     train_wait: float      
-    train_trip: int             
+    train_trip: int              
 
 
 
