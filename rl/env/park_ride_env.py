@@ -177,14 +177,9 @@ class ParkOrRide(gym.Env):
             train_wait = float(self.cfg.max_wait_min)
             train_trip = float(self.cfg.max_trip_min)
         else:
-<<<<<<< HEAD
+
             train_wait = float(self.ts.train_wait_time(self.station_id,arrival_to_station_time,self.dest_id))
             #################MANAL
-=======
-            train_wait=self.ts.train_wait_time(self.station_id,arrival_to_station_time_str,self.dest_id)
-            print("wijiiii",train_wait)
->>>>>>> refs/remotes/origin/main
-
             train_trip = float(self.ts.train_trip_time(self.station_id,self.dest_id)) 
 
         info = {
