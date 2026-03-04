@@ -33,7 +33,55 @@ def get_parkings(data_path: str = "data/osm/parkings.csv"):
     df = pd.read_csv(file_path)
     parkings = df.to_dict('records')
     return parkings
+import pandas as pd
+from pathlib import Path
+from typing import Dict, Any
 
+def load_stops_to_dict(file_path: str = "data/gtfs_bordeaux/stops.csv") -> Dict[str, Dict[str, Any]]:
+    """
+    Charge un fichier CSV de stops et retourne un dictionnaire avec:
+    clé: stop_id
+    valeur: {'name': stop_name, 'lat': stop_lat, 'lon': stop_lon}
+    
+    Args:
+        file_path: Chemin vers le fichier CSV
+    
+    Returns:
+        Dictionnaire avec les stops formatés
+    """
+    # Résoudre le chemin absolu
+    base_dir = Path.cwd()
+    full_path = base_dir / file_path
+    
+    print(f"📂 Chargement du fichier: {full_path}")
+    
+    if not full_path.exists():
+        print(f"❌ Fichier non trouvé: {full_path}")
+        return {}
+    
+    # Charger le CSV
+    df = pd.read_csv(full_path)
+    print(f"✅ {len(df)} stops chargés")
+    
+    # Créer le dictionnaire
+    stops_dict = {}
+    for _, row in df.iterrows():
+        stop_id = str(row['stop_id'])  # Conversion en string pour éviter les problèmes de type
+        stops_dict[stop_id] = {
+            'name': row['stop_name'],
+            'lat': float(row['stop_lat']),
+            'lon': float(row['stop_lon'])
+        }
+    
+    print(f"📊 Dictionnaire créé avec {len(stops_dict)} entrées")
+    
+    # Afficher un exemple
+    if stops_dict:
+        first_id = list(stops_dict.keys())[0]
+        print(f"\n📌 Exemple:")
+        print(f"   ID: {first_id}")
+        print(f"   Données: {stops_dict[first_id]}")
+    return stops_dict
 class ParkingServiceOSRM:
     """
     Pour chaque station:
@@ -45,15 +93,14 @@ class ParkingServiceOSRM:
         self,
         use_public_osrm: bool = True,
         local_osrm_url: Optional[str] = None,
-        cache_dir: str = "data/cache",
+        cache_dir: str = "data/cache2",
         profile: str = "walking",    
         rate_limit_s: float = 0.3,
         precompute: bool = True,
     ):
         self.parkings = get_parkings()
-        service=GTFSService()
-        self.stations = service.load_stops()
-
+        self.stations = load_stops_to_dict()
+        print(self.stations)
         # cache dir
         if not Path(cache_dir).is_absolute():
             project_root = Path(__file__).parent.parent
@@ -107,8 +154,8 @@ class ParkingServiceOSRM:
         failed = 0
 
         for s in self.stations:
-            sid = s
-            p = self._closest_parking_haversine(s)
+            sid=s
+            p = self._closest_parking_haversine(self.stations[s])
             lon=self.stations[s]["lat"]
             lat=self.stations[s]["lon"]
             if p is None:
@@ -128,7 +175,7 @@ class ParkingServiceOSRM:
                     "station_id": sid,
                     "parking_id": p["id"],
                     "parking_lat":p["lat"],
-                    "parking_long":p["long"],
+                    "parking_long":p["lon"],
                     "walk_time_min": float("inf"),
                     "walk_distance_m": float("inf"),
                 }
@@ -137,7 +184,7 @@ class ParkingServiceOSRM:
                     "station_id": sid,
                     "parking_id": p["id"],
                     "parking_lat":p["lat"],
-                    "parking_long":p["long"],
+                    "parking_long":p["lon"],
                     "parking_name": p.get("name", p["id"]),
                     "walk_time_min": float(route["duration_min"]),
                     "walk_distance_m": float(route["distance_m"]),
@@ -154,9 +201,14 @@ class ParkingServiceOSRM:
         print(f"   File: {self.best_file}")
 
     # ---------- API ----------
-    def get_best_parking_for_station(self,station_id) -> Optional[Dict[str, Any]]:
-        return self.best_parking_by_station.get(station_id)
-    def get_best_parking_for_station_id(self, station_id: str):
-        return self.best_parking_by_station.get(station_id)["station_id"]
+    def get_best_parking_for_station(self,station_id):
+        print(station_id)
+        di=self.best_parking_by_station.get(station_id)
+        print(di)
+        return {
+            "parking_id":di["parking_id"],
+            "lat":di["parking_lat"],
+            "lon":di["parking_long"]
+        }
     def get_walk_time_station_parking(self,station_id):
         return self.best_parking_by_station.get(station_id)["walk_time_min"]

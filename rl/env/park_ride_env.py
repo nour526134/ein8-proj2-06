@@ -124,7 +124,7 @@ class ParkOrRide(gym.Env):
                 self.station_id = self.sim.get_closest_station_id()
                 self.parking=self.ps.get_best_parking_for_station(self.station_id)
                 obs = self._get_observation()
-                info = {"reset": "success", "station_id": self.station_id,"parking_id":self.parking["id"]}
+                info = {"reset": "success", "station_id": self.station_id,"parking_id":self.parking["parking_id"]}
                 return obs, info
 
         # Pas arrivé au point de décision

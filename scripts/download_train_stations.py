@@ -11,6 +11,7 @@ def get_train_stations_bordeaux():
     print(" RÉCUPÉRATION DES GARES")
     print("=" * 60)
     
+    
     api = overpy.Overpass()
     
     query = """

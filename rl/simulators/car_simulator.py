@@ -7,8 +7,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 from src.osm.itinerary_manager import ItineraryManager
 from src.gtfs_service import GTFSService
 import networkx as nx
-
-
+from typing import Dict, Any, Optional
+import pandas as pd
 class CarSimulator:
     """
     Simulateur de voiture réaliste sur graphe OSM
@@ -40,8 +40,8 @@ class CarSimulator:
         self.morning_hour = 8.0
         self.evening_hour = 17
         # Charger les stations GTFS
-        self.gtfs_service = GTFSService("data/gtfs")
-        self.stations = self.gtfs_service.load_stops()
+        self.gtfs_service = GTFSService("data/gtfs_bordeaux")
+        self.stations =self.gtfs_service.load_stops()
         
        
         # Routeur OSM
