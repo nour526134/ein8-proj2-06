@@ -119,6 +119,8 @@ class CarSimulator:
             self.position_lat, self.position_lon,
             dest_station["lat"], dest_station["lon"]
         )
+        if self.path_nodes is None:
+            raise RuntimeError("No valid path found")   
         self.current_index = 0
         self.remaining_distance_km = self.router.path_distance_km(self.path_nodes)
 

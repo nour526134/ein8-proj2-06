@@ -27,7 +27,7 @@ except ImportError:
 class GTFSService:
     """Service principal pour consulter les horaires GTFS"""
     
-    def __init__(self, gtfs_path="data/gtfs"):
+    def __init__(self, gtfs_path="data/gtfs_bordeaux"):
         """
         Args:
             gtfs_path: Chemin vers le dossier GTFS

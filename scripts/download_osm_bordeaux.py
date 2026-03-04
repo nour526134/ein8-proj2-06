@@ -21,7 +21,7 @@ def download_bordeaux_osm():
     try:
         # Télécharger le réseau routier
         G = ox.graph_from_place(
-            "Bordeaux, Gironde, France",
+            "Bordeaux Métropole, France",
             network_type='drive',
             simplify=True
         )
