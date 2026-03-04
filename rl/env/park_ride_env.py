@@ -5,6 +5,9 @@ from rl.simulators.car_simulator import CarSimulator
 from src.gtfs_service import GTFSService
 from parking.parking_service import ParkingServiceOSRM
 from rl.env.cfg import Configurator
+
+
+
 class ParkOrRide(gym.Env):
     """
     Gym Environment for Park-or-Ride (V1 SIMPLE VERSION - NO PARKING).
@@ -68,7 +71,6 @@ class ParkOrRide(gym.Env):
         dist_dest =metrics["dist_to_dest_km"]
         traffic =metrics["traffic"]
         time_min = metrics["time_min"]
-        time_str=metrics["time_str"]
         eta_car_dest = float(self.sim.car_time_to_dest())
         eta_car_station = float(self.sim.car_time_to_station())
 
@@ -77,9 +79,8 @@ class ParkOrRide(gym.Env):
             train_trip = float(self.cfg.max_trip_min)
         else:
 
-
-            train_wait = float(self.ts.train_wait_time(self.station_id, time_str, self.dest_id))
-
+            train_wait_result = self.ts.train_wait_time(self.station_id, time_min, self.dest_id)
+            train_wait = float(train_wait_result) if train_wait_result is not None and train_wait_result >= 0 else float(self.cfg.max_wait_min)
             train_trip = float(self.ts.train_trip_time(self.station_id,self.dest_id))
 
         obs = np.array(
@@ -163,7 +164,7 @@ class ParkOrRide(gym.Env):
             train_wait = float(self.cfg.max_wait_min)
             train_trip = float(self.cfg.max_trip_min)
         else:
-            train_wait = float(self.ts.train_wait_time(self.station_id,arrival_to_station_time))
+            train_wait = float(self.ts.train_wait_time(self.station_id,arrival_to_station_time,self.dest_id))
             #################MANAL
 
             train_trip = float(self.ts.train_trip_time(self.station_id,self.dest_id)) 

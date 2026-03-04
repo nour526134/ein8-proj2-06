@@ -62,15 +62,7 @@ class CarSimulator:
         self.dest_path_nodes = []
         self.time_to_park=0.0
         self.dist_id=None
-    def float_hour_to_hhmmss(self,hour_float):
-        """
-        Convertit un float (ex: 8.25) en string "HH:MM:SS"
-        """
-        h = int(hour_float)
-        m = int((hour_float - h) * 60)
-        s = int((((hour_float - h) * 60) - m) * 60)
-        return f"{h:02d}:{m:02d}:{s:02d}"
-
+   
     
     def traffic_level(self, hour):
         """Niveau de saturation du trafic (0 à 1)"""
@@ -96,8 +88,8 @@ class CarSimulator:
             start_station_id = self.rng.choice(list(self.stations.keys()))
             start_station = self.stations[start_station_id]
 
-            current_time_str = self.float_hour_to_hhmmss(self.current_hour)
-            reachable_stations = self.gtfs_service.get_reachable_stations(start_station_id, current_time_str)
+            #current_time_str = self.float_hour_to_hhmmss(self.current_hour)
+            reachable_stations = self.gtfs_service.get_reachable_stations(start_station_id, self.current_hour)
             if reachable_stations.empty:
                 continue 
 
@@ -189,7 +181,6 @@ class CarSimulator:
             "dist_to_station_km": self.dist_to_station_km,
             "dist_to_dest_km": self.remaining_distance_km,
             "traffic": self.current_saturation,
-            "time_str":self.float_hour_to_hhmmss(self.current_hour )
         }
 
     def get_dist_to_station_km(self):
