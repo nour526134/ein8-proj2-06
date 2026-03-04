@@ -743,7 +743,7 @@ if __name__ == "__main__":
     print("  TEST SERVICE GTFS (Sans filtrage calendrier)")
     print("*" * 30 + "\n")
     
-    service = GTFSService("data/gtfs")
+    service = GTFSService("data/gtfs_bordeaux")
     
     # Rechercher Bordeaux
     print(" Recherche 'Bordeaux Saint-Jean':")

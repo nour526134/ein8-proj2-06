@@ -118,13 +118,20 @@ class ParkOrRide(gym.Env):
 
         for _ in range(self.cfg.max_iterations):
             self.current_steps += 1
+            print("CCC\n")
             self.sim.advance(self.cfg.dt_min)
+            print("I BLOOKED")
             dist_station = float(self.sim.get_dist_to_station_km())
+            
             if dist_station <= self.cfg.decision_distance_km:
+                print("IAAMMMM HERE\n")
                 self.station_id = self.sim.get_closest_station_id()
+                print(self.station_id)
                 self.parking=self.ps.get_best_parking_for_station(self.station_id)
+                print(self.parking)
                 obs = self._get_observation()
                 info = {"reset": "success", "station_id": self.station_id,"parking_id":self.parking["parking_id"]}
+                print(" I AM OUT")
                 return obs, info
 
         # Pas arrivé au point de décision

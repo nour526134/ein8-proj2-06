@@ -100,7 +100,6 @@ class ParkingServiceOSRM:
     ):
         self.parkings = get_parkings()
         self.stations = load_stops_to_dict()
-        print(self.stations)
         # cache dir
         if not Path(cache_dir).is_absolute():
             project_root = Path(__file__).parent.parent
@@ -156,8 +155,8 @@ class ParkingServiceOSRM:
         for s in self.stations:
             sid=s
             p = self._closest_parking_haversine(self.stations[s])
-            lon=self.stations[s]["lat"]
-            lat=self.stations[s]["lon"]
+            lon=self.stations[s]["lon"]
+            lat=self.stations[s]["lat"]
             if p is None:
                 failed += 1
                 continue
@@ -202,9 +201,7 @@ class ParkingServiceOSRM:
 
     # ---------- API ----------
     def get_best_parking_for_station(self,station_id):
-        print(station_id)
         di=self.best_parking_by_station.get(station_id)
-        print(di)
         return {
             "parking_id":di["parking_id"],
             "lat":di["parking_lat"],
