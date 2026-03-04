@@ -27,7 +27,7 @@ except ImportError:
 class GTFSService:
     """Service principal pour consulter les horaires GTFS"""
     
-    def __init__(self, gtfs_path="data/gtfs"):
+    def __init__(self, gtfs_path="data/gtfs_bordeaux"):
         """
         Args:
             gtfs_path: Chemin vers le dossier GTFS
@@ -743,7 +743,7 @@ if __name__ == "__main__":
     print("  TEST SERVICE GTFS (Sans filtrage calendrier)")
     print("*" * 30 + "\n")
     
-    service = GTFSService("data/gtfs")
+    service = GTFSService("data/gtfs_bordeaux")
     
     # Rechercher Bordeaux
     print(" Recherche 'Bordeaux Saint-Jean':")
