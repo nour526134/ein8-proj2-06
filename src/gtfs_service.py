@@ -67,13 +67,7 @@ class GTFSService:
     def load_stops(self, stop_areas_only=True):
         """
         Retourne toutes les stations avec leurs coordonnées
-        
-        Args:
-            stop_areas_only: Si True, ne retourne que les StopAreas (gares principales)
-                           Si False, retourne tous les stops (y compris StopPoints)
-        
-        Returns:
-            DataFrame avec colonnes: stop_id, stop_name, lat, lon, location_type
+        UNIQUEMENT celles qui ont des trains disponibles
         """
         stops = self.stops_mgr.get_all_stops()
         
@@ -94,21 +88,36 @@ class GTFSService:
         if 'stop_lat' in result.columns and 'stop_lon' in result.columns:
             result = result.dropna(subset=['stop_lat', 'stop_lon'])
         
-        # Garder uniquement les StopAreas qui ont des enfants dans stop_times
-        # Garder uniquement les StopAreas dont au moins un enfant Train est dans stop_times
+        # ✅ CORRECTION : Ne garder QUE les stations avec horaires
         valid_stop_ids = set(self.stop_times_mgr.stop_times['stop_id'].unique())
         all_stops = self.stops_mgr.get_all_stops()
-
-        # Enfants qui sont réellement dans stop_times (pas les Car TER)
-        valid_children = all_stops[
-            all_stops['stop_id'].isin(valid_stop_ids) &
-            all_stops['stop_id'].str.contains('Train', case=False, na=False)
-        ]
+        
+        # ✅ NE PLUS FILTRER PAR "Train" - Prendre TOUS les enfants dans stop_times
+        valid_children = all_stops[all_stops['stop_id'].isin(valid_stop_ids)]
+        
         valid_parents = set(valid_children['parent_station'].dropna().unique())
         result = result[result['stop_id'].isin(valid_parents)]
+        
+        # Vérifier qu'au moins 1 train existe
+        verified_stations = []
+        
+        for stop_id in result['stop_id'].unique():
+            children = self.stops_mgr.get_stoppoints_for_area(stop_id)
+            
+            if len(children) > 0:
+                child_ids = children['stop_id'].tolist()
+                has_trains = self.stop_times_mgr.stop_times['stop_id'].isin(child_ids).any()
+                
+                if has_trains:
+                    verified_stations.append(stop_id)
+        
+        result = result[result['stop_id'].isin(verified_stations)]
+        
+        print(f"✅ Stations filtrées: {len(result)} stations avec trains disponibles")
+        
         stops_df = result.reset_index(drop=True)
         
-        # Convertir en dictionnaire {stop_id: {'lat': ..., 'lon': ..., 'name': ...}}
+        # Convertir en dictionnaire
         stations = {}
         for _, row in stops_df.iterrows():
             stations[row['stop_id']] = {
@@ -117,6 +126,7 @@ class GTFSService:
                 'lon': row['stop_lon'],
                 'name': row['stop_name']
             }
+        
         return stations
     def get_all_stops_for_trip(self, trip_id, include_station_name=True):
         """
@@ -455,93 +465,197 @@ class GTFSService:
         s = int((((hour_float - h) * 60) - m) * 60)
         return f"{h:02d}:{m:02d}:{s:02d}"
 
-    def train_wait_time(self, station_id, current_time, destination_id=None):
+    def train_wait_time(self, station_id, current_time, destination_id=None, search_next_day=True, max_wait_hours=12):
         """
         Retourne le temps d'attente avant le prochain train (en minutes)
         
         Args:
             station_id: ID de la gare de départ (StopArea ou StopPoint)
-            current_time: Heure actuelle ("HH:MM:SS" ou datetime)
+            current_time: Heure actuelle ("HH:MM:SS" OU float en MINUTES OU datetime)
             destination_id: ID de la gare de destination (optionnel)
-                        Si None, cherche n'importe quel train
-                        Si spécifié, cherche un train qui va vers cette destination
+            search_next_day: Si True, cherche aussi le lendemain si aucun train aujourd'hui
+            max_wait_hours: Temps d'attente maximum en heures (défaut: 12h)
             
         Returns:
-            float: Temps d'attente en minutes (ou None si aucun train)
+            float: Temps d'attente en minutes (ou None si aucun train ou attente > max)
         """
-        # Convertir current_time en string si c'est un datetime
+        # ✅ CONVERSION : Gérer tous les formats de temps
         if isinstance(current_time, float):
-            current_time_str = self.float_hour_to_hhmmss(current_time)
+            if current_time > 24:
+                current_time_str = self.minutes_to_time_str(current_time)
+            else:
+                current_time_str = self.float_hour_to_hhmmss(current_time)
+        elif isinstance(current_time, datetime):
+            current_time_str = current_time.strftime("%H:%M:%S")
         else:
             current_time_str = current_time
         
-        # Si pas de destination spécifiée, comportement original
+        # Si pas de destination spécifiée
         if destination_id is None:
-            # Récupérer le prochain train
             trains = self.get_next_trains(station_id, current_time_str, limit=1)
             
             if len(trains) == 0:
                 return None
             
-            # Calculer le temps d'attente
             next_train_time = trains.iloc[0]['departure_time']
             wait_minutes = self._calculate_time_difference(current_time_str, next_train_time)
             
             return wait_minutes
         
-        # Avec destination : chercher le prochain train qui va vers cette destination
+        # ✅ AVEC DESTINATION
         else:
-            # Récupérer les prochains trains depuis la gare
-            trains = self.get_next_trains(station_id, current_time_str)
-            print(trains)
-            print(f"\n\n[DEBUG 1] Trains trouvés depuis {station_id}: {len(trains)}")
-            
-            if len(trains) == 0:
-                return None
-            
             # Convertir les IDs en StopPoints
             origin_stop_ids = self._get_queryable_stop_ids(station_id)
             dest_stop_ids = self._get_queryable_stop_ids(destination_id)
-            print(f"\n\n[DEBUG] origin_stop_ids: {origin_stop_ids}")
-            print(f"\n\n[DEBUG] dest_stop_ids: {dest_stop_ids}")
             
             if not origin_stop_ids or not dest_stop_ids:
+                print(f"[DEBUG] ❌ Impossible de convertir les IDs en StopPoints")
                 return None
             
-            # Chercher le premier train qui va vers la destination
-            for _, train in trains.iterrows():
-                trip_id = train['trip_id']
-                
-                # Vérifier si ce train passe par la destination
-                all_stops = self.get_all_stops_for_trip(trip_id)
-                
-                # Vérifier si la destination est dans les arrêts
-                has_destination = any(stop['stop_id'] in dest_stop_ids for _, stop in all_stops.iterrows())
-                
-                if has_destination:
-                    # Vérifier l'ordre (destination après origine)
-                    print(f"[DEBUG] Train trouvé vers destination: {trip_id}")
-                    origin_seq = None
-                    dest_seq = None
-                    
-                    for _, stop in all_stops.iterrows():
-                        if stop['stop_id'] in origin_stop_ids and origin_seq is None:
-                            origin_seq = stop['stop_sequence']
-                        if stop['stop_id'] in dest_stop_ids and dest_seq is None:
-                            dest_seq = stop['stop_sequence']
-                    
-                    # Si destination est bien après l'origine
-                    if origin_seq is not None and dest_seq is not None and dest_seq > origin_seq:
-                        # Calculer le temps d'attente
-                        next_train_time = train['departure_time']
-                        wait_minutes = self._calculate_time_difference(current_time_str, next_train_time)
-                        
-                        return wait_minutes
+            print(f"\n[DEBUG] origin_stop_ids: {origin_stop_ids}")
+            print(f"[DEBUG] dest_stop_ids: {dest_stop_ids}")
             
-            # Aucun train trouvé vers cette destination
+            # ═══════════════════════════════════════════════════════════
+            # ÉTAPE 1 : Chercher après l'heure actuelle (MÊME JOUR)
+            # ═══════════════════════════════════════════════════════════
+            
+            result = self._search_trains_to_destination(
+                origin_stop_ids,
+                dest_stop_ids,
+                current_time_str,
+                station_id,
+                destination_id,
+                search_from_time=current_time_str
+            )
+            
+            if result is not None:
+                wait_minutes = self._calculate_time_difference(current_time_str, result['departure_time'])
+                
+                # Vérifier attente max
+                if wait_minutes <= max_wait_hours * 60:
+                    print(f"[DEBUG] ✅ Train trouvé AUJOURD'HUI: départ {result['departure_time']}, attente {wait_minutes:.0f} min")
+                    return wait_minutes
+                else:
+                    print(f"[DEBUG] ⚠️ Train trop tard aujourd'hui ({wait_minutes:.0f} min > {max_wait_hours*60} min)")
+            
+            # ═══════════════════════════════════════════════════════════
+            # ÉTAPE 2 : Chercher le LENDEMAIN (depuis minuit)
+            # ════════════════════════════════���══════════════════════════
+            
+            if not search_next_day:
+                print(f"[DEBUG] ❌ Aucun train aujourd'hui, search_next_day=False")
+                return None
+            
+            print(f"[DEBUG] ⏰ Aucun train aujourd'hui, recherche LENDEMAIN...")
+            
+            result_tomorrow = self._search_trains_to_destination(
+                origin_stop_ids,
+                dest_stop_ids,
+                "00:00:00",  # Depuis minuit
+                station_id,
+                destination_id,
+                search_from_time="00:00:00"
+            )
+            
+            if result_tomorrow is not None:
+                # Calculer temps d'attente total
+                # = temps jusqu'à minuit + temps depuis minuit
+                
+                wait_to_midnight = self._calculate_time_difference(current_time_str, "24:00:00")
+                wait_from_midnight = self._calculate_time_difference("00:00:00", result_tomorrow['departure_time'])
+                
+                total_wait = wait_to_midnight + wait_from_midnight
+                
+                # Vérifier attente max
+                if total_wait <= max_wait_hours * 60:
+                    print(f"[DEBUG] ✅ Train trouvé LENDEMAIN: départ {result_tomorrow['departure_time']}")
+                    print(f"[DEBUG]    Attente totale: {total_wait:.0f} min (~{total_wait/60:.1f}h)")
+                    return total_wait
+                else:
+                    print(f"[DEBUG] ⚠️ Train lendemain trop tard ({total_wait:.0f} min > {max_wait_hours*60} min)")
+            
+            # ═══════════════════════════════════════════════════════════
+            # ÉTAPE 3 : Vraiment aucun train
+            # ═══════════════════════════════════════════════════════════
+            
+            print(f"[DEBUG] ❌❌❌ AUCUN TRAIN VALIDE trouvé")
             return None
-    
-    
+
+
+    def _search_trains_to_destination(self, origin_stop_ids, dest_stop_ids, current_time_str, station_id, destination_id, search_from_time):
+        """
+        Cherche les trains qui vont de origin vers destination après une heure donnée
+        
+        Returns:
+            dict avec 'departure_time' et 'trip_id', ou None si aucun train
+        """
+        stop_times = self.stop_times_mgr.stop_times
+        
+        # Trips passant par l'origine après search_from_time
+        origin_trips = stop_times[
+            (stop_times['stop_id'].isin(origin_stop_ids)) &
+            (stop_times['departure_time'] >= search_from_time)
+        ].copy()
+        
+        # Trier par heure de départ (pour avoir le premier)
+        origin_trips = origin_trips.sort_values('departure_time')
+        
+        print(f"[DEBUG] Trains depuis {station_id} après {search_from_time}: {len(origin_trips)}")
+        
+        if len(origin_trips) == 0:
+            return None
+        
+        # Chercher le premier train qui va vers la destination
+        for _, origin_row in origin_trips.iterrows():
+            trip_id = origin_row['trip_id']
+            origin_seq = origin_row['stop_sequence']
+            
+            # Vérifier si ce trip passe par la destination APRÈS l'origine
+            dest_rows = stop_times[
+                (stop_times['trip_id'] == trip_id) &
+                (stop_times['stop_id'].isin(dest_stop_ids))
+            ]
+            
+            if len(dest_rows) == 0:
+                continue
+            
+            dest_row = dest_rows.iloc[0]
+            dest_seq = dest_row['stop_sequence']
+            
+            # Vérifier l'ordre (destination APRÈS origine)
+            if dest_seq > origin_seq:
+                print(f"[DEBUG]   ✅ Train valide: {trip_id[:50]}...")
+                print(f"[DEBUG]      Origine seq={origin_seq}, Dest seq={dest_seq}")
+                print(f"[DEBUG]      Départ: {origin_row['departure_time']}")
+                
+                return {
+                    'departure_time': origin_row['departure_time'],
+                    'trip_id': trip_id
+                }
+            else:
+                # Train dans le mauvais sens, continuer
+                continue
+        
+        return None
+                
+                
+                    
+            
+    def minutes_to_time_str(self, minutes):
+            """
+            Convertit un temps en minutes en format "HH:MM:SS"
+            
+            Exemple:
+                90 -> "01:30:00"
+                488 -> "08:08:00"
+            """
+            total_seconds = int(round(minutes * 60))
+            
+            h = total_seconds // 3600
+            m = (total_seconds % 3600) // 60
+            s = total_seconds % 60
+
+            return f"{h:02d}:{m:02d}:{s:02d}"
     def train_trip_time(self, station_id, destination_id):
         """
         Retourne la durée du trajet en train depuis la gare jusqu'à la destination (en minutes)
@@ -653,12 +767,6 @@ class GTFSService:
     def _get_queryable_stop_ids(self, stop_id):
         """
         Convertit un stop_id en liste de stop_ids utilisables
-        
-        Args:
-            stop_id: ID de la gare
-            
-        Returns:
-            list: Liste de stop_ids utilisables
         """
         stop = self.stops_mgr.get_stop_by_id(stop_id)
         
@@ -671,11 +779,16 @@ class GTFSService:
             
             # Si c'est une StopArea (location_type = 1)
             if location_type == 1:
-                # Trouver les StopPoints enfants
+                # Récupérer TOUS les enfants
                 children = self.stops_mgr.get_stoppoints_for_area(stop_id)
                 
                 if len(children) > 0:
-                    return children['stop_id'].tolist()
+                    child_ids = children['stop_id'].tolist()
+                    
+                    # ✅ NE PAS FILTRER - Retourner TOUS les enfants
+                    # même ceux qui ne sont pas dans stop_times
+                    # (car ils peuvent être dans certains trips)
+                    return child_ids
             
             # Si c'est un StopPoint (location_type = 0)
             elif location_type == 0:
