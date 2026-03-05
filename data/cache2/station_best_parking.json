@@ -1,0 +1,929 @@
+{
+  "StopArea:OCE87278259": {
+    "station_id": "StopArea:OCE87278259",
+    "parking_id": 568030443,
+    "parking_lat": 44.8047613,
+    "parking_long": -0.6319795,
+    "parking_name": "Pessac Centre",
+    "walk_time_min": 6.068333333333333,
+    "walk_distance_m": 3333.6
+  },
+  "StopPoint:OCECar TER-87278259": {
+    "station_id": "StopPoint:OCECar TER-87278259",
+    "parking_id": 568030443,
+    "parking_lat": 44.8047613,
+    "parking_long": -0.6319795,
+    "parking_name": "Pessac Centre",
+    "walk_time_min": 6.068333333333333,
+    "walk_distance_m": 3333.6
+  },
+  "StopPoint:OCETrain TER-87278259": {
+    "station_id": "StopPoint:OCETrain TER-87278259",
+    "parking_id": 568030443,
+    "parking_lat": 44.8047613,
+    "parking_long": -0.6319795,
+    "parking_name": "Pessac Centre",
+    "walk_time_min": 6.068333333333333,
+    "walk_distance_m": 3333.6
+  },
+  "StopArea:OCE87491225": {
+    "station_id": "StopArea:OCE87491225",
+    "parking_id": 923920600,
+    "parking_lat": 44.9130861,
+    "parking_long": -0.5055038,
+    "parking_name": "Parking_923920600",
+    "walk_time_min": 20.470000000000002,
+    "walk_distance_m": 22099.1
+  },
+  "StopPoint:OCETrain TER-87491225": {
+    "station_id": "StopPoint:OCETrain TER-87491225",
+    "parking_id": 923920600,
+    "parking_lat": 44.9130861,
+    "parking_long": -0.5055038,
+    "parking_name": "Parking_923920600",
+    "walk_time_min": 20.470000000000002,
+    "walk_distance_m": 22099.1
+  },
+  "StopArea:OCE87491233": {
+    "station_id": "StopArea:OCE87491233",
+    "parking_id": 923920600,
+    "parking_lat": 44.9130861,
+    "parking_long": -0.5055038,
+    "parking_name": "Parking_923920600",
+    "walk_time_min": 18.03666666666667,
+    "walk_distance_m": 18228.8
+  },
+  "StopPoint:OCETrain TER-87491233": {
+    "station_id": "StopPoint:OCETrain TER-87491233",
+    "parking_id": 923920600,
+    "parking_lat": 44.9130861,
+    "parking_long": -0.5055038,
+    "parking_name": "Parking_923920600",
+    "walk_time_min": 18.03666666666667,
+    "walk_distance_m": 18228.8
+  },
+  "StopArea:OCE87491241": {
+    "station_id": "StopArea:OCE87491241",
+    "parking_id": 923920600,
+    "parking_lat": 44.9130861,
+    "parking_long": -0.5055038,
+    "parking_name": "Parking_923920600",
+    "walk_time_min": 16.903333333333332,
+    "walk_distance_m": 15796.8
+  },
+  "StopPoint:OCETrain TER-87491241": {
+    "station_id": "StopPoint:OCETrain TER-87491241",
+    "parking_id": 923920600,
+    "parking_lat": 44.9130861,
+    "parking_long": -0.5055038,
+    "parking_name": "Parking_923920600",
+    "walk_time_min": 16.903333333333332,
+    "walk_distance_m": 15796.8
+  },
+  "StopArea:OCE87491266": {
+    "station_id": "StopArea:OCE87491266",
+    "parking_id": 923920600,
+    "parking_lat": 44.9130861,
+    "parking_long": -0.5055038,
+    "parking_name": "Parking_923920600",
+    "walk_time_min": 16.798333333333332,
+    "walk_distance_m": 12797.9
+  },
+  "StopPoint:OCETrain TER-87491266": {
+    "station_id": "StopPoint:OCETrain TER-87491266",
+    "parking_id": 923920600,
+    "parking_lat": 44.9130861,
+    "parking_long": -0.5055038,
+    "parking_name": "Parking_923920600",
+    "walk_time_min": 16.798333333333332,
+    "walk_distance_m": 12797.9
+  },
+  "StopArea:OCE87491274": {
+    "station_id": "StopArea:OCE87491274",
+    "parking_id": 923920600,
+    "parking_lat": 44.9130861,
+    "parking_long": -0.5055038,
+    "parking_name": "Parking_923920600",
+    "walk_time_min": 12.120000000000001,
+    "walk_distance_m": 5368.6
+  },
+  "StopPoint:OCETrain TER-87491274": {
+    "station_id": "StopPoint:OCETrain TER-87491274",
+    "parking_id": 923920600,
+    "parking_lat": 44.9130861,
+    "parking_long": -0.5055038,
+    "parking_name": "Parking_923920600",
+    "walk_time_min": 12.120000000000001,
+    "walk_distance_m": 5368.6
+  },
+  "StopArea:OCE87491282": {
+    "station_id": "StopArea:OCE87491282",
+    "parking_id": 921200530,
+    "parking_lat": 44.9020562,
+    "parking_long": -0.5093026,
+    "parking_name": "Super U",
+    "walk_time_min": 4.461666666666667,
+    "walk_distance_m": 1672.3
+  },
+  "StopPoint:OCETrain TER-87491282": {
+    "station_id": "StopPoint:OCETrain TER-87491282",
+    "parking_id": 921200530,
+    "parking_lat": 44.9020562,
+    "parking_long": -0.5093026,
+    "parking_name": "Super U",
+    "walk_time_min": 4.461666666666667,
+    "walk_distance_m": 1672.3
+  },
+  "StopArea:OCE87581009": {
+    "station_id": "StopArea:OCE87581009",
+    "parking_id": 281070637,
+    "parking_lat": 44.8353526,
+    "parking_long": -0.564544,
+    "parking_name": "Salinières",
+    "walk_time_min": 4.946666666666667,
+    "walk_distance_m": 1943.8
+  },
+  "StopPoint:OCECar TER-87581009": {
+    "station_id": "StopPoint:OCECar TER-87581009",
+    "parking_id": 281070637,
+    "parking_lat": 44.8353526,
+    "parking_long": -0.564544,
+    "parking_name": "Salinières",
+    "walk_time_min": 4.946666666666667,
+    "walk_distance_m": 1943.8
+  },
+  "StopPoint:OCEINTERCITES-87581009": {
+    "station_id": "StopPoint:OCEINTERCITES-87581009",
+    "parking_id": 281070637,
+    "parking_lat": 44.8353526,
+    "parking_long": -0.564544,
+    "parking_name": "Salinières",
+    "walk_time_min": 4.946666666666667,
+    "walk_distance_m": 1943.8
+  },
+  "StopPoint:OCEICE-87581009": {
+    "station_id": "StopPoint:OCEICE-87581009",
+    "parking_id": 281070637,
+    "parking_lat": 44.8353526,
+    "parking_long": -0.564544,
+    "parking_name": "Salinières",
+    "walk_time_min": 4.946666666666667,
+    "walk_distance_m": 1943.8
+  },
+  "StopPoint:OCEOUIGO-87581009": {
+    "station_id": "StopPoint:OCEOUIGO-87581009",
+    "parking_id": 281070637,
+    "parking_lat": 44.8353526,
+    "parking_long": -0.564544,
+    "parking_name": "Salinières",
+    "walk_time_min": 4.946666666666667,
+    "walk_distance_m": 1943.8
+  },
+  "StopPoint:OCETGV INOUI-87581009": {
+    "station_id": "StopPoint:OCETGV INOUI-87581009",
+    "parking_id": 281070637,
+    "parking_lat": 44.8353526,
+    "parking_long": -0.564544,
+    "parking_name": "Salinières",
+    "walk_time_min": 4.946666666666667,
+    "walk_distance_m": 1943.8
+  },
+  "StopPoint:OCETrain TER-87581009": {
+    "station_id": "StopPoint:OCETrain TER-87581009",
+    "parking_id": 281070637,
+    "parking_lat": 44.8353526,
+    "parking_long": -0.564544,
+    "parking_name": "Salinières",
+    "walk_time_min": 4.946666666666667,
+    "walk_distance_m": 1943.8
+  },
+  "StopArea:OCE87581181": {
+    "station_id": "StopArea:OCE87581181",
+    "parking_id": 775847016,
+    "parking_lat": 44.9482305,
+    "parking_long": -0.600285,
+    "parking_name": "Parking_775847016",
+    "walk_time_min": 5.958333333333333,
+    "walk_distance_m": 3682.4
+  },
+  "StopPoint:OCECar TER-87581181": {
+    "station_id": "StopPoint:OCECar TER-87581181",
+    "parking_id": 775847016,
+    "parking_lat": 44.9482305,
+    "parking_long": -0.600285,
+    "parking_name": "Parking_775847016",
+    "walk_time_min": 5.958333333333333,
+    "walk_distance_m": 3682.4
+  },
+  "StopPoint:OCETrain TER-87581181": {
+    "station_id": "StopPoint:OCETrain TER-87581181",
+    "parking_id": 775847016,
+    "parking_lat": 44.9482305,
+    "parking_long": -0.600285,
+    "parking_name": "Parking_775847016",
+    "walk_time_min": 5.958333333333333,
+    "walk_distance_m": 3682.4
+  },
+  "StopArea:OCE87581199": {
+    "station_id": "StopArea:OCE87581199",
+    "parking_id": 775847016,
+    "parking_lat": 44.9482305,
+    "parking_long": -0.600285,
+    "parking_name": "Parking_775847016",
+    "walk_time_min": 11.655,
+    "walk_distance_m": 8646.6
+  },
+  "StopPoint:OCECar TER-87581199": {
+    "station_id": "StopPoint:OCECar TER-87581199",
+    "parking_id": 775847016,
+    "parking_lat": 44.9482305,
+    "parking_long": -0.600285,
+    "parking_name": "Parking_775847016",
+    "walk_time_min": 11.655,
+    "walk_distance_m": 8646.6
+  },
+  "StopPoint:OCETrain TER-87581199": {
+    "station_id": "StopPoint:OCETrain TER-87581199",
+    "parking_id": 775847016,
+    "parking_lat": 44.9482305,
+    "parking_long": -0.600285,
+    "parking_name": "Parking_775847016",
+    "walk_time_min": 11.655,
+    "walk_distance_m": 8646.6
+  },
+  "StopArea:OCE87581215": {
+    "station_id": "StopArea:OCE87581215",
+    "parking_id": 775847016,
+    "parking_lat": 44.9482305,
+    "parking_long": -0.600285,
+    "parking_name": "Parking_775847016",
+    "walk_time_min": 20.63,
+    "walk_distance_m": 15241.1
+  },
+  "StopPoint:OCECar TER-87581215": {
+    "station_id": "StopPoint:OCECar TER-87581215",
+    "parking_id": 775847016,
+    "parking_lat": 44.9482305,
+    "parking_long": -0.600285,
+    "parking_name": "Parking_775847016",
+    "walk_time_min": 20.63,
+    "walk_distance_m": 15241.1
+  },
+  "StopPoint:OCETrain TER-87581215": {
+    "station_id": "StopPoint:OCETrain TER-87581215",
+    "parking_id": 775847016,
+    "parking_lat": 44.9482305,
+    "parking_long": -0.600285,
+    "parking_name": "Parking_775847016",
+    "walk_time_min": 20.63,
+    "walk_distance_m": 15241.1
+  },
+  "StopArea:OCE87581538": {
+    "station_id": "StopArea:OCE87581538",
+    "parking_id": 779147705,
+    "parking_lat": 44.8508981,
+    "parking_long": -0.6435883,
+    "parking_name": "Parking_779147705",
+    "walk_time_min": 3.5833333333333335,
+    "walk_distance_m": 1797.4
+  },
+  "StopPoint:OCECar TER-87581538": {
+    "station_id": "StopPoint:OCECar TER-87581538",
+    "parking_id": 779147705,
+    "parking_lat": 44.8508981,
+    "parking_long": -0.6435883,
+    "parking_name": "Parking_779147705",
+    "walk_time_min": 3.5833333333333335,
+    "walk_distance_m": 1797.4
+  },
+  "StopPoint:OCETrain TER-87581538": {
+    "station_id": "StopPoint:OCETrain TER-87581538",
+    "parking_id": 779147705,
+    "parking_lat": 44.8508981,
+    "parking_long": -0.6435883,
+    "parking_name": "Parking_779147705",
+    "walk_time_min": 3.5833333333333335,
+    "walk_distance_m": 1797.4
+  },
+  "StopArea:OCE87581595": {
+    "station_id": "StopArea:OCE87581595",
+    "parking_id": 476660733,
+    "parking_lat": 44.8563934,
+    "parking_long": -0.5258306,
+    "parking_name": "Parking_476660733",
+    "walk_time_min": 5.59,
+    "walk_distance_m": 2149.3
+  },
+  "StopPoint:OCETrain TER-87581595": {
+    "station_id": "StopPoint:OCETrain TER-87581595",
+    "parking_id": 476660733,
+    "parking_lat": 44.8563934,
+    "parking_long": -0.5258306,
+    "parking_name": "Parking_476660733",
+    "walk_time_min": 5.59,
+    "walk_distance_m": 2149.3
+  },
+  "StopArea:OCE87581710": {
+    "station_id": "StopArea:OCE87581710",
+    "parking_id": 775847016,
+    "parking_lat": 44.9482305,
+    "parking_long": -0.600285,
+    "parking_name": "Parking_775847016",
+    "walk_time_min": 3.2866666666666666,
+    "walk_distance_m": 1605.3
+  },
+  "StopPoint:OCECar TER-87581710": {
+    "station_id": "StopPoint:OCECar TER-87581710",
+    "parking_id": 775847016,
+    "parking_lat": 44.9482305,
+    "parking_long": -0.600285,
+    "parking_name": "Parking_775847016",
+    "walk_time_min": 3.2866666666666666,
+    "walk_distance_m": 1605.3
+  },
+  "StopPoint:OCETrain TER-87581710": {
+    "station_id": "StopPoint:OCETrain TER-87581710",
+    "parking_id": 775847016,
+    "parking_lat": 44.9482305,
+    "parking_long": -0.600285,
+    "parking_name": "Parking_775847016",
+    "walk_time_min": 3.2866666666666666,
+    "walk_distance_m": 1605.3
+  },
+  "StopArea:OCE87581728": {
+    "station_id": "StopArea:OCE87581728",
+    "parking_id": 716831217,
+    "parking_lat": 44.9192221,
+    "parking_long": -0.6283602,
+    "parking_name": "Parking_716831217",
+    "walk_time_min": 1.3016666666666665,
+    "walk_distance_m": 661.3
+  },
+  "StopPoint:OCECar TER-87581728": {
+    "station_id": "StopPoint:OCECar TER-87581728",
+    "parking_id": 716831217,
+    "parking_lat": 44.9192221,
+    "parking_long": -0.6283602,
+    "parking_name": "Parking_716831217",
+    "walk_time_min": 1.3016666666666665,
+    "walk_distance_m": 661.3
+  },
+  "StopPoint:OCETrain TER-87581728": {
+    "station_id": "StopPoint:OCETrain TER-87581728",
+    "parking_id": 716831217,
+    "parking_lat": 44.9192221,
+    "parking_long": -0.6283602,
+    "parking_name": "Parking_716831217",
+    "walk_time_min": 1.3016666666666665,
+    "walk_distance_m": 661.3
+  },
+  "StopArea:OCE87581736": {
+    "station_id": "StopArea:OCE87581736",
+    "parking_id": 721660472,
+    "parking_lat": 44.8851813,
+    "parking_long": -0.6137599,
+    "parking_name": "Parking_721660472",
+    "walk_time_min": 2.996666666666667,
+    "walk_distance_m": 736.7
+  },
+  "StopPoint:OCECar TER-87581736": {
+    "station_id": "StopPoint:OCECar TER-87581736",
+    "parking_id": 721660472,
+    "parking_lat": 44.8851813,
+    "parking_long": -0.6137599,
+    "parking_name": "Parking_721660472",
+    "walk_time_min": 2.996666666666667,
+    "walk_distance_m": 736.7
+  },
+  "StopPoint:OCETrain TER-87581736": {
+    "station_id": "StopPoint:OCETrain TER-87581736",
+    "parking_id": 721660472,
+    "parking_lat": 44.8851813,
+    "parking_long": -0.6137599,
+    "parking_name": "Parking_721660472",
+    "walk_time_min": 2.996666666666667,
+    "walk_distance_m": 736.7
+  },
+  "StopArea:OCE87581751": {
+    "station_id": "StopArea:OCE87581751",
+    "parking_id": 568030443,
+    "parking_lat": 44.8047613,
+    "parking_long": -0.6319795,
+    "parking_name": "Pessac Centre",
+    "walk_time_min": 1.2683333333333333,
+    "walk_distance_m": 287.8
+  },
+  "StopPoint:OCECar TER-87581751": {
+    "station_id": "StopPoint:OCECar TER-87581751",
+    "parking_id": 568030443,
+    "parking_lat": 44.8047613,
+    "parking_long": -0.6319795,
+    "parking_name": "Pessac Centre",
+    "walk_time_min": 1.2683333333333333,
+    "walk_distance_m": 287.8
+  },
+  "StopPoint:OCETrain TER-87581751": {
+    "station_id": "StopPoint:OCETrain TER-87581751",
+    "parking_id": 568030443,
+    "parking_lat": 44.8047613,
+    "parking_long": -0.6319795,
+    "parking_name": "Pessac Centre",
+    "walk_time_min": 1.2683333333333333,
+    "walk_distance_m": 287.8
+  },
+  "StopArea:OCE87581793": {
+    "station_id": "StopArea:OCE87581793",
+    "parking_id": 301532046,
+    "parking_lat": 44.7954278,
+    "parking_long": -0.6657465,
+    "parking_name": "Parking_301532046",
+    "walk_time_min": 4.455,
+    "walk_distance_m": 2129.0
+  },
+  "StopPoint:OCECar TER-87581793": {
+    "station_id": "StopPoint:OCECar TER-87581793",
+    "parking_id": 301532046,
+    "parking_lat": 44.7954278,
+    "parking_long": -0.6657465,
+    "parking_name": "Parking_301532046",
+    "walk_time_min": 4.455,
+    "walk_distance_m": 2129.0
+  },
+  "StopPoint:OCETrain TER-87581793": {
+    "station_id": "StopPoint:OCETrain TER-87581793",
+    "parking_id": 301532046,
+    "parking_lat": 44.7954278,
+    "parking_long": -0.6657465,
+    "parking_name": "Parking_301532046",
+    "walk_time_min": 4.455,
+    "walk_distance_m": 2129.0
+  },
+  "StopArea:OCE87581801": {
+    "station_id": "StopArea:OCE87581801",
+    "parking_id": 286771058,
+    "parking_lat": 44.8108914,
+    "parking_long": -0.5467883,
+    "parking_name": "Parking_286771058",
+    "walk_time_min": 6.835,
+    "walk_distance_m": 2554.9
+  },
+  "StopPoint:OCETrain TER-87581801": {
+    "station_id": "StopPoint:OCETrain TER-87581801",
+    "parking_id": 286771058,
+    "parking_lat": 44.8108914,
+    "parking_long": -0.5467883,
+    "parking_name": "Parking_286771058",
+    "walk_time_min": 6.835,
+    "walk_distance_m": 2554.9
+  },
+  "StopArea:OCE87581835": {
+    "station_id": "StopArea:OCE87581835",
+    "parking_id": 801207994,
+    "parking_lat": 44.7655638,
+    "parking_long": -0.5821491,
+    "parking_name": "Parking_801207994",
+    "walk_time_min": 6.571666666666667,
+    "walk_distance_m": 3547.3
+  },
+  "StopPoint:OCECar TER-87581835": {
+    "station_id": "StopPoint:OCECar TER-87581835",
+    "parking_id": 801207994,
+    "parking_lat": 44.7655638,
+    "parking_long": -0.5821491,
+    "parking_name": "Parking_801207994",
+    "walk_time_min": 6.571666666666667,
+    "walk_distance_m": 3547.3
+  },
+  "StopPoint:OCETrain TER-87581835": {
+    "station_id": "StopPoint:OCETrain TER-87581835",
+    "parking_id": 801207994,
+    "parking_lat": 44.7655638,
+    "parking_long": -0.5821491,
+    "parking_name": "Parking_801207994",
+    "walk_time_min": 6.571666666666667,
+    "walk_distance_m": 3547.3
+  },
+  "StopArea:OCE87581850": {
+    "station_id": "StopArea:OCE87581850",
+    "parking_id": 921200530,
+    "parking_lat": 44.9020562,
+    "parking_long": -0.5093026,
+    "parking_name": "Super U",
+    "walk_time_min": 3.35,
+    "walk_distance_m": 1294.9
+  },
+  "StopPoint:OCETrain TER-87581850": {
+    "station_id": "StopPoint:OCETrain TER-87581850",
+    "parking_id": 921200530,
+    "parking_lat": 44.9020562,
+    "parking_long": -0.5093026,
+    "parking_name": "Super U",
+    "walk_time_min": 3.35,
+    "walk_distance_m": 1294.9
+  },
+  "StopArea:OCE87582403": {
+    "station_id": "StopArea:OCE87582403",
+    "parking_id": 302824865,
+    "parking_lat": 44.7967217,
+    "parking_long": -0.7155475,
+    "parking_name": "Parking_302824865",
+    "walk_time_min": 9.203333333333335,
+    "walk_distance_m": 4429.6
+  },
+  "StopPoint:OCECar TER-87582403": {
+    "station_id": "StopPoint:OCECar TER-87582403",
+    "parking_id": 302824865,
+    "parking_lat": 44.7967217,
+    "parking_long": -0.7155475,
+    "parking_name": "Parking_302824865",
+    "walk_time_min": 9.203333333333335,
+    "walk_distance_m": 4429.6
+  },
+  "StopPoint:OCETrain TER-87582403": {
+    "station_id": "StopPoint:OCETrain TER-87582403",
+    "parking_id": 302824865,
+    "parking_lat": 44.7967217,
+    "parking_long": -0.7155475,
+    "parking_name": "Parking_302824865",
+    "walk_time_min": 9.203333333333335,
+    "walk_distance_m": 4429.6
+  },
+  "StopArea:OCE87582445": {
+    "station_id": "StopArea:OCE87582445",
+    "parking_id": 302824865,
+    "parking_lat": 44.7967217,
+    "parking_long": -0.7155475,
+    "parking_name": "Parking_302824865",
+    "walk_time_min": 26.891666666666666,
+    "walk_distance_m": 18266.3
+  },
+  "StopPoint:OCECar TER-87582445": {
+    "station_id": "StopPoint:OCECar TER-87582445",
+    "parking_id": 302824865,
+    "parking_lat": 44.7967217,
+    "parking_long": -0.7155475,
+    "parking_name": "Parking_302824865",
+    "walk_time_min": 26.891666666666666,
+    "walk_distance_m": 18266.3
+  },
+  "StopPoint:OCETrain TER-87582445": {
+    "station_id": "StopPoint:OCETrain TER-87582445",
+    "parking_id": 302824865,
+    "parking_lat": 44.7967217,
+    "parking_long": -0.7155475,
+    "parking_name": "Parking_302824865",
+    "walk_time_min": 26.891666666666666,
+    "walk_distance_m": 18266.3
+  },
+  "StopArea:OCE87582684": {
+    "station_id": "StopArea:OCE87582684",
+    "parking_id": 801207994,
+    "parking_lat": 44.7655638,
+    "parking_long": -0.5821491,
+    "parking_name": "Parking_801207994",
+    "walk_time_min": 7.986666666666666,
+    "walk_distance_m": 4593.6
+  },
+  "StopPoint:OCECar TER-87582684": {
+    "station_id": "StopPoint:OCECar TER-87582684",
+    "parking_id": 801207994,
+    "parking_lat": 44.7655638,
+    "parking_long": -0.5821491,
+    "parking_name": "Parking_801207994",
+    "walk_time_min": 7.986666666666666,
+    "walk_distance_m": 4593.6
+  },
+  "StopPoint:OCETrain TER-87582684": {
+    "station_id": "StopPoint:OCETrain TER-87582684",
+    "parking_id": 801207994,
+    "parking_lat": 44.7655638,
+    "parking_long": -0.5821491,
+    "parking_name": "Parking_801207994",
+    "walk_time_min": 7.986666666666666,
+    "walk_distance_m": 4593.6
+  },
+  "StopArea:OCE87582692": {
+    "station_id": "StopArea:OCE87582692",
+    "parking_id": 801207994,
+    "parking_lat": 44.7655638,
+    "parking_long": -0.5821491,
+    "parking_name": "Parking_801207994",
+    "walk_time_min": 12.448333333333332,
+    "walk_distance_m": 9392.3
+  },
+  "StopPoint:OCECar TER-87582692": {
+    "station_id": "StopPoint:OCECar TER-87582692",
+    "parking_id": 801207994,
+    "parking_lat": 44.7655638,
+    "parking_long": -0.5821491,
+    "parking_name": "Parking_801207994",
+    "walk_time_min": 12.448333333333332,
+    "walk_distance_m": 9392.3
+  },
+  "StopPoint:OCETrain TER-87582692": {
+    "station_id": "StopPoint:OCETrain TER-87582692",
+    "parking_id": 801207994,
+    "parking_lat": 44.7655638,
+    "parking_long": -0.5821491,
+    "parking_name": "Parking_801207994",
+    "walk_time_min": 12.448333333333332,
+    "walk_distance_m": 9392.3
+  },
+  "StopArea:OCE87582700": {
+    "station_id": "StopArea:OCE87582700",
+    "parking_id": 801207994,
+    "parking_lat": 44.7655638,
+    "parking_long": -0.5821491,
+    "parking_name": "Parking_801207994",
+    "walk_time_min": 16.426666666666666,
+    "walk_distance_m": 17857.3
+  },
+  "StopPoint:OCECar TER-87582700": {
+    "station_id": "StopPoint:OCECar TER-87582700",
+    "parking_id": 801207994,
+    "parking_lat": 44.7655638,
+    "parking_long": -0.5821491,
+    "parking_name": "Parking_801207994",
+    "walk_time_min": 16.426666666666666,
+    "walk_distance_m": 17857.3
+  },
+  "StopPoint:OCETrain TER-87582700": {
+    "station_id": "StopPoint:OCETrain TER-87582700",
+    "parking_id": 801207994,
+    "parking_lat": 44.7655638,
+    "parking_long": -0.5821491,
+    "parking_name": "Parking_801207994",
+    "walk_time_min": 16.426666666666666,
+    "walk_distance_m": 17857.3
+  },
+  "StopArea:OCE87582718": {
+    "station_id": "StopArea:OCE87582718",
+    "parking_id": 801207994,
+    "parking_lat": 44.7655638,
+    "parking_long": -0.5821491,
+    "parking_name": "Parking_801207994",
+    "walk_time_min": 20.271666666666665,
+    "walk_distance_m": 20457.0
+  },
+  "StopPoint:OCECar TER-87582718": {
+    "station_id": "StopPoint:OCECar TER-87582718",
+    "parking_id": 801207994,
+    "parking_lat": 44.7655638,
+    "parking_long": -0.5821491,
+    "parking_name": "Parking_801207994",
+    "walk_time_min": 20.271666666666665,
+    "walk_distance_m": 20457.0
+  },
+  "StopPoint:OCETrain TER-87582718": {
+    "station_id": "StopPoint:OCETrain TER-87582718",
+    "parking_id": 801207994,
+    "parking_lat": 44.7655638,
+    "parking_long": -0.5821491,
+    "parking_name": "Parking_801207994",
+    "walk_time_min": 20.271666666666665,
+    "walk_distance_m": 20457.0
+  },
+  "StopArea:OCE87582726": {
+    "station_id": "StopArea:OCE87582726",
+    "parking_id": 801207994,
+    "parking_lat": 44.7655638,
+    "parking_long": -0.5821491,
+    "parking_name": "Parking_801207994",
+    "walk_time_min": 23.918333333333333,
+    "walk_distance_m": 23056.9
+  },
+  "StopPoint:OCECar TER-87582726": {
+    "station_id": "StopPoint:OCECar TER-87582726",
+    "parking_id": 801207994,
+    "parking_lat": 44.7655638,
+    "parking_long": -0.5821491,
+    "parking_name": "Parking_801207994",
+    "walk_time_min": 23.918333333333333,
+    "walk_distance_m": 23056.9
+  },
+  "StopPoint:OCETrain TER-87582726": {
+    "station_id": "StopPoint:OCETrain TER-87582726",
+    "parking_id": 801207994,
+    "parking_lat": 44.7655638,
+    "parking_long": -0.5821491,
+    "parking_name": "Parking_801207994",
+    "walk_time_min": 23.918333333333333,
+    "walk_distance_m": 23056.9
+  },
+  "StopArea:OCE87582734": {
+    "station_id": "StopArea:OCE87582734",
+    "parking_id": 801207994,
+    "parking_lat": 44.7655638,
+    "parking_long": -0.5821491,
+    "parking_name": "Parking_801207994",
+    "walk_time_min": 27.516666666666666,
+    "walk_distance_m": 34069.0
+  },
+  "StopPoint:OCECar TER-87582734": {
+    "station_id": "StopPoint:OCECar TER-87582734",
+    "parking_id": 801207994,
+    "parking_lat": 44.7655638,
+    "parking_long": -0.5821491,
+    "parking_name": "Parking_801207994",
+    "walk_time_min": 27.516666666666666,
+    "walk_distance_m": 34069.0
+  },
+  "StopPoint:OCETrain TER-87582734": {
+    "station_id": "StopPoint:OCETrain TER-87582734",
+    "parking_id": 801207994,
+    "parking_lat": 44.7655638,
+    "parking_long": -0.5821491,
+    "parking_name": "Parking_801207994",
+    "walk_time_min": 27.516666666666666,
+    "walk_distance_m": 34069.0
+  },
+  "StopArea:OCE87582742": {
+    "station_id": "StopArea:OCE87582742",
+    "parking_id": 801207994,
+    "parking_lat": 44.7655638,
+    "parking_long": -0.5821491,
+    "parking_name": "Parking_801207994",
+    "walk_time_min": 27.578333333333333,
+    "walk_distance_m": 32868.5
+  },
+  "StopPoint:OCECar TER-87582742": {
+    "station_id": "StopPoint:OCECar TER-87582742",
+    "parking_id": 801207994,
+    "parking_lat": 44.7655638,
+    "parking_long": -0.5821491,
+    "parking_name": "Parking_801207994",
+    "walk_time_min": 27.578333333333333,
+    "walk_distance_m": 32868.5
+  },
+  "StopPoint:OCETrain TER-87582742": {
+    "station_id": "StopPoint:OCETrain TER-87582742",
+    "parking_id": 801207994,
+    "parking_lat": 44.7655638,
+    "parking_long": -0.5821491,
+    "parking_name": "Parking_801207994",
+    "walk_time_min": 27.578333333333333,
+    "walk_distance_m": 32868.5
+  },
+  "StopArea:OCE87584052": {
+    "station_id": "StopArea:OCE87584052",
+    "parking_id": 923920600,
+    "parking_lat": 44.9130861,
+    "parking_long": -0.5055038,
+    "parking_name": "Parking_923920600",
+    "walk_time_min": 33.68333333333333,
+    "walk_distance_m": 31923.7
+  },
+  "StopPoint:OCECar TER-87584052": {
+    "station_id": "StopPoint:OCECar TER-87584052",
+    "parking_id": 923920600,
+    "parking_lat": 44.9130861,
+    "parking_long": -0.5055038,
+    "parking_name": "Parking_923920600",
+    "walk_time_min": 33.68333333333333,
+    "walk_distance_m": 31923.7
+  },
+  "StopPoint:OCETGV INOUI-87584052": {
+    "station_id": "StopPoint:OCETGV INOUI-87584052",
+    "parking_id": 923920600,
+    "parking_lat": 44.9130861,
+    "parking_long": -0.5055038,
+    "parking_name": "Parking_923920600",
+    "walk_time_min": 33.68333333333333,
+    "walk_distance_m": 31923.7
+  },
+  "StopPoint:OCETrain TER-87584052": {
+    "station_id": "StopPoint:OCETrain TER-87584052",
+    "parking_id": 923920600,
+    "parking_lat": 44.9130861,
+    "parking_long": -0.5055038,
+    "parking_name": "Parking_923920600",
+    "walk_time_min": 33.68333333333333,
+    "walk_distance_m": 31923.7
+  },
+  "StopArea:OCE87584714": {
+    "station_id": "StopArea:OCE87584714",
+    "parking_id": 923920600,
+    "parking_lat": 44.9130861,
+    "parking_long": -0.5055038,
+    "parking_name": "Parking_923920600",
+    "walk_time_min": 24.176666666666666,
+    "walk_distance_m": 23308.6
+  },
+  "StopPoint:OCETrain TER-87584714": {
+    "station_id": "StopPoint:OCETrain TER-87584714",
+    "parking_id": 923920600,
+    "parking_lat": 44.9130861,
+    "parking_long": -0.5055038,
+    "parking_name": "Parking_923920600",
+    "walk_time_min": 24.176666666666666,
+    "walk_distance_m": 23308.6
+  },
+  "StopArea:OCE87584722": {
+    "station_id": "StopArea:OCE87584722",
+    "parking_id": 923920600,
+    "parking_lat": 44.9130861,
+    "parking_long": -0.5055038,
+    "parking_name": "Parking_923920600",
+    "walk_time_min": 17.53666666666667,
+    "walk_distance_m": 11070.3
+  },
+  "StopPoint:OCETrain TER-87584722": {
+    "station_id": "StopPoint:OCETrain TER-87584722",
+    "parking_id": 923920600,
+    "parking_lat": 44.9130861,
+    "parking_long": -0.5055038,
+    "parking_name": "Parking_923920600",
+    "walk_time_min": 17.53666666666667,
+    "walk_distance_m": 11070.3
+  },
+  "StopArea:OCE87584730": {
+    "station_id": "StopArea:OCE87584730",
+    "parking_id": 923920600,
+    "parking_lat": 44.9130861,
+    "parking_long": -0.5055038,
+    "parking_name": "Parking_923920600",
+    "walk_time_min": 14.235000000000001,
+    "walk_distance_m": 7800.6
+  },
+  "StopPoint:OCETrain TER-87584730": {
+    "station_id": "StopPoint:OCETrain TER-87584730",
+    "parking_id": 923920600,
+    "parking_lat": 44.9130861,
+    "parking_long": -0.5055038,
+    "parking_name": "Parking_923920600",
+    "walk_time_min": 14.235000000000001,
+    "walk_distance_m": 7800.6
+  },
+  "StopArea:OCE87584755": {
+    "station_id": "StopArea:OCE87584755",
+    "parking_id": 923920600,
+    "parking_lat": 44.9130861,
+    "parking_long": -0.5055038,
+    "parking_name": "Parking_923920600",
+    "walk_time_min": 6.058333333333334,
+    "walk_distance_m": 2973.6
+  },
+  "StopPoint:OCETrain TER-87584755": {
+    "station_id": "StopPoint:OCETrain TER-87584755",
+    "parking_id": 923920600,
+    "parking_lat": 44.9130861,
+    "parking_long": -0.5055038,
+    "parking_name": "Parking_923920600",
+    "walk_time_min": 6.058333333333334,
+    "walk_distance_m": 2973.6
+  },
+  "StopArea:OCE87738096": {
+    "station_id": "StopArea:OCE87738096",
+    "parking_id": 727455715,
+    "parking_lat": 44.8719021,
+    "parking_long": -0.615974,
+    "parking_name": "Parking_727455715",
+    "walk_time_min": 0.5633333333333332,
+    "walk_distance_m": 238.2
+  },
+  "StopPoint:OCECar TER-87738096": {
+    "station_id": "StopPoint:OCECar TER-87738096",
+    "parking_id": 727455715,
+    "parking_lat": 44.8719021,
+    "parking_long": -0.615974,
+    "parking_name": "Parking_727455715",
+    "walk_time_min": 0.5633333333333332,
+    "walk_distance_m": 238.2
+  },
+  "StopPoint:OCETrain TER-87738096": {
+    "station_id": "StopPoint:OCETrain TER-87738096",
+    "parking_id": 727455715,
+    "parking_lat": 44.8719021,
+    "parking_long": -0.615974,
+    "parking_name": "Parking_727455715",
+    "walk_time_min": 0.5633333333333332,
+    "walk_distance_m": 238.2
+  },
+  "StopArea:OCE87748350": {
+    "station_id": "StopArea:OCE87748350",
+    "parking_id": 727487793,
+    "parking_lat": 44.8070601,
+    "parking_long": -0.6050519,
+    "parking_name": "Parking_727487793",
+    "walk_time_min": 2.9983333333333335,
+    "walk_distance_m": 1517.4
+  },
+  "StopPoint:OCECar TER-87748350": {
+    "station_id": "StopPoint:OCECar TER-87748350",
+    "parking_id": 727487793,
+    "parking_lat": 44.8070601,
+    "parking_long": -0.6050519,
+    "parking_name": "Parking_727487793",
+    "walk_time_min": 2.9983333333333335,
+    "walk_distance_m": 1517.4
+  },
+  "StopPoint:OCETrain TER-87748350": {
+    "station_id": "StopPoint:OCETrain TER-87748350",
+    "parking_id": 727487793,
+    "parking_lat": 44.8070601,
+    "parking_long": -0.6050519,
+    "parking_name": "Parking_727487793",
+    "walk_time_min": 2.9983333333333335,
+    "walk_distance_m": 1517.4
+  }
+}
