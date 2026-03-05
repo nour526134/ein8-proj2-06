@@ -12,6 +12,7 @@ def minutes_to_time_str(minutes: float) -> str:
     m = (total_seconds % 3600) // 60
     s = total_seconds % 60
     return f"{h:02d}:{m:02d}:{s:02d}"
+
 class ParkOrRide(gym.Env):
     """
     Gym Environment for Park-or-Ride (V1 SIMPLE VERSION - NO PARKING).
@@ -90,7 +91,7 @@ class ParkOrRide(gym.Env):
         dist_dest =metrics["dist_to_dest_km"]
         traffic =metrics["traffic"]
         time_min = metrics["time_min"]
-        time_str=self.minutes_to_time_str(time_min)
+
         eta_car_dest = float(self.sim.car_time_to_dest())
         eta_car_station = float(self.sim.car_time_to_station())
 
@@ -200,8 +201,7 @@ class ParkOrRide(gym.Env):
             total_time = car_dest_time
             mode = "car"
         else:
-       print("PARKING",self.parking)
-        print("CAR PARKING TIMMME ",car_parking_time)
+
             total_time = car_parking_time +walk_time+ train_wait + train_trip
 
             mode = "train"

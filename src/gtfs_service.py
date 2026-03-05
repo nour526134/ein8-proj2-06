@@ -225,7 +225,6 @@ class GTFSService:
         trips_dest = self._stop_to_trips.get(dest_stop_id, set())
         common_trips = trips_origin & trips_dest
         if not common_trips:
-            print("HELLo")
             return float("inf")
 
         st = self._stop_times[self._stop_times["trip_id"].isin(common_trips)].copy()
