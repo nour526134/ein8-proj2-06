@@ -9,6 +9,17 @@ from src.gtfs_service import GTFSService
 import networkx as nx
 from typing import Dict, Any, Optional
 import pandas as pd
+import numpy as np
+def haversine_m(lat1, lon1, lat2, lon2) -> float:
+    """Distance Haversine en mètres."""
+    R = 6371000.0
+    phi1 = np.radians(lat1)
+    phi2 = np.radians(lat2)
+    dphi = np.radians(lat2 - lat1)
+    dlambda = np.radians(lon2 - lon1)
+    a = np.sin(dphi / 2) ** 2 + np.cos(phi1) * np.cos(phi2) * np.sin(dlambda / 2) ** 2
+    c = 2 * np.arctan2(np.sqrt(a), np.sqrt(1 - a))
+    return float(R * c)
 class CarSimulator:
     """
     Simulateur de voiture réaliste sur graphe OSM
@@ -97,7 +108,7 @@ class CarSimulator:
             start_station = self.stations[start_station_id]
 
             current_time_str = self.float_hour_to_hhmmss(self.current_hour)
-            reachable_stations = self.gtfs_service.get_reachable_stations(start_station_id, current_time_str)
+            reachable_stations = self.gtfs_service.get_reachable_stations(start_station_id)
             if reachable_stations.empty:
                 continue 
 
@@ -140,11 +151,14 @@ class CarSimulator:
 
     def car_time_to_parking(self,parking):
         speed = self.speed_kmh(self.current_saturation)
+        print("WAHAAVERSINE\n",haversine_m(self.position_lat, self.position_lon,parking["lat"], parking["lon"]))
         path = self.router.shortest_path(
             self.position_lat, self.position_lon,
             parking["lat"], parking["lon"]
         )
         dist=self.router.path_distance_km(path)
+        if dist == float("inf"):
+            dist=haversine_m(self.position_lat, self.position_lon,parking["lat"], parking["lon"])
         time_to_parking_min=60 * dist / max(speed , 1e-6)
         return time_to_parking_min
 

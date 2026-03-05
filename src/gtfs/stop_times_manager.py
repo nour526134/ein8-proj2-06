@@ -79,6 +79,7 @@ class StopTimesManager:
         departures = self.stop_times[self.stop_times['stop_id'] == stop_id].copy()
         
         # Filtrer par heure
+        print(time_str)
         departures = departures[departures['departure_time'] >= time_str]
         
         # Trier par heure
@@ -136,7 +137,7 @@ if __name__ == "__main__":
     print("=" * 60)
     
     # Initialiser
-    manager = StopTimesManager("data/gtfs")
+    manager = StopTimesManager("data/gtfs_bordeaux")
     
     # Test 1: Horaires d'un voyage
     print("\n Horaires d'un voyage:")
