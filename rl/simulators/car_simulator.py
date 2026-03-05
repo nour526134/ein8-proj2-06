@@ -9,6 +9,19 @@ from src.gtfs_service import GTFSService
 import networkx as nx
 from typing import Dict, Any, Optional
 import pandas as pd
+import numpy as np
+
+def haversine_m(lat1, lon1, lat2, lon2) -> float:
+    """Distance Haversine en mètres."""
+    R = 6371000.0
+    phi1 = np.radians(lat1)
+    phi2 = np.radians(lat2)
+    dphi = np.radians(lat2 - lat1)
+    dlambda = np.radians(lon2 - lon1)
+    a = np.sin(dphi / 2) ** 2 + np.cos(phi1) * np.cos(phi2) * np.sin(dlambda / 2) ** 2
+    c = 2 * np.arctan2(np.sqrt(a), np.sqrt(1 - a))
+    return float(R * c)
+
 class CarSimulator:
     """
     Simulateur de voiture réaliste sur graphe OSM
@@ -137,6 +150,9 @@ class CarSimulator:
             parking["lat"], parking["lon"]
         )
         dist=self.router.path_distance_km(path)
+        if np.isinf(dist) :
+            dist=haversine_m( self.position_lat, self.position_lon,
+            parking["lat"], parking["lon"])
         time_to_parking_min=60 * dist / max(speed , 1e-6)
         return time_to_parking_min
 
