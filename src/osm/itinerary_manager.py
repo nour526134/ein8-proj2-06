@@ -4,7 +4,7 @@ import numpy as np
 from scipy.spatial import KDTree
 from pathlib import Path
 from functools import lru_cache
-
+import math
 
 class ItineraryManager:
     """Gestionnaire réseau OSM optimisé pour PPO"""
@@ -42,9 +42,14 @@ class ItineraryManager:
 
     
     def nodes_within_radius(self, lat, lon, radius_km=0.5):
-        deg = radius_km / 111.0  
-        idxs = self._kdtree.query_ball_point([lat, lon], deg)
-        return [self.node_ids[i] for i in idxs] or [self.nearest_node(lat, lon)]
+        lat_deg = radius_km / 111.0
+        lon_deg = radius_km / (111.0 * math.cos(math.radians(lat)))
+        idxs = self._kdtree.query_ball_point([lat, lon], max(lat_deg, lon_deg))
+        
+        # Trier par distance réelle
+        nodes = [self.node_ids[i] for i in idxs]
+        nodes.sort(key=lambda n: (self._node_coords[n][0] - lat)**2 + (self._node_coords[n][1] - lon)**2)
+        return nodes or [self.nearest_node(lat, lon)]
 
 
     def shortest_path(self, lat1, lon1, lat2, lon2):

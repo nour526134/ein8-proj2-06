@@ -73,8 +73,9 @@ class CarSimulator:
         self.dist_to_station_km = 0
         self.current_saturation = 0
         self.dest_path_nodes = []
-        self.time_to_park=0.0
         self.dist_id=None
+        self.dist=0.0
+        self.total_car_time_to_dest_min=0.0
    
     
     def traffic_level(self, hour):
@@ -97,66 +98,92 @@ class CarSimulator:
         for attempt in range(MAX_RETRIES):
             self.current_hour = self.rng.uniform(6.0, 20.0)
 
-            # Choisir une station de départ aléatoire
             start_station_id = self.rng.choice(list(self.stations.keys()))
             start_station = self.stations[start_station_id]
 
             reachable_stations = self.gtfs_service.get_reachable_stations(start_station_id)
             if reachable_stations.empty:
-                continue 
+                continue
 
             dest_station_row = self.rng.choice(reachable_stations.to_dict(orient="records"))
-            dest_station = {
-                "id": dest_station_row["destination_station_id"],
-                "lat": dest_station_row["destination_lat"],
-                "lon": dest_station_row["destination_lon"],
-            }
+            dest_station_id = dest_station_row["destination_station_id"]
+            dest_station_lat = dest_station_row["destination_lat"]
+            dest_station_lon = dest_station_row["destination_lon"]
 
-            # Chercher un nœud de départ valide parmi les proches
-            nearby_nodes = self.router.nodes_within_radius(
-                start_station['lat'], start_station['lon'], radius_km=1.0
+            dest_node = self.router.nearest_node(dest_station_lat, dest_station_lon)
+            dest_lat, dest_lon = self.router.get_node_coords(dest_node)
+            #filtre fictif que je vais enleve quand on aura bien filtrer la data 
+            
+            if haversine_m(dest_station_lat, dest_station_lon, dest_lat, dest_lon) > 1000:
+                continue
+            start_snap_node = self.router.nearest_node(start_station['lat'], start_station['lon'])
+            start_snap_lat, start_snap_lon = self.router.get_node_coords(start_snap_node)
+            if haversine_m(start_station['lat'], start_station['lon'], start_snap_lat, start_snap_lon) > 1000:
+                continue
+            # fin 
+            start_nearby = self.router.nodes_within_radius(
+                start_station['lat'], start_station['lon'], radius_km=5.0
             )
-            self.rng.shuffle(nearby_nodes)
+            self.rng.shuffle(start_nearby)
 
-            for candidate_node in nearby_nodes:
+            for candidate_node in start_nearby:
                 candidate_lat, candidate_lon = self.router.get_node_coords(candidate_node)
-                path = self.router.shortest_path(
+
+                dist_to_start_station_m = haversine_m(
                     candidate_lat, candidate_lon,
-                    dest_station["lat"], dest_station["lon"]
+                    start_station['lat'], start_station['lon']
                 )
-                if path is not None:
-                    self.position_node = candidate_node
-                    self.position_lat  = candidate_lat
-                    self.position_lon  = candidate_lon
-                    self.path_nodes = path
-                    self.dest_id = dest_station["id"]
-                    self.current_index = 0
-                    self.remaining_distance_km = self.router.path_distance_km(path)
-                    self.current_saturation = self.traffic_level(self.current_hour)
-                    self.closest_station_id = start_station_id
-                    self.station_lat = start_station["lat"]
-                    self.station_lon = start_station["lon"]
-                    self.dest_path_nodes = self.router.shortest_path(self.position_lat, self.position_lon,self.station_lat, self.station_lon)
-                    self.dist_to_station_km = self.router.path_distance_km(self.dest_path_nodes)
-                    return  
+                if dist_to_start_station_m < 200:
+                    continue
 
-        raise RuntimeError(f"Aucun chemin valide trouvé après {MAX_RETRIES} tentatives") 
+                dist_to_dest_station_m = haversine_m(
+                    candidate_lat, candidate_lon,
+                    dest_station_lat, dest_station_lon
+                )
+                if dist_to_dest_station_m < dist_to_start_station_m:
+                    continue
 
-    def car_time_to_parking(self,parking):
-        speed = self.speed_kmh(self.current_saturation)
-        print("WAHAAVERSINE\n",haversine_m(self.position_lat, self.position_lon,parking["lat"], parking["lon"]))
-        path = self.router.shortest_path(
-            self.position_lat, self.position_lon,
-            parking["lat"], parking["lon"]
-        )
-        dist=self.router.path_distance_km(path)
-        if dist == float("inf"):
-            dist=haversine_m(self.position_lat, self.position_lon,parking["lat"], parking["lon"])
+                path_to_station = self.router.shortest_path(
+                    candidate_lat, candidate_lon,
+                    start_station['lat'], start_station['lon']
+                )
+                dist_to_station = self.router.path_distance_km(path_to_station)
+                if dist_to_station < 0.2:
+                    continue
 
-        time_to_parking_min=60 * dist / max(speed , 1e-6)
-        return time_to_parking_min
+                path = self.router.shortest_path(candidate_lat, candidate_lon, dest_lat, dest_lon)
+                if path is None or len(path) < 2:
+                    continue
 
+                total_dist = self.router.path_distance_km(path)
+                if total_dist < 0.5:
+                    continue
 
+                self.position_lat = candidate_lat
+                self.position_lon = candidate_lon
+                self.position_node = candidate_node
+                self.path_nodes = path
+                self.current_index = 0
+
+                self.closest_station_id = start_station_id
+                self.station_lat = start_station['lat']
+                self.station_lon = start_station['lon']
+
+                self.dest_id = dest_station_id
+                self.dest_station_lat = dest_station_lat
+                self.dest_station_lon = dest_station_lon
+
+                self.dist = total_dist
+                self.remaining_distance_km = total_dist
+                self.dist_to_station_km = dist_to_station
+                self.station_path_nodes = path_to_station
+
+                self.current_saturation = self.traffic_level(self.current_hour)
+                speed_at_start = self.speed_kmh(self.current_saturation)
+                self.total_car_time_to_dest_min = 60 * total_dist / max(speed_at_start, 1e-6)
+                return
+
+        raise RuntimeError(f"Aucun chemin valide trouvé après {MAX_RETRIES} tentatives")
 
     def advance(self, dt_min):
         """Avance le véhicule le long du chemin"""
@@ -182,9 +209,10 @@ class CarSimulator:
                 lat2, lon2 = self.router.get_node_coords(n2)
                 self.position_lat += ratio * (lat2 - lat1)
                 self.position_lon += ratio * (lon2 - lon1)
+                distance_traveled += distance_step
                 distance_step = 0
 
-        self.remaining_distance_km -= distance_traveled
+        self.remaining_distance_km = max(0.0,self.remaining_distance_km - distance_traveled)
         old_hour = self.current_hour
         self.current_hour += dt_min / 60
         if self.current_hour - old_hour > 0.5:
@@ -216,8 +244,22 @@ class CarSimulator:
         return 60 * self.dist_to_station_km / max(speed, 1e-6)
 
     def car_time_to_dest(self):
+        return self.total_car_time_to_dest_min
+    
+    def car_time_to_parking(self,parking):
         speed = self.speed_kmh(self.current_saturation)
-        return 60 * self.remaining_distance_km / max(speed, 1e-6)
+        print("WAHAAVERSINE\n",haversine_m(self.position_lat, self.position_lon,parking["lat"], parking["lon"]))
+        path = self.router.shortest_path(
+            self.position_lat, self.position_lon,
+            parking["lat"], parking["lon"]
+        )
+        dist=self.router.path_distance_km(path)
+        if dist == float("inf"):
+            dist=haversine_m(self.position_lat, self.position_lon,parking["lat"], parking["lon"])/1000
+
+        time_to_parking_min=60 * dist / max(speed , 1e-6)
+        return time_to_parking_min
+
     
 
 
