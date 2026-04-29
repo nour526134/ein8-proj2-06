@@ -1,11 +1,9 @@
-"""
-Ces données contiennent bordeaux
-"""
 import requests
 import zipfile
 import os
 from pathlib import Path
 import pandas as pd
+
 def download_gtfs_sncf():
     print("="*60)
     print("téléchargement gtfs sncf france")
@@ -59,14 +57,7 @@ def download_gtfs_sncf():
         bordeaux = stops[stops['stop_name'].str.contains('Bordeaux', na=False, case=False)]
         print(f"\n {len(bordeaux)} gares trouvees contenant 'Bordeaux':")
         print(bordeaux[['stop_id', 'stop_name']].head(10).to_string(index=False))
-        st_jean = stops[stops['stop_name'].str.contains('Bordeaux-Saint-Jean', na=False, case=False)]
-        if len(st_jean) > 0:
-            print(f"\n Bordeaux Saint-Jean trouvee:")
-            print(f" ID: {st_jean.iloc[0]['stop_id']}")
-            print(f" Nom: {st_jean.iloc[0]['stop_name']}")
-        print("\n"+"validation" * 30)
-        print("GTFS SNCF installe avec succes")
-        print("Bordeaux est bien present ")
+        
     return all_ok
 
 def main_download_gtfs():

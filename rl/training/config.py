@@ -4,8 +4,8 @@ from dataclasses import dataclass
 @dataclass
 class PPOConfig:
     seed:int = 42
-    total_timesteps:int =200000 
-    n_envs:int= 8 #en parallele
+    total_timesteps:int =100000
+    n_envs:int= 1
     learning_rate: float = 3e-4 
     n_steps:int = 2048 # dans chaque env
     batch_size:int =64

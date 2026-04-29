@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <input>
+        <net-file value="../network/network.net.xml"/>
+        <route-files value="../routes/routes.rou.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="3600"/>
+    </time>
+
+    <output>
+        <tripinfo-output value="../output/tripinfo.xml"/>
+        <summary-output value="../output/summary.xml"/>
+    </output>
+</configuration>

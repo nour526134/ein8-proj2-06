@@ -1,86 +1,142 @@
+import sys
+import os
 
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 import numpy as np
+import pandas as pd
 from stable_baselines3 import PPO
 
+
 from rl.training.config import PPOConfig
-from rl.env.park_ride_env import ParkOrRide
-from rl.training.metrics import compute_decision_metrics, summarize_metrics
+from rl.env.park_ride_env_realtime import ParkOrRide
 
 
+def compute_expected_action(env, info):
 
-def evaluate(model_path: str, n_episodes: int = 20) -> dict:
+    try:
+        car_time = float(env.sim.car_time_to_dest())
+
+        train_time = (
+            float(info.get("car_parking_time"))
+            # float(info.get("car_time_to_parking_min"))
+            + float(info["walk_time"])
+            # + float(info["train_wait_min"])
+            + float(info["train_trip_min"])
+        )
+
+    except KeyError:
+        print("⚠️ Episode ignoré (info incomplet):", info)
+        return None, None, None
+
+    if car_time <= train_time:
+        return 0, car_time, train_time
+    else:
+        return 1, car_time, train_time
+
+
+def evaluate(model_path: str, n_episodes: int = 200):
+
     env = ParkOrRide()
     model = PPO.load(model_path)
 
-    episode_rewards = []
-    correct_list = []
-    regret_list = []
+    results = []
 
-    for _ in range(n_episodes): 
-        obs, info = env.reset() 
-        done = False
-        total_reward = 0.0
+    for episode in range(n_episodes):
 
-        while not done:
-            action, _ = model.predict(obs, deterministic=True)
-            obs, reward, terminated, truncated, info = env.step(action)
-            done = terminated or truncated
-            total_reward += float(reward)
-            car_time = info.get("car_time")
-            train_time = info.get("train_time")
-            if car_time is not None and train_time is not None:
-                m = compute_decision_metrics(
-                    car_time=float(car_time),
-                    train_time=float(train_time),
-                    action=int(action),
-                )
-                correct_list.append(m["correct"])
-                regret_list.append(m["regret"])
+        obs, info = env.reset(seed=episode)
+
+        if info.get("reset") != "success":
+            continue
+
+        action, _ = model.predict(obs, deterministic=True)
+
+        obs, reward, terminated, truncated, info = env.step(action)
+
+        expected_action, car_time, train_time = compute_expected_action(env, info)
+
+        if expected_action is None:
+            continue
+
+        correct = int(action == expected_action)
+        regret = abs(car_time - train_time) if not correct else 0.0
+        print("car_time:", car_time, "train_time:", train_time)
+        results.append({
+            "episode": episode,
+
+            "traffic": env.current_metrics.get("traffic"),
+            "dist_station": env.current_metrics.get("dist_to_station_km"),
+            "dist_dest": env.current_metrics.get("dist_to_dest_km"),
+
+            "car_time": car_time,
+            "train_time": train_time,
+
+            "predicted_action": int(action),
+            "expected_action": int(expected_action),
+            "correct": correct,
+            "regret": regret,
+
+            "reward": reward
+        })
+
+    df = pd.DataFrame(results)
+    print("Actions prédites uniques :", df["predicted_action"].unique())
+    print(df["predicted_action"].value_counts())
+   
+    accuracy = df["correct"].mean()
+    mean_reward = df["reward"].mean()
+    std_reward = df["reward"].std()
+
+    mean_regret = df["regret"].mean()
+    max_regret = df["regret"].max()
+
+    confusion = pd.crosstab(
+        df["expected_action"],
+        df["predicted_action"],
+        rownames=["Actual"],
+        colnames=["Predicted"]
+    )
+
+    print("\n====== EVALUATION ======")
+    print(f"Episodes: {len(df)}")
+    print(f"Accuracy: {accuracy * 100:.2f}%")
+    print(f"Mean reward: {mean_reward:.2f}")
+    print(f"Std reward: {std_reward:.2f}")
+    print(f"Mean regret: {mean_regret:.2f}")
+    print(f"Max regret: {max_regret:.2f}")
+    
+    print("\nConfusion Matrix:")
+    print(confusion)
 
 
-        episode_rewards.append(total_reward)
+    output_file = "evaluation_results.xlsx"
 
-    rewards = np.array(episode_rewards, dtype=np.float32)
+    with pd.ExcelWriter(output_file) as writer:
+        df.to_excel(writer, sheet_name="results", index=False)
 
-    results = {
-        "n_episodes": n_episodes,
-        "mean_reward": float(rewards.mean()),
-        "std_reward": float(rewards.std()),
-        "min_reward": float(rewards.min()),
-        "max_reward": float(rewards.max()),
+        summary_df = pd.DataFrame([{
+            "accuracy": accuracy,
+            "mean_reward": mean_reward,
+            "std_reward": std_reward,
+            "mean_regret": mean_regret,
+            "max_regret": max_regret
+        }])
+
+        summary_df.to_excel(writer, sheet_name="summary", index=False)
+
+    print(f"\nFichier Excel généré: {output_file}")
+
+    return {
+        "accuracy": accuracy,
+        "mean_reward": mean_reward,
+        "mean_regret": mean_regret
     }
-    if len(correct_list) > 0:
-        met = summarize_metrics(correct_list, regret_list)
-        results["decision_accuracy"] = met["accuracy"]
-        results["mean_regret"] = met["mean_regret"]
-        results["max_regret"] = met["max_regret"]
-    else:
-        results["decision_accuracy"] = None
-        results["mean_regret"] = None
-        results["max_regret"] = None
 
-    return results
 
 def main():
     cfg = PPOConfig()
     model_path = f"{cfg.models_dir}/{cfg.model_name}.zip"
 
-    results = evaluate(model_path=model_path, n_episodes=20)
-
-    print("\n   EVALUATION RESULTS   ")
-    print(f"Model: {model_path}")
-    print(f"Episodes: {results['n_episodes']}")
-    print(f"Mean reward: {results['mean_reward']:.2f}")
-    print(f"variabilité reward:  {results['std_reward']:.2f}")
-    print(f"Min reward:  {results['min_reward']:.2f}")
-    print(f"Max reward:  {results['max_reward']:.2f}")
-    if results["decision_accuracy"] is not None:
-        print("\n   DECISION METRICS  ")
-        print(f"Accuracy (bon choix): {results['decision_accuracy']*100:.1f}%")
-        print(f"Mean regret (temps perdu moyen): {results['mean_regret']:.2f}")
-        print(f"Max regret (pire cas): {results['max_regret']:.2f}")
-    else:
-        print("\n[Info] metrics.py non calculées : car_time/train_time absents de info dans l'env.")
+    evaluate(model_path=model_path, n_episodes=200)
 
 
 if __name__ == "__main__":

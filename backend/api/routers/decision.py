@@ -2,24 +2,26 @@ from fastapi import APIRouter
 from pydantic import BaseModel
 import numpy as np
 from stable_baselines3 import PPO
+import datetime
 
 
 router = APIRouter(prefix="/decision", tags=["decision"])
 
 
-# Chargement du modèle une seule fois au démarrage (temporairement désactivé)
-# model = PPO.load("models/ppo_modal_decision")
-model = None
+model = PPO.load("models/ppo_modal_decision")
+#model = None
 
 
 class DecisionRequest(BaseModel):
-    dist_station: float          
-    dist_dest: float  
-    traffic: float
-    eta_car_dest: float           
-    eta_car_station: float             
-    train_wait: float      
-    train_trip: int              
+    dist_dest:       float
+    time_of_day:     float  
+    dist_parking:    float
+    traffic:         float
+    eta_car_dest:    float
+    eta_car_parking: float
+    train_wait:      float
+    train_trip:      float
+    taux_parking:    float            
 
 
 
@@ -27,13 +29,15 @@ class DecisionRequest(BaseModel):
 def decide(req: DecisionRequest):
     # Convertir la requête en vecteur numpy pour le modèle
     obs = np.array([
-        req.dist_station,
         req.dist_dest,
+        req.time_of_day,
+        req.dist_parking,
         req.traffic,
         req.eta_car_dest,
-        req.eta_car_station,
+        req.eta_car_parking,
         req.train_wait,
-        req.train_trip
+        req.train_trip,
+        req.taux_parking,
     ], dtype=np.float32)
 
     # Le modèle PPO prend la décision

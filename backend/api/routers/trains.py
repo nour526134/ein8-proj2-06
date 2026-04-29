@@ -2,17 +2,11 @@ from fastapi import APIRouter, Query
 from backend.services.gtfs_service import GTFSService
 
 router = APIRouter(prefix="/trains", tags=["trains"])
-gtfs = None
+gtfs_service = GTFSService(gtfs_dir="data/gtfs")
 
-def get_gtfs():
-    global gtfs
-    if gtfs is None:
-        gtfs = GTFSService(gtfs_path="scripts/data/gtfs")
-    return gtfs
 
 @router.get("/next")
-def get_next_trains(stop_id: str, at_time: str = Query(...), limit: int = 10):
-    gtfs_service = get_gtfs()
+def get_next_trains(stop_id: str, at_time: str, limit: int = 10):
     df = gtfs_service.get_next_trains(stop_id, current_time=at_time, limit=limit)
     trains = df.to_dict(orient="records") if len(df) > 0 else []
     return {

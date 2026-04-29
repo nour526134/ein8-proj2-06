@@ -20,11 +20,8 @@ def download_bordeaux_osm():
     
     try:
         # Télécharger le réseau routier
-        G = ox.graph_from_place(
-            "Bordeaux Métropole, France",
-            network_type='drive',
-            simplify=True
-        )
+        # osmnx 1.x expects bbox as (north, south, east, west)
+        G = ox.graph_from_bbox(bbox=(44.97, 44.75, -0.45, -0.75), network_type="drive")
         
         print(f" Réseau téléchargé:")
         print(f"   - Nœuds (intersections): {len(G.nodes):,}")
@@ -76,3 +73,5 @@ def main_download_osm_graph():
         print("\n Réessayez ou vérifiez votre connexion")
 
 
+if __name__ == "__main__":
+    main_download_osm_graph()

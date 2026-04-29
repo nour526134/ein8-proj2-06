@@ -1,0 +1,602 @@
+origin_id,origin_name,destination_id,destination_name,number_of_departures,first_departure,last_departure,average_interval_minutes
+StopPoint:OCECar TER-87278259,Mérignac Arlac,StopPoint:OCECar TER-87581181,Ludon,4,10:25:00,14:25:00,80.0
+StopPoint:OCECar TER-87278259,Mérignac Arlac,StopPoint:OCECar TER-87581199,Macau,4,10:25:00,14:25:00,80.0
+StopPoint:OCECar TER-87278259,Mérignac Arlac,StopPoint:OCECar TER-87581538,Caudéran-Mérignac,4,10:25:00,14:25:00,80.0
+StopPoint:OCECar TER-87278259,Mérignac Arlac,StopPoint:OCECar TER-87581710,Parempuyre,4,10:25:00,14:25:00,80.0
+StopPoint:OCECar TER-87278259,Mérignac Arlac,StopPoint:OCECar TER-87581728,Blanquefort,4,10:25:00,14:25:00,80.0
+StopPoint:OCECar TER-87278259,Mérignac Arlac,StopPoint:OCECar TER-87581736,Bruges,4,10:25:00,14:25:00,80.0
+StopPoint:OCECar TER-87278259,Mérignac Arlac,StopPoint:OCECar TER-87738096,Le Bouscat Sainte-Germaine,4,10:25:00,14:25:00,80.0
+StopPoint:OCECar TER-87581181,Ludon,StopPoint:OCECar TER-87278259,Mérignac Arlac,4,11:38:00,15:38:00,80.0
+StopPoint:OCECar TER-87581181,Ludon,StopPoint:OCECar TER-87581199,Macau,4,11:22:00,15:22:00,80.0
+StopPoint:OCECar TER-87581181,Ludon,StopPoint:OCECar TER-87581538,Caudéran-Mérignac,4,11:38:00,15:38:00,80.0
+StopPoint:OCECar TER-87581181,Ludon,StopPoint:OCECar TER-87581710,Parempuyre,4,11:38:00,15:38:00,80.0
+StopPoint:OCECar TER-87581181,Ludon,StopPoint:OCECar TER-87581728,Blanquefort,4,11:38:00,15:38:00,80.0
+StopPoint:OCECar TER-87581181,Ludon,StopPoint:OCECar TER-87581736,Bruges,4,11:38:00,15:38:00,80.0
+StopPoint:OCECar TER-87581181,Ludon,StopPoint:OCECar TER-87738096,Le Bouscat Sainte-Germaine,4,11:38:00,15:38:00,80.0
+StopPoint:OCECar TER-87581199,Macau,StopPoint:OCECar TER-87278259,Mérignac Arlac,4,11:31:00,15:31:00,80.0
+StopPoint:OCECar TER-87581199,Macau,StopPoint:OCECar TER-87581181,Ludon,4,11:31:00,15:31:00,80.0
+StopPoint:OCECar TER-87581199,Macau,StopPoint:OCECar TER-87581538,Caudéran-Mérignac,4,11:31:00,15:31:00,80.0
+StopPoint:OCECar TER-87581199,Macau,StopPoint:OCECar TER-87581710,Parempuyre,4,11:31:00,15:31:00,80.0
+StopPoint:OCECar TER-87581199,Macau,StopPoint:OCECar TER-87581728,Blanquefort,4,11:31:00,15:31:00,80.0
+StopPoint:OCECar TER-87581199,Macau,StopPoint:OCECar TER-87581736,Bruges,4,11:31:00,15:31:00,80.0
+StopPoint:OCECar TER-87581199,Macau,StopPoint:OCECar TER-87738096,Le Bouscat Sainte-Germaine,4,11:31:00,15:31:00,80.0
+StopPoint:OCECar TER-87581538,Caudéran-Mérignac,StopPoint:OCECar TER-87278259,Mérignac Arlac,4,12:26:00,16:26:00,80.0
+StopPoint:OCECar TER-87581538,Caudéran-Mérignac,StopPoint:OCECar TER-87581181,Ludon,4,10:35:00,14:35:00,80.0
+StopPoint:OCECar TER-87581538,Caudéran-Mérignac,StopPoint:OCECar TER-87581199,Macau,4,10:35:00,14:35:00,80.0
+StopPoint:OCECar TER-87581538,Caudéran-Mérignac,StopPoint:OCECar TER-87581710,Parempuyre,4,10:35:00,14:35:00,80.0
+StopPoint:OCECar TER-87581538,Caudéran-Mérignac,StopPoint:OCECar TER-87581728,Blanquefort,4,10:35:00,14:35:00,80.0
+StopPoint:OCECar TER-87581538,Caudéran-Mérignac,StopPoint:OCECar TER-87581736,Bruges,4,10:35:00,14:35:00,80.0
+StopPoint:OCECar TER-87581538,Caudéran-Mérignac,StopPoint:OCECar TER-87738096,Le Bouscat Sainte-Germaine,4,10:35:00,14:35:00,80.0
+StopPoint:OCECar TER-87581595,Cenon,StopPoint:OCECar TER-87581850,Bassens,3,09:38:00,18:38:00,270.0
+StopPoint:OCECar TER-87581595,Cenon,StopPoint:OCECar TER-87584052,Libourne,3,09:38:00,18:38:00,270.0
+StopPoint:OCECar TER-87581710,Parempuyre,StopPoint:OCECar TER-87278259,Mérignac Arlac,4,11:46:00,15:46:00,80.0
+StopPoint:OCECar TER-87581710,Parempuyre,StopPoint:OCECar TER-87581181,Ludon,4,11:14:00,15:14:00,80.0
+StopPoint:OCECar TER-87581710,Parempuyre,StopPoint:OCECar TER-87581199,Macau,4,11:14:00,15:14:00,80.0
+StopPoint:OCECar TER-87581710,Parempuyre,StopPoint:OCECar TER-87581538,Caudéran-Mérignac,4,11:46:00,15:46:00,80.0
+StopPoint:OCECar TER-87581710,Parempuyre,StopPoint:OCECar TER-87581728,Blanquefort,4,11:46:00,15:46:00,80.0
+StopPoint:OCECar TER-87581710,Parempuyre,StopPoint:OCECar TER-87581736,Bruges,4,11:46:00,15:46:00,80.0
+StopPoint:OCECar TER-87581710,Parempuyre,StopPoint:OCECar TER-87738096,Le Bouscat Sainte-Germaine,4,11:46:00,15:46:00,80.0
+StopPoint:OCECar TER-87581728,Blanquefort,StopPoint:OCECar TER-87278259,Mérignac Arlac,4,11:55:00,15:55:00,80.0
+StopPoint:OCECar TER-87581728,Blanquefort,StopPoint:OCECar TER-87581181,Ludon,4,11:05:00,15:05:00,80.0
+StopPoint:OCECar TER-87581728,Blanquefort,StopPoint:OCECar TER-87581199,Macau,4,11:05:00,15:05:00,80.0
+StopPoint:OCECar TER-87581728,Blanquefort,StopPoint:OCECar TER-87581538,Caudéran-Mérignac,4,11:55:00,15:55:00,80.0
+StopPoint:OCECar TER-87581728,Blanquefort,StopPoint:OCECar TER-87581710,Parempuyre,4,11:05:00,15:05:00,80.0
+StopPoint:OCECar TER-87581728,Blanquefort,StopPoint:OCECar TER-87581736,Bruges,4,11:55:00,15:55:00,80.0
+StopPoint:OCECar TER-87581728,Blanquefort,StopPoint:OCECar TER-87738096,Le Bouscat Sainte-Germaine,4,11:55:00,15:55:00,80.0
+StopPoint:OCECar TER-87581736,Bruges,StopPoint:OCECar TER-87278259,Mérignac Arlac,4,12:05:00,16:05:00,80.0
+StopPoint:OCECar TER-87581736,Bruges,StopPoint:OCECar TER-87581181,Ludon,4,10:55:00,14:55:00,80.0
+StopPoint:OCECar TER-87581736,Bruges,StopPoint:OCECar TER-87581199,Macau,4,10:55:00,14:55:00,80.0
+StopPoint:OCECar TER-87581736,Bruges,StopPoint:OCECar TER-87581538,Caudéran-Mérignac,4,12:05:00,16:05:00,80.0
+StopPoint:OCECar TER-87581736,Bruges,StopPoint:OCECar TER-87581710,Parempuyre,4,10:55:00,14:55:00,80.0
+StopPoint:OCECar TER-87581736,Bruges,StopPoint:OCECar TER-87581728,Blanquefort,4,10:55:00,14:55:00,80.0
+StopPoint:OCECar TER-87581736,Bruges,StopPoint:OCECar TER-87738096,Le Bouscat Sainte-Germaine,4,12:05:00,16:05:00,80.0
+StopPoint:OCECar TER-87581751,Pessac,StopPoint:OCECar TER-87581793,Pessac-Alouette,6,08:38:00,23:08:00,174.0
+StopPoint:OCECar TER-87581751,Pessac,StopPoint:OCECar TER-87582403,Gazinet - Cestas,6,08:38:00,23:08:00,174.0
+StopPoint:OCECar TER-87581751,Pessac,StopPoint:OCECar TER-87582445,Marcheprime,6,08:38:00,23:08:00,174.0
+StopPoint:OCECar TER-87581751,Pessac,StopPoint:OCECar TER-87582478,Biganos Facture,6,08:38:00,23:08:00,174.0
+StopPoint:OCECar TER-87581751,Pessac,StopPoint:OCECar TER-87582601,Le Teich,6,08:38:00,23:08:00,174.0
+StopPoint:OCECar TER-87581751,Pessac,StopPoint:OCECar TER-87582619,Gujan-Mestras,6,08:38:00,23:08:00,174.0
+StopPoint:OCECar TER-87581751,Pessac,StopPoint:OCECar TER-87582635,La Hume,6,08:38:00,23:08:00,174.0
+StopPoint:OCECar TER-87581751,Pessac,StopPoint:OCECar TER-87582668,Arcachon,6,08:38:00,23:08:00,174.0
+StopPoint:OCECar TER-87581793,Pessac-Alouette,StopPoint:OCECar TER-87581751,Pessac,4,09:41:00,22:41:00,260.0
+StopPoint:OCECar TER-87581793,Pessac-Alouette,StopPoint:OCECar TER-87582403,Gazinet - Cestas,6,08:49:00,23:19:00,174.0
+StopPoint:OCECar TER-87581793,Pessac-Alouette,StopPoint:OCECar TER-87582445,Marcheprime,6,08:49:00,23:19:00,174.0
+StopPoint:OCECar TER-87581793,Pessac-Alouette,StopPoint:OCECar TER-87582478,Biganos Facture,6,08:49:00,23:19:00,174.0
+StopPoint:OCECar TER-87581793,Pessac-Alouette,StopPoint:OCECar TER-87582601,Le Teich,6,08:49:00,23:19:00,174.0
+StopPoint:OCECar TER-87581793,Pessac-Alouette,StopPoint:OCECar TER-87582619,Gujan-Mestras,6,08:49:00,23:19:00,174.0
+StopPoint:OCECar TER-87581793,Pessac-Alouette,StopPoint:OCECar TER-87582635,La Hume,6,08:49:00,23:19:00,174.0
+StopPoint:OCECar TER-87581793,Pessac-Alouette,StopPoint:OCECar TER-87582668,Arcachon,6,08:49:00,23:19:00,174.0
+StopPoint:OCECar TER-87581835,Villenave-d'Ornon,StopPoint:OCECar TER-87582684,Cadaujac,9,09:50:00,19:55:00,75.62
+StopPoint:OCECar TER-87581835,Villenave-d'Ornon,StopPoint:OCECar TER-87582692,Saint-Médard-d'Eyrans,9,09:50:00,19:55:00,75.62
+StopPoint:OCECar TER-87581835,Villenave-d'Ornon,StopPoint:OCECar TER-87582700,Beautiran,9,09:50:00,19:55:00,75.62
+StopPoint:OCECar TER-87581835,Villenave-d'Ornon,StopPoint:OCECar TER-87582718,Portets,9,09:50:00,19:55:00,75.62
+StopPoint:OCECar TER-87581835,Villenave-d'Ornon,StopPoint:OCECar TER-87582726,Arbanats,9,09:50:00,19:55:00,75.62
+StopPoint:OCECar TER-87581835,Villenave-d'Ornon,StopPoint:OCECar TER-87582734,Podensac,9,09:50:00,19:55:00,75.62
+StopPoint:OCECar TER-87581835,Villenave-d'Ornon,StopPoint:OCECar TER-87582742,Cérons,9,09:50:00,19:55:00,75.62
+StopPoint:OCECar TER-87581835,Villenave-d'Ornon,StopPoint:OCECar TER-87582775,Langon,9,09:50:00,19:55:00,75.62
+StopPoint:OCECar TER-87581850,Bassens,StopPoint:OCECar TER-87581595,Cenon,3,10:48:00,19:48:00,270.0
+StopPoint:OCECar TER-87581850,Bassens,StopPoint:OCECar TER-87584052,Libourne,3,09:45:00,18:45:00,270.0
+StopPoint:OCECar TER-87582403,Gazinet - Cestas,StopPoint:OCECar TER-87581751,Pessac,4,09:28:00,22:28:00,260.0
+StopPoint:OCECar TER-87582403,Gazinet - Cestas,StopPoint:OCECar TER-87581793,Pessac-Alouette,4,09:28:00,22:28:00,260.0
+StopPoint:OCECar TER-87582403,Gazinet - Cestas,StopPoint:OCECar TER-87582445,Marcheprime,6,09:02:00,23:32:00,174.0
+StopPoint:OCECar TER-87582403,Gazinet - Cestas,StopPoint:OCECar TER-87582478,Biganos Facture,6,09:02:00,23:32:00,174.0
+StopPoint:OCECar TER-87582403,Gazinet - Cestas,StopPoint:OCECar TER-87582601,Le Teich,6,09:02:00,23:32:00,174.0
+StopPoint:OCECar TER-87582403,Gazinet - Cestas,StopPoint:OCECar TER-87582619,Gujan-Mestras,6,09:02:00,23:32:00,174.0
+StopPoint:OCECar TER-87582403,Gazinet - Cestas,StopPoint:OCECar TER-87582635,La Hume,6,09:02:00,23:32:00,174.0
+StopPoint:OCECar TER-87582403,Gazinet - Cestas,StopPoint:OCECar TER-87582668,Arcachon,6,09:02:00,23:32:00,174.0
+StopPoint:OCECar TER-87582445,Marcheprime,StopPoint:OCECar TER-87581751,Pessac,4,09:08:00,22:08:00,260.0
+StopPoint:OCECar TER-87582445,Marcheprime,StopPoint:OCECar TER-87581793,Pessac-Alouette,4,09:08:00,22:08:00,260.0
+StopPoint:OCECar TER-87582445,Marcheprime,StopPoint:OCECar TER-87582403,Gazinet - Cestas,4,09:08:00,22:08:00,260.0
+StopPoint:OCECar TER-87582445,Marcheprime,StopPoint:OCECar TER-87582478,Biganos Facture,6,09:20:00,23:50:00,174.0
+StopPoint:OCECar TER-87582445,Marcheprime,StopPoint:OCECar TER-87582601,Le Teich,6,09:20:00,23:50:00,174.0
+StopPoint:OCECar TER-87582445,Marcheprime,StopPoint:OCECar TER-87582619,Gujan-Mestras,6,09:20:00,23:50:00,174.0
+StopPoint:OCECar TER-87582445,Marcheprime,StopPoint:OCECar TER-87582635,La Hume,6,09:20:00,23:50:00,174.0
+StopPoint:OCECar TER-87582445,Marcheprime,StopPoint:OCECar TER-87582668,Arcachon,6,09:20:00,23:50:00,174.0
+StopPoint:OCECar TER-87582478,Biganos Facture,StopPoint:OCECar TER-87581751,Pessac,4,08:53:00,21:53:00,260.0
+StopPoint:OCECar TER-87582478,Biganos Facture,StopPoint:OCECar TER-87581793,Pessac-Alouette,4,08:53:00,21:53:00,260.0
+StopPoint:OCECar TER-87582478,Biganos Facture,StopPoint:OCECar TER-87582403,Gazinet - Cestas,4,08:53:00,21:53:00,260.0
+StopPoint:OCECar TER-87582478,Biganos Facture,StopPoint:OCECar TER-87582445,Marcheprime,4,08:53:00,21:53:00,260.0
+StopPoint:OCECar TER-87582478,Biganos Facture,StopPoint:OCECar TER-87582601,Le Teich,17,08:55:00,00:04:00,56.81
+StopPoint:OCECar TER-87582478,Biganos Facture,StopPoint:OCECar TER-87582619,Gujan-Mestras,17,08:55:00,00:04:00,56.81
+StopPoint:OCECar TER-87582478,Biganos Facture,StopPoint:OCECar TER-87582635,La Hume,17,08:55:00,00:04:00,56.81
+StopPoint:OCECar TER-87582478,Biganos Facture,StopPoint:OCECar TER-87582668,Arcachon,17,08:55:00,00:04:00,56.81
+StopPoint:OCECar TER-87582601,Le Teich,StopPoint:OCECar TER-87581751,Pessac,4,08:41:00,21:41:00,260.0
+StopPoint:OCECar TER-87582601,Le Teich,StopPoint:OCECar TER-87581793,Pessac-Alouette,4,08:41:00,21:41:00,260.0
+StopPoint:OCECar TER-87582601,Le Teich,StopPoint:OCECar TER-87582403,Gazinet - Cestas,4,08:41:00,21:41:00,260.0
+StopPoint:OCECar TER-87582601,Le Teich,StopPoint:OCECar TER-87582445,Marcheprime,4,08:41:00,21:41:00,260.0
+StopPoint:OCECar TER-87582601,Le Teich,StopPoint:OCECar TER-87582478,Biganos Facture,16,07:41:00,21:41:00,56.0
+StopPoint:OCECar TER-87582601,Le Teich,StopPoint:OCECar TER-87582619,Gujan-Mestras,17,09:04:00,00:13:00,56.81
+StopPoint:OCECar TER-87582601,Le Teich,StopPoint:OCECar TER-87582635,La Hume,17,09:04:00,00:13:00,56.81
+StopPoint:OCECar TER-87582601,Le Teich,StopPoint:OCECar TER-87582668,Arcachon,17,09:04:00,00:13:00,56.81
+StopPoint:OCECar TER-87582619,Gujan-Mestras,StopPoint:OCECar TER-87581751,Pessac,4,08:30:00,21:30:00,260.0
+StopPoint:OCECar TER-87582619,Gujan-Mestras,StopPoint:OCECar TER-87581793,Pessac-Alouette,4,08:30:00,21:30:00,260.0
+StopPoint:OCECar TER-87582619,Gujan-Mestras,StopPoint:OCECar TER-87582403,Gazinet - Cestas,4,08:30:00,21:30:00,260.0
+StopPoint:OCECar TER-87582619,Gujan-Mestras,StopPoint:OCECar TER-87582445,Marcheprime,4,08:30:00,21:30:00,260.0
+StopPoint:OCECar TER-87582619,Gujan-Mestras,StopPoint:OCECar TER-87582478,Biganos Facture,16,07:30:00,21:30:00,56.0
+StopPoint:OCECar TER-87582619,Gujan-Mestras,StopPoint:OCECar TER-87582601,Le Teich,16,07:30:00,21:30:00,56.0
+StopPoint:OCECar TER-87582619,Gujan-Mestras,StopPoint:OCECar TER-87582635,La Hume,17,09:14:00,00:23:00,56.81
+StopPoint:OCECar TER-87582619,Gujan-Mestras,StopPoint:OCECar TER-87582668,Arcachon,17,09:14:00,00:23:00,56.81
+StopPoint:OCECar TER-87582635,La Hume,StopPoint:OCECar TER-87581751,Pessac,4,08:20:00,21:20:00,260.0
+StopPoint:OCECar TER-87582635,La Hume,StopPoint:OCECar TER-87581793,Pessac-Alouette,4,08:20:00,21:20:00,260.0
+StopPoint:OCECar TER-87582635,La Hume,StopPoint:OCECar TER-87582403,Gazinet - Cestas,4,08:20:00,21:20:00,260.0
+StopPoint:OCECar TER-87582635,La Hume,StopPoint:OCECar TER-87582445,Marcheprime,4,08:20:00,21:20:00,260.0
+StopPoint:OCECar TER-87582635,La Hume,StopPoint:OCECar TER-87582478,Biganos Facture,16,07:20:00,21:20:00,56.0
+StopPoint:OCECar TER-87582635,La Hume,StopPoint:OCECar TER-87582601,Le Teich,16,07:20:00,21:20:00,56.0
+StopPoint:OCECar TER-87582635,La Hume,StopPoint:OCECar TER-87582619,Gujan-Mestras,16,07:20:00,21:20:00,56.0
+StopPoint:OCECar TER-87582635,La Hume,StopPoint:OCECar TER-87582668,Arcachon,17,09:24:00,00:33:00,56.81
+StopPoint:OCECar TER-87582668,Arcachon,StopPoint:OCECar TER-87581751,Pessac,4,08:04:00,21:04:00,260.0
+StopPoint:OCECar TER-87582668,Arcachon,StopPoint:OCECar TER-87581793,Pessac-Alouette,4,08:04:00,21:04:00,260.0
+StopPoint:OCECar TER-87582668,Arcachon,StopPoint:OCECar TER-87582403,Gazinet - Cestas,4,08:04:00,21:04:00,260.0
+StopPoint:OCECar TER-87582668,Arcachon,StopPoint:OCECar TER-87582445,Marcheprime,4,08:04:00,21:04:00,260.0
+StopPoint:OCECar TER-87582668,Arcachon,StopPoint:OCECar TER-87582478,Biganos Facture,16,07:04:00,21:04:00,56.0
+StopPoint:OCECar TER-87582668,Arcachon,StopPoint:OCECar TER-87582601,Le Teich,16,07:04:00,21:04:00,56.0
+StopPoint:OCECar TER-87582668,Arcachon,StopPoint:OCECar TER-87582619,Gujan-Mestras,16,07:04:00,21:04:00,56.0
+StopPoint:OCECar TER-87582668,Arcachon,StopPoint:OCECar TER-87582635,La Hume,16,07:04:00,21:04:00,56.0
+StopPoint:OCECar TER-87582684,Cadaujac,StopPoint:OCECar TER-87581835,Villenave-d'Ornon,10,09:01:00,20:01:00,73.33
+StopPoint:OCECar TER-87582684,Cadaujac,StopPoint:OCECar TER-87582692,Saint-Médard-d'Eyrans,9,09:55:00,20:00:00,75.62
+StopPoint:OCECar TER-87582684,Cadaujac,StopPoint:OCECar TER-87582700,Beautiran,9,09:55:00,20:00:00,75.62
+StopPoint:OCECar TER-87582684,Cadaujac,StopPoint:OCECar TER-87582718,Portets,9,09:55:00,20:00:00,75.62
+StopPoint:OCECar TER-87582684,Cadaujac,StopPoint:OCECar TER-87582726,Arbanats,9,09:55:00,20:00:00,75.62
+StopPoint:OCECar TER-87582684,Cadaujac,StopPoint:OCECar TER-87582734,Podensac,9,09:55:00,20:00:00,75.62
+StopPoint:OCECar TER-87582684,Cadaujac,StopPoint:OCECar TER-87582742,Cérons,9,09:55:00,20:00:00,75.62
+StopPoint:OCECar TER-87582684,Cadaujac,StopPoint:OCECar TER-87582775,Langon,9,09:55:00,20:00:00,75.62
+StopPoint:OCECar TER-87582692,Saint-Médard-d'Eyrans,StopPoint:OCECar TER-87581835,Villenave-d'Ornon,10,08:50:00,19:50:00,73.33
+StopPoint:OCECar TER-87582692,Saint-Médard-d'Eyrans,StopPoint:OCECar TER-87582684,Cadaujac,10,08:50:00,19:50:00,73.33
+StopPoint:OCECar TER-87582692,Saint-Médard-d'Eyrans,StopPoint:OCECar TER-87582700,Beautiran,9,10:04:00,20:09:00,75.62
+StopPoint:OCECar TER-87582692,Saint-Médard-d'Eyrans,StopPoint:OCECar TER-87582718,Portets,9,10:04:00,20:09:00,75.62
+StopPoint:OCECar TER-87582692,Saint-Médard-d'Eyrans,StopPoint:OCECar TER-87582726,Arbanats,9,10:04:00,20:09:00,75.62
+StopPoint:OCECar TER-87582692,Saint-Médard-d'Eyrans,StopPoint:OCECar TER-87582734,Podensac,9,10:04:00,20:09:00,75.62
+StopPoint:OCECar TER-87582692,Saint-Médard-d'Eyrans,StopPoint:OCECar TER-87582742,Cérons,9,10:04:00,20:09:00,75.62
+StopPoint:OCECar TER-87582692,Saint-Médard-d'Eyrans,StopPoint:OCECar TER-87582775,Langon,9,10:04:00,20:09:00,75.62
+StopPoint:OCECar TER-87582700,Beautiran,StopPoint:OCECar TER-87581835,Villenave-d'Ornon,10,08:40:00,19:40:00,73.33
+StopPoint:OCECar TER-87582700,Beautiran,StopPoint:OCECar TER-87582684,Cadaujac,10,08:40:00,19:40:00,73.33
+StopPoint:OCECar TER-87582700,Beautiran,StopPoint:OCECar TER-87582692,Saint-Médard-d'Eyrans,10,08:40:00,19:40:00,73.33
+StopPoint:OCECar TER-87582700,Beautiran,StopPoint:OCECar TER-87582718,Portets,9,10:14:00,20:19:00,75.62
+StopPoint:OCECar TER-87582700,Beautiran,StopPoint:OCECar TER-87582726,Arbanats,9,10:14:00,20:19:00,75.62
+StopPoint:OCECar TER-87582700,Beautiran,StopPoint:OCECar TER-87582734,Podensac,9,10:14:00,20:19:00,75.62
+StopPoint:OCECar TER-87582700,Beautiran,StopPoint:OCECar TER-87582742,Cérons,9,10:14:00,20:19:00,75.62
+StopPoint:OCECar TER-87582700,Beautiran,StopPoint:OCECar TER-87582775,Langon,9,10:14:00,20:19:00,75.62
+StopPoint:OCECar TER-87582718,Portets,StopPoint:OCECar TER-87581835,Villenave-d'Ornon,10,08:34:00,19:34:00,73.33
+StopPoint:OCECar TER-87582718,Portets,StopPoint:OCECar TER-87582684,Cadaujac,10,08:34:00,19:34:00,73.33
+StopPoint:OCECar TER-87582718,Portets,StopPoint:OCECar TER-87582692,Saint-Médard-d'Eyrans,10,08:34:00,19:34:00,73.33
+StopPoint:OCECar TER-87582718,Portets,StopPoint:OCECar TER-87582700,Beautiran,10,08:34:00,19:34:00,73.33
+StopPoint:OCECar TER-87582718,Portets,StopPoint:OCECar TER-87582726,Arbanats,9,10:20:00,20:25:00,75.62
+StopPoint:OCECar TER-87582718,Portets,StopPoint:OCECar TER-87582734,Podensac,9,10:20:00,20:25:00,75.62
+StopPoint:OCECar TER-87582718,Portets,StopPoint:OCECar TER-87582742,Cérons,9,10:20:00,20:25:00,75.62
+StopPoint:OCECar TER-87582718,Portets,StopPoint:OCECar TER-87582775,Langon,9,10:20:00,20:25:00,75.62
+StopPoint:OCECar TER-87582726,Arbanats,StopPoint:OCECar TER-87581835,Villenave-d'Ornon,10,08:28:00,19:28:00,73.33
+StopPoint:OCECar TER-87582726,Arbanats,StopPoint:OCECar TER-87582684,Cadaujac,10,08:28:00,19:28:00,73.33
+StopPoint:OCECar TER-87582726,Arbanats,StopPoint:OCECar TER-87582692,Saint-Médard-d'Eyrans,10,08:28:00,19:28:00,73.33
+StopPoint:OCECar TER-87582726,Arbanats,StopPoint:OCECar TER-87582700,Beautiran,10,08:28:00,19:28:00,73.33
+StopPoint:OCECar TER-87582726,Arbanats,StopPoint:OCECar TER-87582718,Portets,10,08:28:00,19:28:00,73.33
+StopPoint:OCECar TER-87582726,Arbanats,StopPoint:OCECar TER-87582734,Podensac,9,10:26:00,20:31:00,75.62
+StopPoint:OCECar TER-87582726,Arbanats,StopPoint:OCECar TER-87582742,Cérons,9,10:26:00,20:31:00,75.62
+StopPoint:OCECar TER-87582726,Arbanats,StopPoint:OCECar TER-87582775,Langon,9,10:26:00,20:31:00,75.62
+StopPoint:OCECar TER-87582734,Podensac,StopPoint:OCECar TER-87581835,Villenave-d'Ornon,10,08:22:00,19:22:00,73.33
+StopPoint:OCECar TER-87582734,Podensac,StopPoint:OCECar TER-87582684,Cadaujac,10,08:22:00,19:22:00,73.33
+StopPoint:OCECar TER-87582734,Podensac,StopPoint:OCECar TER-87582692,Saint-Médard-d'Eyrans,10,08:22:00,19:22:00,73.33
+StopPoint:OCECar TER-87582734,Podensac,StopPoint:OCECar TER-87582700,Beautiran,10,08:22:00,19:22:00,73.33
+StopPoint:OCECar TER-87582734,Podensac,StopPoint:OCECar TER-87582718,Portets,10,08:22:00,19:22:00,73.33
+StopPoint:OCECar TER-87582734,Podensac,StopPoint:OCECar TER-87582726,Arbanats,10,08:22:00,19:22:00,73.33
+StopPoint:OCECar TER-87582734,Podensac,StopPoint:OCECar TER-87582742,Cérons,9,10:32:00,20:37:00,75.62
+StopPoint:OCECar TER-87582734,Podensac,StopPoint:OCECar TER-87582775,Langon,9,10:32:00,20:37:00,75.62
+StopPoint:OCECar TER-87582742,Cérons,StopPoint:OCECar TER-87581835,Villenave-d'Ornon,10,08:15:00,19:15:00,73.33
+StopPoint:OCECar TER-87582742,Cérons,StopPoint:OCECar TER-87582684,Cadaujac,10,08:15:00,19:15:00,73.33
+StopPoint:OCECar TER-87582742,Cérons,StopPoint:OCECar TER-87582692,Saint-Médard-d'Eyrans,10,08:15:00,19:15:00,73.33
+StopPoint:OCECar TER-87582742,Cérons,StopPoint:OCECar TER-87582700,Beautiran,10,08:15:00,19:15:00,73.33
+StopPoint:OCECar TER-87582742,Cérons,StopPoint:OCECar TER-87582718,Portets,10,08:15:00,19:15:00,73.33
+StopPoint:OCECar TER-87582742,Cérons,StopPoint:OCECar TER-87582726,Arbanats,10,08:15:00,19:15:00,73.33
+StopPoint:OCECar TER-87582742,Cérons,StopPoint:OCECar TER-87582734,Podensac,10,08:15:00,19:15:00,73.33
+StopPoint:OCECar TER-87582742,Cérons,StopPoint:OCECar TER-87582775,Langon,9,10:39:00,20:44:00,75.62
+StopPoint:OCECar TER-87582775,Langon,StopPoint:OCECar TER-87581835,Villenave-d'Ornon,10,07:55:00,18:55:00,73.33
+StopPoint:OCECar TER-87582775,Langon,StopPoint:OCECar TER-87582684,Cadaujac,10,07:55:00,18:55:00,73.33
+StopPoint:OCECar TER-87582775,Langon,StopPoint:OCECar TER-87582692,Saint-Médard-d'Eyrans,10,07:55:00,18:55:00,73.33
+StopPoint:OCECar TER-87582775,Langon,StopPoint:OCECar TER-87582700,Beautiran,10,07:55:00,18:55:00,73.33
+StopPoint:OCECar TER-87582775,Langon,StopPoint:OCECar TER-87582718,Portets,10,07:55:00,18:55:00,73.33
+StopPoint:OCECar TER-87582775,Langon,StopPoint:OCECar TER-87582726,Arbanats,10,07:55:00,18:55:00,73.33
+StopPoint:OCECar TER-87582775,Langon,StopPoint:OCECar TER-87582734,Podensac,10,07:55:00,18:55:00,73.33
+StopPoint:OCECar TER-87582775,Langon,StopPoint:OCECar TER-87582742,Cérons,10,07:55:00,18:55:00,73.33
+StopPoint:OCECar TER-87584052,Libourne,StopPoint:OCECar TER-87581595,Cenon,3,09:50:00,18:50:00,270.0
+StopPoint:OCECar TER-87584052,Libourne,StopPoint:OCECar TER-87581850,Bassens,3,09:50:00,18:50:00,270.0
+StopPoint:OCECar TER-87738096,Le Bouscat Sainte-Germaine,StopPoint:OCECar TER-87278259,Mérignac Arlac,4,12:11:00,16:11:00,80.0
+StopPoint:OCECar TER-87738096,Le Bouscat Sainte-Germaine,StopPoint:OCECar TER-87581181,Ludon,4,10:50:00,14:50:00,80.0
+StopPoint:OCECar TER-87738096,Le Bouscat Sainte-Germaine,StopPoint:OCECar TER-87581199,Macau,4,10:50:00,14:50:00,80.0
+StopPoint:OCECar TER-87738096,Le Bouscat Sainte-Germaine,StopPoint:OCECar TER-87581538,Caudéran-Mérignac,4,12:11:00,16:11:00,80.0
+StopPoint:OCECar TER-87738096,Le Bouscat Sainte-Germaine,StopPoint:OCECar TER-87581710,Parempuyre,4,10:50:00,14:50:00,80.0
+StopPoint:OCECar TER-87738096,Le Bouscat Sainte-Germaine,StopPoint:OCECar TER-87581728,Blanquefort,4,10:50:00,14:50:00,80.0
+StopPoint:OCECar TER-87738096,Le Bouscat Sainte-Germaine,StopPoint:OCECar TER-87581736,Bruges,4,10:50:00,14:50:00,80.0
+StopPoint:OCECar TER-87748350,Talence-Médoquine,StopPoint:OCECar TER-87581751,Pessac,1,22:55:00,22:55:00,0.0
+StopPoint:OCECar TER-87748350,Talence-Médoquine,StopPoint:OCECar TER-87581793,Pessac-Alouette,1,22:55:00,22:55:00,0.0
+StopPoint:OCECar TER-87748350,Talence-Médoquine,StopPoint:OCECar TER-87582403,Gazinet - Cestas,1,22:55:00,22:55:00,0.0
+StopPoint:OCECar TER-87748350,Talence-Médoquine,StopPoint:OCECar TER-87582445,Marcheprime,1,22:55:00,22:55:00,0.0
+StopPoint:OCECar TER-87748350,Talence-Médoquine,StopPoint:OCECar TER-87582478,Biganos Facture,1,22:55:00,22:55:00,0.0
+StopPoint:OCECar TER-87748350,Talence-Médoquine,StopPoint:OCECar TER-87582601,Le Teich,1,22:55:00,22:55:00,0.0
+StopPoint:OCECar TER-87748350,Talence-Médoquine,StopPoint:OCECar TER-87582619,Gujan-Mestras,1,22:55:00,22:55:00,0.0
+StopPoint:OCECar TER-87748350,Talence-Médoquine,StopPoint:OCECar TER-87582635,La Hume,1,22:55:00,22:55:00,0.0
+StopPoint:OCECar TER-87748350,Talence-Médoquine,StopPoint:OCECar TER-87582668,Arcachon,1,22:55:00,22:55:00,0.0
+StopPoint:OCETGV INOUI-87582478,Biganos Facture,StopPoint:OCETGV INOUI-87582668,Arcachon,44,10:48:00,21:24:00,14.79
+StopPoint:OCETGV INOUI-87582668,Arcachon,StopPoint:OCETGV INOUI-87582478,Biganos Facture,35,05:50:00,18:43:00,22.74
+StopPoint:OCETrain TER-87278259,Mérignac Arlac,StopPoint:OCETrain TER-87581181,Ludon,78,06:33:00,21:23:00,11.56
+StopPoint:OCETrain TER-87278259,Mérignac Arlac,StopPoint:OCETrain TER-87581199,Macau,79,06:33:00,21:23:00,11.41
+StopPoint:OCETrain TER-87278259,Mérignac Arlac,StopPoint:OCETrain TER-87581538,Caudéran-Mérignac,78,06:33:00,21:23:00,11.56
+StopPoint:OCETrain TER-87278259,Mérignac Arlac,StopPoint:OCETrain TER-87581710,Parempuyre,78,06:33:00,21:23:00,11.56
+StopPoint:OCETrain TER-87278259,Mérignac Arlac,StopPoint:OCETrain TER-87581728,Blanquefort,79,06:33:00,21:23:00,11.41
+StopPoint:OCETrain TER-87278259,Mérignac Arlac,StopPoint:OCETrain TER-87581736,Bruges,78,06:33:00,21:23:00,11.56
+StopPoint:OCETrain TER-87278259,Mérignac Arlac,StopPoint:OCETrain TER-87581751,Pessac,27,06:34:00,20:38:00,32.46
+StopPoint:OCETrain TER-87278259,Mérignac Arlac,StopPoint:OCETrain TER-87738096,Le Bouscat Sainte-Germaine,79,06:33:00,21:23:00,11.41
+StopPoint:OCETrain TER-87278259,Mérignac Arlac,StopPoint:OCETrain TER-87748350,Talence-Médoquine,51,07:07:00,22:27:00,18.4
+StopPoint:OCETrain TER-87491233,Aubie - Saint-Antoine,StopPoint:OCETrain TER-87491241,Saint-André-de-Cubzac,17,06:22:00,20:22:00,52.5
+StopPoint:OCETrain TER-87491233,Aubie - Saint-Antoine,StopPoint:OCETrain TER-87491266,Cubzac-les-Ponts,17,06:22:00,20:22:00,52.5
+StopPoint:OCETrain TER-87491233,Aubie - Saint-Antoine,StopPoint:OCETrain TER-87491274,La Grave d'Ambarès,17,06:22:00,20:22:00,52.5
+StopPoint:OCETrain TER-87491233,Aubie - Saint-Antoine,StopPoint:OCETrain TER-87491282,Sainte-Eulalie - Carbon-Blanc,17,06:22:00,20:22:00,52.5
+StopPoint:OCETrain TER-87491233,Aubie - Saint-Antoine,StopPoint:OCETrain TER-87581595,Cenon,17,06:22:00,20:22:00,52.5
+StopPoint:OCETrain TER-87491241,Saint-André-de-Cubzac,StopPoint:OCETrain TER-87491233,Aubie - Saint-Antoine,15,06:33:00,21:33:00,64.29
+StopPoint:OCETrain TER-87491241,Saint-André-de-Cubzac,StopPoint:OCETrain TER-87491266,Cubzac-les-Ponts,17,06:26:00,20:26:00,52.5
+StopPoint:OCETrain TER-87491241,Saint-André-de-Cubzac,StopPoint:OCETrain TER-87491274,La Grave d'Ambarès,17,06:26:00,20:26:00,52.5
+StopPoint:OCETrain TER-87491241,Saint-André-de-Cubzac,StopPoint:OCETrain TER-87491282,Sainte-Eulalie - Carbon-Blanc,17,06:26:00,20:26:00,52.5
+StopPoint:OCETrain TER-87491241,Saint-André-de-Cubzac,StopPoint:OCETrain TER-87581595,Cenon,34,06:26:00,20:43:00,25.97
+StopPoint:OCETrain TER-87491266,Cubzac-les-Ponts,StopPoint:OCETrain TER-87491233,Aubie - Saint-Antoine,15,06:29:00,21:29:00,64.29
+StopPoint:OCETrain TER-87491266,Cubzac-les-Ponts,StopPoint:OCETrain TER-87491241,Saint-André-de-Cubzac,15,06:29:00,21:29:00,64.29
+StopPoint:OCETrain TER-87491266,Cubzac-les-Ponts,StopPoint:OCETrain TER-87491274,La Grave d'Ambarès,17,06:29:00,20:29:00,52.5
+StopPoint:OCETrain TER-87491266,Cubzac-les-Ponts,StopPoint:OCETrain TER-87491282,Sainte-Eulalie - Carbon-Blanc,17,06:29:00,20:29:00,52.5
+StopPoint:OCETrain TER-87491266,Cubzac-les-Ponts,StopPoint:OCETrain TER-87581595,Cenon,17,06:29:00,20:29:00,52.5
+StopPoint:OCETrain TER-87491274,La Grave d'Ambarès,StopPoint:OCETrain TER-87491233,Aubie - Saint-Antoine,15,06:23:00,21:23:00,64.29
+StopPoint:OCETrain TER-87491274,La Grave d'Ambarès,StopPoint:OCETrain TER-87491241,Saint-André-de-Cubzac,15,06:23:00,21:23:00,64.29
+StopPoint:OCETrain TER-87491274,La Grave d'Ambarès,StopPoint:OCETrain TER-87491266,Cubzac-les-Ponts,15,06:23:00,21:23:00,64.29
+StopPoint:OCETrain TER-87491274,La Grave d'Ambarès,StopPoint:OCETrain TER-87491282,Sainte-Eulalie - Carbon-Blanc,17,06:35:00,20:35:00,52.5
+StopPoint:OCETrain TER-87491274,La Grave d'Ambarès,StopPoint:OCETrain TER-87581595,Cenon,17,06:35:00,20:35:00,52.5
+StopPoint:OCETrain TER-87491282,Sainte-Eulalie - Carbon-Blanc,StopPoint:OCETrain TER-87491233,Aubie - Saint-Antoine,15,06:18:00,21:18:00,64.29
+StopPoint:OCETrain TER-87491282,Sainte-Eulalie - Carbon-Blanc,StopPoint:OCETrain TER-87491241,Saint-André-de-Cubzac,15,06:18:00,21:18:00,64.29
+StopPoint:OCETrain TER-87491282,Sainte-Eulalie - Carbon-Blanc,StopPoint:OCETrain TER-87491266,Cubzac-les-Ponts,15,06:18:00,21:18:00,64.29
+StopPoint:OCETrain TER-87491282,Sainte-Eulalie - Carbon-Blanc,StopPoint:OCETrain TER-87491274,La Grave d'Ambarès,15,06:18:00,21:18:00,64.29
+StopPoint:OCETrain TER-87491282,Sainte-Eulalie - Carbon-Blanc,StopPoint:OCETrain TER-87581595,Cenon,17,06:40:00,20:40:00,52.5
+StopPoint:OCETrain TER-87581181,Ludon,StopPoint:OCETrain TER-87278259,Mérignac Arlac,77,06:08:00,22:03:00,12.57
+StopPoint:OCETrain TER-87581181,Ludon,StopPoint:OCETrain TER-87581199,Macau,78,07:01:00,21:47:00,11.51
+StopPoint:OCETrain TER-87581181,Ludon,StopPoint:OCETrain TER-87581538,Caudéran-Mérignac,77,06:08:00,22:03:00,12.57
+StopPoint:OCETrain TER-87581181,Ludon,StopPoint:OCETrain TER-87581710,Parempuyre,77,06:08:00,22:03:00,12.57
+StopPoint:OCETrain TER-87581181,Ludon,StopPoint:OCETrain TER-87581728,Blanquefort,77,06:08:00,22:03:00,12.57
+StopPoint:OCETrain TER-87581181,Ludon,StopPoint:OCETrain TER-87581736,Bruges,77,06:08:00,22:03:00,12.57
+StopPoint:OCETrain TER-87581181,Ludon,StopPoint:OCETrain TER-87581751,Pessac,27,06:08:00,20:14:00,32.54
+StopPoint:OCETrain TER-87581181,Ludon,StopPoint:OCETrain TER-87738096,Le Bouscat Sainte-Germaine,77,06:08:00,22:03:00,12.57
+StopPoint:OCETrain TER-87581181,Ludon,StopPoint:OCETrain TER-87748350,Talence-Médoquine,50,06:39:00,22:03:00,18.86
+StopPoint:OCETrain TER-87581199,Macau,StopPoint:OCETrain TER-87278259,Mérignac Arlac,78,06:04:00,21:59:00,12.4
+StopPoint:OCETrain TER-87581199,Macau,StopPoint:OCETrain TER-87581181,Ludon,77,06:04:00,21:59:00,12.57
+StopPoint:OCETrain TER-87581199,Macau,StopPoint:OCETrain TER-87581538,Caudéran-Mérignac,77,06:04:00,21:59:00,12.57
+StopPoint:OCETrain TER-87581199,Macau,StopPoint:OCETrain TER-87581710,Parempuyre,77,06:04:00,21:59:00,12.57
+StopPoint:OCETrain TER-87581199,Macau,StopPoint:OCETrain TER-87581728,Blanquefort,78,06:04:00,21:59:00,12.4
+StopPoint:OCETrain TER-87581199,Macau,StopPoint:OCETrain TER-87581736,Bruges,77,06:04:00,21:59:00,12.57
+StopPoint:OCETrain TER-87581199,Macau,StopPoint:OCETrain TER-87581751,Pessac,27,06:04:00,20:10:00,32.54
+StopPoint:OCETrain TER-87581199,Macau,StopPoint:OCETrain TER-87738096,Le Bouscat Sainte-Germaine,78,06:04:00,21:59:00,12.4
+StopPoint:OCETrain TER-87581199,Macau,StopPoint:OCETrain TER-87748350,Talence-Médoquine,51,06:34:00,21:59:00,18.5
+StopPoint:OCETrain TER-87581538,Caudéran-Mérignac,StopPoint:OCETrain TER-87278259,Mérignac Arlac,77,06:31:00,22:24:00,12.54
+StopPoint:OCETrain TER-87581538,Caudéran-Mérignac,StopPoint:OCETrain TER-87581181,Ludon,78,06:37:00,21:26:00,11.55
+StopPoint:OCETrain TER-87581538,Caudéran-Mérignac,StopPoint:OCETrain TER-87581199,Macau,78,06:37:00,21:26:00,11.55
+StopPoint:OCETrain TER-87581538,Caudéran-Mérignac,StopPoint:OCETrain TER-87581710,Parempuyre,78,06:37:00,21:26:00,11.55
+StopPoint:OCETrain TER-87581538,Caudéran-Mérignac,StopPoint:OCETrain TER-87581728,Blanquefort,78,06:37:00,21:26:00,11.55
+StopPoint:OCETrain TER-87581538,Caudéran-Mérignac,StopPoint:OCETrain TER-87581736,Bruges,78,06:37:00,21:26:00,11.55
+StopPoint:OCETrain TER-87581538,Caudéran-Mérignac,StopPoint:OCETrain TER-87581751,Pessac,27,06:31:00,20:35:00,32.46
+StopPoint:OCETrain TER-87581538,Caudéran-Mérignac,StopPoint:OCETrain TER-87738096,Le Bouscat Sainte-Germaine,78,06:37:00,21:26:00,11.55
+StopPoint:OCETrain TER-87581538,Caudéran-Mérignac,StopPoint:OCETrain TER-87748350,Talence-Médoquine,50,07:04:00,22:24:00,18.78
+StopPoint:OCETrain TER-87581595,Cenon,StopPoint:OCETrain TER-87491233,Aubie - Saint-Antoine,15,06:12:00,21:12:00,64.29
+StopPoint:OCETrain TER-87581595,Cenon,StopPoint:OCETrain TER-87491241,Saint-André-de-Cubzac,32,06:00:00,21:12:00,29.42
+StopPoint:OCETrain TER-87581595,Cenon,StopPoint:OCETrain TER-87491266,Cubzac-les-Ponts,15,06:12:00,21:12:00,64.29
+StopPoint:OCETrain TER-87581595,Cenon,StopPoint:OCETrain TER-87491274,La Grave d'Ambarès,15,06:12:00,21:12:00,64.29
+StopPoint:OCETrain TER-87581595,Cenon,StopPoint:OCETrain TER-87491282,Sainte-Eulalie - Carbon-Blanc,15,06:12:00,21:12:00,64.29
+StopPoint:OCETrain TER-87581595,Cenon,StopPoint:OCETrain TER-87581751,Pessac,193,06:22:00,22:27:00,5.03
+StopPoint:OCETrain TER-87581595,Cenon,StopPoint:OCETrain TER-87581793,Pessac-Alouette,193,06:22:00,22:27:00,5.03
+StopPoint:OCETrain TER-87581595,Cenon,StopPoint:OCETrain TER-87581850,Bassens,77,06:37:00,22:09:00,12.26
+StopPoint:OCETrain TER-87581595,Cenon,StopPoint:OCETrain TER-87582403,Gazinet - Cestas,193,06:22:00,22:27:00,5.03
+StopPoint:OCETrain TER-87581595,Cenon,StopPoint:OCETrain TER-87582445,Marcheprime,193,06:22:00,22:27:00,5.03
+StopPoint:OCETrain TER-87581595,Cenon,StopPoint:OCETrain TER-87582478,Biganos Facture,193,06:22:00,22:27:00,5.03
+StopPoint:OCETrain TER-87581595,Cenon,StopPoint:OCETrain TER-87582601,Le Teich,190,06:22:00,22:27:00,5.11
+StopPoint:OCETrain TER-87581595,Cenon,StopPoint:OCETrain TER-87582619,Gujan-Mestras,190,06:22:00,22:27:00,5.11
+StopPoint:OCETrain TER-87581595,Cenon,StopPoint:OCETrain TER-87582635,La Hume,190,06:22:00,22:27:00,5.11
+StopPoint:OCETrain TER-87581595,Cenon,StopPoint:OCETrain TER-87582668,Arcachon,190,06:22:00,22:27:00,5.11
+StopPoint:OCETrain TER-87581595,Cenon,StopPoint:OCETrain TER-87584052,Libourne,439,05:50:00,22:42:00,2.31
+StopPoint:OCETrain TER-87581595,Cenon,StopPoint:OCETrain TER-87748350,Talence-Médoquine,193,06:22:00,22:27:00,5.03
+StopPoint:OCETrain TER-87581710,Parempuyre,StopPoint:OCETrain TER-87278259,Mérignac Arlac,77,06:13:00,22:07:00,12.55
+StopPoint:OCETrain TER-87581710,Parempuyre,StopPoint:OCETrain TER-87581181,Ludon,78,06:57:00,21:43:00,11.51
+StopPoint:OCETrain TER-87581710,Parempuyre,StopPoint:OCETrain TER-87581199,Macau,78,06:57:00,21:43:00,11.51
+StopPoint:OCETrain TER-87581710,Parempuyre,StopPoint:OCETrain TER-87581538,Caudéran-Mérignac,77,06:13:00,22:07:00,12.55
+StopPoint:OCETrain TER-87581710,Parempuyre,StopPoint:OCETrain TER-87581728,Blanquefort,77,06:13:00,22:07:00,12.55
+StopPoint:OCETrain TER-87581710,Parempuyre,StopPoint:OCETrain TER-87581736,Bruges,77,06:13:00,22:07:00,12.55
+StopPoint:OCETrain TER-87581710,Parempuyre,StopPoint:OCETrain TER-87581751,Pessac,27,06:13:00,20:18:00,32.5
+StopPoint:OCETrain TER-87581710,Parempuyre,StopPoint:OCETrain TER-87738096,Le Bouscat Sainte-Germaine,77,06:13:00,22:07:00,12.55
+StopPoint:OCETrain TER-87581710,Parempuyre,StopPoint:OCETrain TER-87748350,Talence-Médoquine,50,06:43:00,22:07:00,18.86
+StopPoint:OCETrain TER-87581728,Blanquefort,StopPoint:OCETrain TER-87278259,Mérignac Arlac,78,06:18:00,22:11:00,12.38
+StopPoint:OCETrain TER-87581728,Blanquefort,StopPoint:OCETrain TER-87581181,Ludon,78,06:52:00,21:39:00,11.52
+StopPoint:OCETrain TER-87581728,Blanquefort,StopPoint:OCETrain TER-87581199,Macau,79,06:52:00,21:39:00,11.37
+StopPoint:OCETrain TER-87581728,Blanquefort,StopPoint:OCETrain TER-87581538,Caudéran-Mérignac,77,06:18:00,22:11:00,12.54
+StopPoint:OCETrain TER-87581728,Blanquefort,StopPoint:OCETrain TER-87581710,Parempuyre,78,06:52:00,21:39:00,11.52
+StopPoint:OCETrain TER-87581728,Blanquefort,StopPoint:OCETrain TER-87581736,Bruges,77,06:18:00,22:11:00,12.54
+StopPoint:OCETrain TER-87581728,Blanquefort,StopPoint:OCETrain TER-87581751,Pessac,27,06:18:00,20:22:00,32.46
+StopPoint:OCETrain TER-87581728,Blanquefort,StopPoint:OCETrain TER-87738096,Le Bouscat Sainte-Germaine,78,06:18:00,22:11:00,12.38
+StopPoint:OCETrain TER-87581728,Blanquefort,StopPoint:OCETrain TER-87748350,Talence-Médoquine,51,06:51:00,22:11:00,18.4
+StopPoint:OCETrain TER-87581736,Bruges,StopPoint:OCETrain TER-87278259,Mérignac Arlac,77,06:22:00,22:16:00,12.55
+StopPoint:OCETrain TER-87581736,Bruges,StopPoint:OCETrain TER-87581181,Ludon,78,06:45:00,21:34:00,11.55
+StopPoint:OCETrain TER-87581736,Bruges,StopPoint:OCETrain TER-87581199,Macau,78,06:45:00,21:34:00,11.55
+StopPoint:OCETrain TER-87581736,Bruges,StopPoint:OCETrain TER-87581538,Caudéran-Mérignac,77,06:22:00,22:16:00,12.55
+StopPoint:OCETrain TER-87581736,Bruges,StopPoint:OCETrain TER-87581710,Parempuyre,78,06:45:00,21:34:00,11.55
+StopPoint:OCETrain TER-87581736,Bruges,StopPoint:OCETrain TER-87581728,Blanquefort,78,06:45:00,21:34:00,11.55
+StopPoint:OCETrain TER-87581736,Bruges,StopPoint:OCETrain TER-87581751,Pessac,27,06:22:00,20:27:00,32.5
+StopPoint:OCETrain TER-87581736,Bruges,StopPoint:OCETrain TER-87738096,Le Bouscat Sainte-Germaine,77,06:22:00,22:16:00,12.55
+StopPoint:OCETrain TER-87581736,Bruges,StopPoint:OCETrain TER-87748350,Talence-Médoquine,50,06:55:00,22:16:00,18.8
+StopPoint:OCETrain TER-87581751,Pessac,StopPoint:OCETrain TER-87278259,Mérignac Arlac,25,07:00:00,21:19:00,35.79
+StopPoint:OCETrain TER-87581751,Pessac,StopPoint:OCETrain TER-87581181,Ludon,25,07:00:00,21:19:00,35.79
+StopPoint:OCETrain TER-87581751,Pessac,StopPoint:OCETrain TER-87581199,Macau,25,07:00:00,21:19:00,35.79
+StopPoint:OCETrain TER-87581751,Pessac,StopPoint:OCETrain TER-87581538,Caudéran-Mérignac,25,07:00:00,21:19:00,35.79
+StopPoint:OCETrain TER-87581751,Pessac,StopPoint:OCETrain TER-87581595,Cenon,199,06:20:00,21:54:00,4.72
+StopPoint:OCETrain TER-87581751,Pessac,StopPoint:OCETrain TER-87581710,Parempuyre,25,07:00:00,21:19:00,35.79
+StopPoint:OCETrain TER-87581751,Pessac,StopPoint:OCETrain TER-87581728,Blanquefort,25,07:00:00,21:19:00,35.79
+StopPoint:OCETrain TER-87581751,Pessac,StopPoint:OCETrain TER-87581736,Bruges,25,07:00:00,21:19:00,35.79
+StopPoint:OCETrain TER-87581751,Pessac,StopPoint:OCETrain TER-87581793,Pessac-Alouette,254,06:11:00,23:10:00,4.03
+StopPoint:OCETrain TER-87581751,Pessac,StopPoint:OCETrain TER-87581850,Bassens,73,06:20:00,21:54:00,12.97
+StopPoint:OCETrain TER-87581751,Pessac,StopPoint:OCETrain TER-87582403,Gazinet - Cestas,254,06:11:00,23:10:00,4.03
+StopPoint:OCETrain TER-87581751,Pessac,StopPoint:OCETrain TER-87582445,Marcheprime,254,06:11:00,23:10:00,4.03
+StopPoint:OCETrain TER-87581751,Pessac,StopPoint:OCETrain TER-87582478,Biganos Facture,401,05:11:00,23:10:00,2.7
+StopPoint:OCETrain TER-87581751,Pessac,StopPoint:OCETrain TER-87582601,Le Teich,251,06:11:00,23:10:00,4.08
+StopPoint:OCETrain TER-87581751,Pessac,StopPoint:OCETrain TER-87582619,Gujan-Mestras,251,06:11:00,23:10:00,4.08
+StopPoint:OCETrain TER-87581751,Pessac,StopPoint:OCETrain TER-87582635,La Hume,251,06:11:00,23:10:00,4.08
+StopPoint:OCETrain TER-87581751,Pessac,StopPoint:OCETrain TER-87582668,Arcachon,251,06:11:00,23:10:00,4.08
+StopPoint:OCETrain TER-87581751,Pessac,StopPoint:OCETrain TER-87584052,Libourne,199,06:20:00,21:54:00,4.72
+StopPoint:OCETrain TER-87581751,Pessac,StopPoint:OCETrain TER-87738096,Le Bouscat Sainte-Germaine,25,07:00:00,21:19:00,35.79
+StopPoint:OCETrain TER-87581751,Pessac,StopPoint:OCETrain TER-87748350,Talence-Médoquine,259,05:45:00,23:03:00,4.02
+StopPoint:OCETrain TER-87581793,Pessac-Alouette,StopPoint:OCETrain TER-87581595,Cenon,199,06:17:00,21:50:00,4.71
+StopPoint:OCETrain TER-87581793,Pessac-Alouette,StopPoint:OCETrain TER-87581751,Pessac,259,05:41:00,23:00:00,4.03
+StopPoint:OCETrain TER-87581793,Pessac-Alouette,StopPoint:OCETrain TER-87581850,Bassens,73,06:17:00,21:50:00,12.96
+StopPoint:OCETrain TER-87581793,Pessac-Alouette,StopPoint:OCETrain TER-87582403,Gazinet - Cestas,254,06:14:00,23:13:00,4.03
+StopPoint:OCETrain TER-87581793,Pessac-Alouette,StopPoint:OCETrain TER-87582445,Marcheprime,254,06:14:00,23:13:00,4.03
+StopPoint:OCETrain TER-87581793,Pessac-Alouette,StopPoint:OCETrain TER-87582478,Biganos Facture,254,06:14:00,23:13:00,4.03
+StopPoint:OCETrain TER-87581793,Pessac-Alouette,StopPoint:OCETrain TER-87582601,Le Teich,251,06:14:00,23:13:00,4.08
+StopPoint:OCETrain TER-87581793,Pessac-Alouette,StopPoint:OCETrain TER-87582619,Gujan-Mestras,251,06:14:00,23:13:00,4.08
+StopPoint:OCETrain TER-87581793,Pessac-Alouette,StopPoint:OCETrain TER-87582635,La Hume,251,06:14:00,23:13:00,4.08
+StopPoint:OCETrain TER-87581793,Pessac-Alouette,StopPoint:OCETrain TER-87582668,Arcachon,251,06:14:00,23:13:00,4.08
+StopPoint:OCETrain TER-87581793,Pessac-Alouette,StopPoint:OCETrain TER-87584052,Libourne,199,06:17:00,21:50:00,4.71
+StopPoint:OCETrain TER-87581793,Pessac-Alouette,StopPoint:OCETrain TER-87748350,Talence-Médoquine,259,05:41:00,23:00:00,4.03
+StopPoint:OCETrain TER-87581801,Bègles,StopPoint:OCETrain TER-87581835,Villenave-d'Ornon,17,06:36:00,21:56:00,57.5
+StopPoint:OCETrain TER-87581801,Bègles,StopPoint:OCETrain TER-87582684,Cadaujac,33,07:13:00,21:56:00,27.59
+StopPoint:OCETrain TER-87581801,Bègles,StopPoint:OCETrain TER-87582692,Saint-Médard-d'Eyrans,34,06:36:00,21:56:00,27.88
+StopPoint:OCETrain TER-87581801,Bègles,StopPoint:OCETrain TER-87582700,Beautiran,34,06:36:00,21:56:00,27.88
+StopPoint:OCETrain TER-87581801,Bègles,StopPoint:OCETrain TER-87582718,Portets,34,06:36:00,21:56:00,27.88
+StopPoint:OCETrain TER-87581801,Bègles,StopPoint:OCETrain TER-87582726,Arbanats,28,06:36:00,21:56:00,34.07
+StopPoint:OCETrain TER-87581801,Bègles,StopPoint:OCETrain TER-87582734,Podensac,34,06:36:00,21:56:00,27.88
+StopPoint:OCETrain TER-87581801,Bègles,StopPoint:OCETrain TER-87582742,Cérons,34,06:36:00,21:56:00,27.88
+StopPoint:OCETrain TER-87581801,Bègles,StopPoint:OCETrain TER-87582767,Preignac,7,11:44:00,18:44:00,70.0
+StopPoint:OCETrain TER-87581801,Bègles,StopPoint:OCETrain TER-87582775,Langon,34,06:36:00,21:56:00,27.88
+StopPoint:OCETrain TER-87581835,Villenave-d'Ornon,StopPoint:OCETrain TER-87581801,Bègles,18,06:10:00,21:19:00,53.47
+StopPoint:OCETrain TER-87581835,Villenave-d'Ornon,StopPoint:OCETrain TER-87582684,Cadaujac,16,07:17:00,22:00:00,58.87
+StopPoint:OCETrain TER-87581835,Villenave-d'Ornon,StopPoint:OCETrain TER-87582692,Saint-Médard-d'Eyrans,17,06:44:00,22:00:00,57.25
+StopPoint:OCETrain TER-87581835,Villenave-d'Ornon,StopPoint:OCETrain TER-87582700,Beautiran,17,06:44:00,22:00:00,57.25
+StopPoint:OCETrain TER-87581835,Villenave-d'Ornon,StopPoint:OCETrain TER-87582718,Portets,17,06:44:00,22:00:00,57.25
+StopPoint:OCETrain TER-87581835,Villenave-d'Ornon,StopPoint:OCETrain TER-87582726,Arbanats,11,06:44:00,22:00:00,91.6
+StopPoint:OCETrain TER-87581835,Villenave-d'Ornon,StopPoint:OCETrain TER-87582734,Podensac,17,06:44:00,22:00:00,57.25
+StopPoint:OCETrain TER-87581835,Villenave-d'Ornon,StopPoint:OCETrain TER-87582742,Cérons,17,06:44:00,22:00:00,57.25
+StopPoint:OCETrain TER-87581835,Villenave-d'Ornon,StopPoint:OCETrain TER-87582767,Preignac,7,11:48:00,18:48:00,70.0
+StopPoint:OCETrain TER-87581835,Villenave-d'Ornon,StopPoint:OCETrain TER-87582775,Langon,17,06:44:00,22:00:00,57.25
+StopPoint:OCETrain TER-87581850,Bassens,StopPoint:OCETrain TER-87581595,Cenon,79,06:17:00,22:20:00,12.35
+StopPoint:OCETrain TER-87581850,Bassens,StopPoint:OCETrain TER-87581751,Pessac,69,06:17:00,22:20:00,14.16
+StopPoint:OCETrain TER-87581850,Bassens,StopPoint:OCETrain TER-87581793,Pessac-Alouette,69,06:17:00,22:20:00,14.16
+StopPoint:OCETrain TER-87581850,Bassens,StopPoint:OCETrain TER-87582403,Gazinet - Cestas,69,06:17:00,22:20:00,14.16
+StopPoint:OCETrain TER-87581850,Bassens,StopPoint:OCETrain TER-87582445,Marcheprime,69,06:17:00,22:20:00,14.16
+StopPoint:OCETrain TER-87581850,Bassens,StopPoint:OCETrain TER-87582478,Biganos Facture,69,06:17:00,22:20:00,14.16
+StopPoint:OCETrain TER-87581850,Bassens,StopPoint:OCETrain TER-87582601,Le Teich,66,06:17:00,22:20:00,14.82
+StopPoint:OCETrain TER-87581850,Bassens,StopPoint:OCETrain TER-87582619,Gujan-Mestras,66,06:17:00,22:20:00,14.82
+StopPoint:OCETrain TER-87581850,Bassens,StopPoint:OCETrain TER-87582635,La Hume,66,06:17:00,22:20:00,14.82
+StopPoint:OCETrain TER-87581850,Bassens,StopPoint:OCETrain TER-87582668,Arcachon,66,06:17:00,22:20:00,14.82
+StopPoint:OCETrain TER-87581850,Bassens,StopPoint:OCETrain TER-87584052,Libourne,77,06:42:00,22:14:00,12.26
+StopPoint:OCETrain TER-87581850,Bassens,StopPoint:OCETrain TER-87748350,Talence-Médoquine,69,06:17:00,22:20:00,14.16
+StopPoint:OCETrain TER-87582403,Gazinet - Cestas,StopPoint:OCETrain TER-87581595,Cenon,199,06:13:00,21:46:00,4.71
+StopPoint:OCETrain TER-87582403,Gazinet - Cestas,StopPoint:OCETrain TER-87581751,Pessac,259,05:37:00,22:56:00,4.03
+StopPoint:OCETrain TER-87582403,Gazinet - Cestas,StopPoint:OCETrain TER-87581793,Pessac-Alouette,259,05:37:00,22:56:00,4.03
+StopPoint:OCETrain TER-87582403,Gazinet - Cestas,StopPoint:OCETrain TER-87581850,Bassens,73,06:13:00,21:46:00,12.96
+StopPoint:OCETrain TER-87582403,Gazinet - Cestas,StopPoint:OCETrain TER-87582445,Marcheprime,254,06:18:00,23:17:00,4.03
+StopPoint:OCETrain TER-87582403,Gazinet - Cestas,StopPoint:OCETrain TER-87582478,Biganos Facture,254,06:18:00,23:17:00,4.03
+StopPoint:OCETrain TER-87582403,Gazinet - Cestas,StopPoint:OCETrain TER-87582601,Le Teich,251,06:18:00,23:17:00,4.08
+StopPoint:OCETrain TER-87582403,Gazinet - Cestas,StopPoint:OCETrain TER-87582619,Gujan-Mestras,251,06:18:00,23:17:00,4.08
+StopPoint:OCETrain TER-87582403,Gazinet - Cestas,StopPoint:OCETrain TER-87582635,La Hume,251,06:18:00,23:17:00,4.08
+StopPoint:OCETrain TER-87582403,Gazinet - Cestas,StopPoint:OCETrain TER-87582668,Arcachon,251,06:18:00,23:17:00,4.08
+StopPoint:OCETrain TER-87582403,Gazinet - Cestas,StopPoint:OCETrain TER-87584052,Libourne,199,06:13:00,21:46:00,4.71
+StopPoint:OCETrain TER-87582403,Gazinet - Cestas,StopPoint:OCETrain TER-87748350,Talence-Médoquine,259,05:37:00,22:56:00,4.03
+StopPoint:OCETrain TER-87582445,Marcheprime,StopPoint:OCETrain TER-87581595,Cenon,199,06:02:00,21:37:00,4.72
+StopPoint:OCETrain TER-87582445,Marcheprime,StopPoint:OCETrain TER-87581751,Pessac,259,05:28:00,22:47:00,4.03
+StopPoint:OCETrain TER-87582445,Marcheprime,StopPoint:OCETrain TER-87581793,Pessac-Alouette,259,05:28:00,22:47:00,4.03
+StopPoint:OCETrain TER-87582445,Marcheprime,StopPoint:OCETrain TER-87581850,Bassens,73,06:02:00,21:37:00,12.99
+StopPoint:OCETrain TER-87582445,Marcheprime,StopPoint:OCETrain TER-87582403,Gazinet - Cestas,259,05:28:00,22:47:00,4.03
+StopPoint:OCETrain TER-87582445,Marcheprime,StopPoint:OCETrain TER-87582478,Biganos Facture,254,06:27:00,23:28:00,4.04
+StopPoint:OCETrain TER-87582445,Marcheprime,StopPoint:OCETrain TER-87582601,Le Teich,251,06:27:00,23:28:00,4.08
+StopPoint:OCETrain TER-87582445,Marcheprime,StopPoint:OCETrain TER-87582619,Gujan-Mestras,251,06:27:00,23:28:00,4.08
+StopPoint:OCETrain TER-87582445,Marcheprime,StopPoint:OCETrain TER-87582635,La Hume,251,06:27:00,23:28:00,4.08
+StopPoint:OCETrain TER-87582445,Marcheprime,StopPoint:OCETrain TER-87582668,Arcachon,251,06:27:00,23:28:00,4.08
+StopPoint:OCETrain TER-87582445,Marcheprime,StopPoint:OCETrain TER-87584052,Libourne,199,06:02:00,21:37:00,4.72
+StopPoint:OCETrain TER-87582445,Marcheprime,StopPoint:OCETrain TER-87748350,Talence-Médoquine,259,05:28:00,22:47:00,4.03
+StopPoint:OCETrain TER-87582478,Biganos Facture,StopPoint:OCETrain TER-87581595,Cenon,199,05:55:00,21:30:00,4.72
+StopPoint:OCETrain TER-87582478,Biganos Facture,StopPoint:OCETrain TER-87581751,Pessac,489,05:21:00,22:39:00,2.13
+StopPoint:OCETrain TER-87582478,Biganos Facture,StopPoint:OCETrain TER-87581793,Pessac-Alouette,259,05:21:00,22:39:00,4.02
+StopPoint:OCETrain TER-87582478,Biganos Facture,StopPoint:OCETrain TER-87581850,Bassens,73,05:55:00,21:30:00,12.99
+StopPoint:OCETrain TER-87582478,Biganos Facture,StopPoint:OCETrain TER-87582403,Gazinet - Cestas,259,05:21:00,22:39:00,4.02
+StopPoint:OCETrain TER-87582478,Biganos Facture,StopPoint:OCETrain TER-87582445,Marcheprime,259,05:21:00,22:39:00,4.02
+StopPoint:OCETrain TER-87582478,Biganos Facture,StopPoint:OCETrain TER-87582601,Le Teich,251,06:34:00,23:35:00,4.08
+StopPoint:OCETrain TER-87582478,Biganos Facture,StopPoint:OCETrain TER-87582619,Gujan-Mestras,251,06:34:00,23:35:00,4.08
+StopPoint:OCETrain TER-87582478,Biganos Facture,StopPoint:OCETrain TER-87582635,La Hume,251,06:34:00,23:35:00,4.08
+StopPoint:OCETrain TER-87582478,Biganos Facture,StopPoint:OCETrain TER-87582668,Arcachon,251,06:34:00,23:35:00,4.08
+StopPoint:OCETrain TER-87582478,Biganos Facture,StopPoint:OCETrain TER-87584052,Libourne,199,05:55:00,21:30:00,4.72
+StopPoint:OCETrain TER-87582478,Biganos Facture,StopPoint:OCETrain TER-87748350,Talence-Médoquine,259,05:21:00,22:39:00,4.02
+StopPoint:OCETrain TER-87582601,Le Teich,StopPoint:OCETrain TER-87581595,Cenon,196,05:49:00,21:24:00,4.79
+StopPoint:OCETrain TER-87582601,Le Teich,StopPoint:OCETrain TER-87581751,Pessac,256,05:16:00,22:34:00,4.07
+StopPoint:OCETrain TER-87582601,Le Teich,StopPoint:OCETrain TER-87581793,Pessac-Alouette,256,05:16:00,22:34:00,4.07
+StopPoint:OCETrain TER-87582601,Le Teich,StopPoint:OCETrain TER-87581850,Bassens,70,05:49:00,21:24:00,13.55
+StopPoint:OCETrain TER-87582601,Le Teich,StopPoint:OCETrain TER-87582403,Gazinet - Cestas,256,05:16:00,22:34:00,4.07
+StopPoint:OCETrain TER-87582601,Le Teich,StopPoint:OCETrain TER-87582445,Marcheprime,256,05:16:00,22:34:00,4.07
+StopPoint:OCETrain TER-87582601,Le Teich,StopPoint:OCETrain TER-87582478,Biganos Facture,256,05:16:00,22:34:00,4.07
+StopPoint:OCETrain TER-87582601,Le Teich,StopPoint:OCETrain TER-87582619,Gujan-Mestras,251,06:39:00,23:40:00,4.08
+StopPoint:OCETrain TER-87582601,Le Teich,StopPoint:OCETrain TER-87582635,La Hume,251,06:39:00,23:40:00,4.08
+StopPoint:OCETrain TER-87582601,Le Teich,StopPoint:OCETrain TER-87582668,Arcachon,251,06:39:00,23:40:00,4.08
+StopPoint:OCETrain TER-87582601,Le Teich,StopPoint:OCETrain TER-87584052,Libourne,196,05:49:00,21:24:00,4.79
+StopPoint:OCETrain TER-87582601,Le Teich,StopPoint:OCETrain TER-87748350,Talence-Médoquine,256,05:16:00,22:34:00,4.07
+StopPoint:OCETrain TER-87582619,Gujan-Mestras,StopPoint:OCETrain TER-87581595,Cenon,196,05:45:00,21:20:00,4.79
+StopPoint:OCETrain TER-87582619,Gujan-Mestras,StopPoint:OCETrain TER-87581751,Pessac,256,05:12:00,22:28:00,4.06
+StopPoint:OCETrain TER-87582619,Gujan-Mestras,StopPoint:OCETrain TER-87581793,Pessac-Alouette,256,05:12:00,22:28:00,4.06
+StopPoint:OCETrain TER-87582619,Gujan-Mestras,StopPoint:OCETrain TER-87581850,Bassens,70,05:45:00,21:20:00,13.55
+StopPoint:OCETrain TER-87582619,Gujan-Mestras,StopPoint:OCETrain TER-87582403,Gazinet - Cestas,256,05:12:00,22:28:00,4.06
+StopPoint:OCETrain TER-87582619,Gujan-Mestras,StopPoint:OCETrain TER-87582445,Marcheprime,256,05:12:00,22:28:00,4.06
+StopPoint:OCETrain TER-87582619,Gujan-Mestras,StopPoint:OCETrain TER-87582478,Biganos Facture,256,05:12:00,22:28:00,4.06
+StopPoint:OCETrain TER-87582619,Gujan-Mestras,StopPoint:OCETrain TER-87582601,Le Teich,256,05:12:00,22:28:00,4.06
+StopPoint:OCETrain TER-87582619,Gujan-Mestras,StopPoint:OCETrain TER-87582635,La Hume,251,06:44:00,23:45:00,4.08
+StopPoint:OCETrain TER-87582619,Gujan-Mestras,StopPoint:OCETrain TER-87582668,Arcachon,251,06:44:00,23:45:00,4.08
+StopPoint:OCETrain TER-87582619,Gujan-Mestras,StopPoint:OCETrain TER-87584052,Libourne,196,05:45:00,21:20:00,4.79
+StopPoint:OCETrain TER-87582619,Gujan-Mestras,StopPoint:OCETrain TER-87748350,Talence-Médoquine,256,05:12:00,22:28:00,4.06
+StopPoint:OCETrain TER-87582635,La Hume,StopPoint:OCETrain TER-87581595,Cenon,196,05:40:00,21:15:00,4.79
+StopPoint:OCETrain TER-87582635,La Hume,StopPoint:OCETrain TER-87581751,Pessac,256,05:07:00,22:22:00,4.06
+StopPoint:OCETrain TER-87582635,La Hume,StopPoint:OCETrain TER-87581793,Pessac-Alouette,256,05:07:00,22:22:00,4.06
+StopPoint:OCETrain TER-87582635,La Hume,StopPoint:OCETrain TER-87581850,Bassens,70,05:40:00,21:15:00,13.55
+StopPoint:OCETrain TER-87582635,La Hume,StopPoint:OCETrain TER-87582403,Gazinet - Cestas,256,05:07:00,22:22:00,4.06
+StopPoint:OCETrain TER-87582635,La Hume,StopPoint:OCETrain TER-87582445,Marcheprime,256,05:07:00,22:22:00,4.06
+StopPoint:OCETrain TER-87582635,La Hume,StopPoint:OCETrain TER-87582478,Biganos Facture,256,05:07:00,22:22:00,4.06
+StopPoint:OCETrain TER-87582635,La Hume,StopPoint:OCETrain TER-87582601,Le Teich,256,05:07:00,22:22:00,4.06
+StopPoint:OCETrain TER-87582635,La Hume,StopPoint:OCETrain TER-87582619,Gujan-Mestras,256,05:07:00,22:22:00,4.06
+StopPoint:OCETrain TER-87582635,La Hume,StopPoint:OCETrain TER-87582668,Arcachon,251,06:48:00,23:49:00,4.08
+StopPoint:OCETrain TER-87582635,La Hume,StopPoint:OCETrain TER-87584052,Libourne,196,05:40:00,21:15:00,4.79
+StopPoint:OCETrain TER-87582635,La Hume,StopPoint:OCETrain TER-87748350,Talence-Médoquine,256,05:07:00,22:22:00,4.06
+StopPoint:OCETrain TER-87582668,Arcachon,StopPoint:OCETrain TER-87581595,Cenon,196,05:33:00,21:08:00,4.79
+StopPoint:OCETrain TER-87582668,Arcachon,StopPoint:OCETrain TER-87581751,Pessac,256,05:00:00,22:15:00,4.06
+StopPoint:OCETrain TER-87582668,Arcachon,StopPoint:OCETrain TER-87581793,Pessac-Alouette,256,05:00:00,22:15:00,4.06
+StopPoint:OCETrain TER-87582668,Arcachon,StopPoint:OCETrain TER-87581850,Bassens,70,05:33:00,21:08:00,13.55
+StopPoint:OCETrain TER-87582668,Arcachon,StopPoint:OCETrain TER-87582403,Gazinet - Cestas,256,05:00:00,22:15:00,4.06
+StopPoint:OCETrain TER-87582668,Arcachon,StopPoint:OCETrain TER-87582445,Marcheprime,256,05:00:00,22:15:00,4.06
+StopPoint:OCETrain TER-87582668,Arcachon,StopPoint:OCETrain TER-87582478,Biganos Facture,256,05:00:00,22:15:00,4.06
+StopPoint:OCETrain TER-87582668,Arcachon,StopPoint:OCETrain TER-87582601,Le Teich,256,05:00:00,22:15:00,4.06
+StopPoint:OCETrain TER-87582668,Arcachon,StopPoint:OCETrain TER-87582619,Gujan-Mestras,256,05:00:00,22:15:00,4.06
+StopPoint:OCETrain TER-87582668,Arcachon,StopPoint:OCETrain TER-87582635,La Hume,256,05:00:00,22:15:00,4.06
+StopPoint:OCETrain TER-87582668,Arcachon,StopPoint:OCETrain TER-87584052,Libourne,196,05:33:00,21:08:00,4.79
+StopPoint:OCETrain TER-87582668,Arcachon,StopPoint:OCETrain TER-87748350,Talence-Médoquine,256,05:00:00,22:15:00,4.06
+StopPoint:OCETrain TER-87582684,Cadaujac,StopPoint:OCETrain TER-87581801,Bègles,27,06:05:00,21:13:00,34.92
+StopPoint:OCETrain TER-87582684,Cadaujac,StopPoint:OCETrain TER-87581835,Villenave-d'Ornon,15,06:05:00,21:13:00,64.86
+StopPoint:OCETrain TER-87582684,Cadaujac,StopPoint:OCETrain TER-87582692,Saint-Médard-d'Eyrans,33,07:23:00,22:06:00,27.59
+StopPoint:OCETrain TER-87582684,Cadaujac,StopPoint:OCETrain TER-87582700,Beautiran,33,07:23:00,22:06:00,27.59
+StopPoint:OCETrain TER-87582684,Cadaujac,StopPoint:OCETrain TER-87582718,Portets,33,07:23:00,22:06:00,27.59
+StopPoint:OCETrain TER-87582684,Cadaujac,StopPoint:OCETrain TER-87582726,Arbanats,27,07:23:00,22:06:00,33.96
+StopPoint:OCETrain TER-87582684,Cadaujac,StopPoint:OCETrain TER-87582734,Podensac,33,07:23:00,22:06:00,27.59
+StopPoint:OCETrain TER-87582684,Cadaujac,StopPoint:OCETrain TER-87582742,Cérons,33,07:23:00,22:06:00,27.59
+StopPoint:OCETrain TER-87582684,Cadaujac,StopPoint:OCETrain TER-87582767,Preignac,7,11:54:00,18:54:00,70.0
+StopPoint:OCETrain TER-87582684,Cadaujac,StopPoint:OCETrain TER-87582775,Langon,33,07:23:00,22:06:00,27.59
+StopPoint:OCETrain TER-87582692,Saint-Médard-d'Eyrans,StopPoint:OCETrain TER-87581801,Bègles,32,05:55:00,21:04:00,29.32
+StopPoint:OCETrain TER-87582692,Saint-Médard-d'Eyrans,StopPoint:OCETrain TER-87581835,Villenave-d'Ornon,18,05:55:00,21:04:00,53.47
+StopPoint:OCETrain TER-87582692,Saint-Médard-d'Eyrans,StopPoint:OCETrain TER-87582684,Cadaujac,27,05:55:00,21:04:00,34.96
+StopPoint:OCETrain TER-87582692,Saint-Médard-d'Eyrans,StopPoint:OCETrain TER-87582700,Beautiran,34,06:55:00,22:17:00,27.94
+StopPoint:OCETrain TER-87582692,Saint-Médard-d'Eyrans,StopPoint:OCETrain TER-87582718,Portets,34,06:55:00,22:17:00,27.94
+StopPoint:OCETrain TER-87582692,Saint-Médard-d'Eyrans,StopPoint:OCETrain TER-87582726,Arbanats,28,06:55:00,22:17:00,34.15
+StopPoint:OCETrain TER-87582692,Saint-Médard-d'Eyrans,StopPoint:OCETrain TER-87582734,Podensac,34,06:55:00,22:17:00,27.94
+StopPoint:OCETrain TER-87582692,Saint-Médard-d'Eyrans,StopPoint:OCETrain TER-87582742,Cérons,34,06:55:00,22:17:00,27.94
+StopPoint:OCETrain TER-87582692,Saint-Médard-d'Eyrans,StopPoint:OCETrain TER-87582767,Preignac,7,12:05:00,19:05:00,70.0
+StopPoint:OCETrain TER-87582692,Saint-Médard-d'Eyrans,StopPoint:OCETrain TER-87582775,Langon,34,06:55:00,22:17:00,27.94
+StopPoint:OCETrain TER-87582700,Beautiran,StopPoint:OCETrain TER-87581801,Bègles,32,05:50:00,21:00:00,29.35
+StopPoint:OCETrain TER-87582700,Beautiran,StopPoint:OCETrain TER-87581835,Villenave-d'Ornon,18,05:50:00,21:00:00,53.53
+StopPoint:OCETrain TER-87582700,Beautiran,StopPoint:OCETrain TER-87582684,Cadaujac,27,05:50:00,21:00:00,35.0
+StopPoint:OCETrain TER-87582700,Beautiran,StopPoint:OCETrain TER-87582692,Saint-Médard-d'Eyrans,32,05:50:00,21:00:00,29.35
+StopPoint:OCETrain TER-87582700,Beautiran,StopPoint:OCETrain TER-87582718,Portets,34,07:00:00,22:22:00,27.94
+StopPoint:OCETrain TER-87582700,Beautiran,StopPoint:OCETrain TER-87582726,Arbanats,28,07:00:00,22:22:00,34.15
+StopPoint:OCETrain TER-87582700,Beautiran,StopPoint:OCETrain TER-87582734,Podensac,34,07:00:00,22:22:00,27.94
+StopPoint:OCETrain TER-87582700,Beautiran,StopPoint:OCETrain TER-87582742,Cérons,54,06:40:00,22:22:00,17.77
+StopPoint:OCETrain TER-87582700,Beautiran,StopPoint:OCETrain TER-87582767,Preignac,7,12:10:00,19:10:00,70.0
+StopPoint:OCETrain TER-87582700,Beautiran,StopPoint:OCETrain TER-87582775,Langon,54,06:40:00,22:22:00,17.77
+StopPoint:OCETrain TER-87582718,Portets,StopPoint:OCETrain TER-87581801,Bègles,32,05:47:00,20:57:00,29.35
+StopPoint:OCETrain TER-87582718,Portets,StopPoint:OCETrain TER-87581835,Villenave-d'Ornon,18,05:47:00,20:57:00,53.53
+StopPoint:OCETrain TER-87582718,Portets,StopPoint:OCETrain TER-87582684,Cadaujac,27,05:47:00,20:57:00,35.0
+StopPoint:OCETrain TER-87582718,Portets,StopPoint:OCETrain TER-87582692,Saint-Médard-d'Eyrans,32,05:47:00,20:57:00,29.35
+StopPoint:OCETrain TER-87582718,Portets,StopPoint:OCETrain TER-87582700,Beautiran,32,05:47:00,20:57:00,29.35
+StopPoint:OCETrain TER-87582718,Portets,StopPoint:OCETrain TER-87582726,Arbanats,28,07:02:00,22:25:00,34.19
+StopPoint:OCETrain TER-87582718,Portets,StopPoint:OCETrain TER-87582734,Podensac,34,07:02:00,22:25:00,27.97
+StopPoint:OCETrain TER-87582718,Portets,StopPoint:OCETrain TER-87582742,Cérons,34,07:02:00,22:25:00,27.97
+StopPoint:OCETrain TER-87582718,Portets,StopPoint:OCETrain TER-87582767,Preignac,7,12:13:00,19:13:00,70.0
+StopPoint:OCETrain TER-87582718,Portets,StopPoint:OCETrain TER-87582775,Langon,34,07:02:00,22:25:00,27.97
+StopPoint:OCETrain TER-87582726,Arbanats,StopPoint:OCETrain TER-87581801,Bègles,22,06:19:00,20:53:00,41.62
+StopPoint:OCETrain TER-87582726,Arbanats,StopPoint:OCETrain TER-87581835,Villenave-d'Ornon,10,06:19:00,20:53:00,97.11
+StopPoint:OCETrain TER-87582726,Arbanats,StopPoint:OCETrain TER-87582684,Cadaujac,20,06:19:00,20:53:00,46.0
+StopPoint:OCETrain TER-87582726,Arbanats,StopPoint:OCETrain TER-87582692,Saint-Médard-d'Eyrans,22,06:19:00,20:53:00,41.62
+StopPoint:OCETrain TER-87582726,Arbanats,StopPoint:OCETrain TER-87582700,Beautiran,22,06:19:00,20:53:00,41.62
+StopPoint:OCETrain TER-87582726,Arbanats,StopPoint:OCETrain TER-87582718,Portets,22,06:19:00,20:53:00,41.62
+StopPoint:OCETrain TER-87582726,Arbanats,StopPoint:OCETrain TER-87582734,Podensac,28,07:05:00,22:29:00,34.22
+StopPoint:OCETrain TER-87582726,Arbanats,StopPoint:OCETrain TER-87582742,Cérons,28,07:05:00,22:29:00,34.22
+StopPoint:OCETrain TER-87582726,Arbanats,StopPoint:OCETrain TER-87582767,Preignac,1,19:17:00,19:17:00,0.0
+StopPoint:OCETrain TER-87582726,Arbanats,StopPoint:OCETrain TER-87582775,Langon,28,07:05:00,22:29:00,34.22
+StopPoint:OCETrain TER-87582734,Podensac,StopPoint:OCETrain TER-87581801,Bègles,32,05:41:00,20:50:00,29.32
+StopPoint:OCETrain TER-87582734,Podensac,StopPoint:OCETrain TER-87581835,Villenave-d'Ornon,18,05:41:00,20:50:00,53.47
+StopPoint:OCETrain TER-87582734,Podensac,StopPoint:OCETrain TER-87582684,Cadaujac,27,05:41:00,20:50:00,34.96
+StopPoint:OCETrain TER-87582734,Podensac,StopPoint:OCETrain TER-87582692,Saint-Médard-d'Eyrans,32,05:41:00,20:50:00,29.32
+StopPoint:OCETrain TER-87582734,Podensac,StopPoint:OCETrain TER-87582700,Beautiran,32,05:41:00,20:50:00,29.32
+StopPoint:OCETrain TER-87582734,Podensac,StopPoint:OCETrain TER-87582718,Portets,32,05:41:00,20:50:00,29.32
+StopPoint:OCETrain TER-87582734,Podensac,StopPoint:OCETrain TER-87582726,Arbanats,22,06:15:00,20:50:00,41.67
+StopPoint:OCETrain TER-87582734,Podensac,StopPoint:OCETrain TER-87582742,Cérons,34,07:09:00,22:33:00,28.0
+StopPoint:OCETrain TER-87582734,Podensac,StopPoint:OCETrain TER-87582767,Preignac,7,12:19:00,19:21:00,70.33
+StopPoint:OCETrain TER-87582734,Podensac,StopPoint:OCETrain TER-87582775,Langon,34,07:09:00,22:33:00,28.0
+StopPoint:OCETrain TER-87582742,Cérons,StopPoint:OCETrain TER-87581801,Bègles,32,05:38:00,20:47:00,29.32
+StopPoint:OCETrain TER-87582742,Cérons,StopPoint:OCETrain TER-87581835,Villenave-d'Ornon,18,05:38:00,20:47:00,53.47
+StopPoint:OCETrain TER-87582742,Cérons,StopPoint:OCETrain TER-87582684,Cadaujac,27,05:38:00,20:47:00,34.96
+StopPoint:OCETrain TER-87582742,Cérons,StopPoint:OCETrain TER-87582692,Saint-Médard-d'Eyrans,32,05:38:00,20:47:00,29.32
+StopPoint:OCETrain TER-87582742,Cérons,StopPoint:OCETrain TER-87582700,Beautiran,52,05:38:00,21:54:00,19.14
+StopPoint:OCETrain TER-87582742,Cérons,StopPoint:OCETrain TER-87582718,Portets,32,05:38:00,20:47:00,29.32
+StopPoint:OCETrain TER-87582742,Cérons,StopPoint:OCETrain TER-87582726,Arbanats,22,06:12:00,20:47:00,41.67
+StopPoint:OCETrain TER-87582742,Cérons,StopPoint:OCETrain TER-87582734,Podensac,32,05:38:00,20:47:00,29.32
+StopPoint:OCETrain TER-87582742,Cérons,StopPoint:OCETrain TER-87582767,Preignac,7,12:22:00,19:24:00,70.33
+StopPoint:OCETrain TER-87582742,Cérons,StopPoint:OCETrain TER-87582775,Langon,54,06:47:00,22:36:00,17.91
+StopPoint:OCETrain TER-87582767,Preignac,StopPoint:OCETrain TER-87581801,Bègles,8,05:33:00,18:46:00,113.29
+StopPoint:OCETrain TER-87582767,Preignac,StopPoint:OCETrain TER-87581835,Villenave-d'Ornon,7,05:33:00,18:46:00,132.17
+StopPoint:OCETrain TER-87582767,Preignac,StopPoint:OCETrain TER-87582684,Cadaujac,8,05:33:00,18:46:00,113.29
+StopPoint:OCETrain TER-87582767,Preignac,StopPoint:OCETrain TER-87582692,Saint-Médard-d'Eyrans,8,05:33:00,18:46:00,113.29
+StopPoint:OCETrain TER-87582767,Preignac,StopPoint:OCETrain TER-87582700,Beautiran,8,05:33:00,18:46:00,113.29
+StopPoint:OCETrain TER-87582767,Preignac,StopPoint:OCETrain TER-87582718,Portets,8,05:33:00,18:46:00,113.29
+StopPoint:OCETrain TER-87582767,Preignac,StopPoint:OCETrain TER-87582726,Arbanats,1,06:38:00,06:38:00,0.0
+StopPoint:OCETrain TER-87582767,Preignac,StopPoint:OCETrain TER-87582734,Podensac,8,05:33:00,18:46:00,113.29
+StopPoint:OCETrain TER-87582767,Preignac,StopPoint:OCETrain TER-87582742,Cérons,8,05:33:00,18:46:00,113.29
+StopPoint:OCETrain TER-87582767,Preignac,StopPoint:OCETrain TER-87582775,Langon,7,12:27:00,19:29:00,70.33
+StopPoint:OCETrain TER-87582775,Langon,StopPoint:OCETrain TER-87581801,Bègles,32,05:28:00,20:39:00,29.39
+StopPoint:OCETrain TER-87582775,Langon,StopPoint:OCETrain TER-87581835,Villenave-d'Ornon,18,05:28:00,20:39:00,53.59
+StopPoint:OCETrain TER-87582775,Langon,StopPoint:OCETrain TER-87582684,Cadaujac,27,05:28:00,20:39:00,35.04
+StopPoint:OCETrain TER-87582775,Langon,StopPoint:OCETrain TER-87582692,Saint-Médard-d'Eyrans,32,05:28:00,20:39:00,29.39
+StopPoint:OCETrain TER-87582775,Langon,StopPoint:OCETrain TER-87582700,Beautiran,52,05:28:00,21:47:00,19.2
+StopPoint:OCETrain TER-87582775,Langon,StopPoint:OCETrain TER-87582718,Portets,32,05:28:00,20:39:00,29.39
+StopPoint:OCETrain TER-87582775,Langon,StopPoint:OCETrain TER-87582726,Arbanats,22,06:04:00,20:39:00,41.67
+StopPoint:OCETrain TER-87582775,Langon,StopPoint:OCETrain TER-87582734,Podensac,32,05:28:00,20:39:00,29.39
+StopPoint:OCETrain TER-87582775,Langon,StopPoint:OCETrain TER-87582742,Cérons,52,05:28:00,21:47:00,19.2
+StopPoint:OCETrain TER-87582775,Langon,StopPoint:OCETrain TER-87582767,Preignac,8,05:28:00,18:41:00,113.29
+StopPoint:OCETrain TER-87584052,Libourne,StopPoint:OCETrain TER-87581595,Cenon,440,05:50:00,21:56:00,2.2
+StopPoint:OCETrain TER-87584052,Libourne,StopPoint:OCETrain TER-87581751,Pessac,193,05:52:00,21:56:00,5.02
+StopPoint:OCETrain TER-87584052,Libourne,StopPoint:OCETrain TER-87581793,Pessac-Alouette,193,05:52:00,21:56:00,5.02
+StopPoint:OCETrain TER-87584052,Libourne,StopPoint:OCETrain TER-87581850,Bassens,79,05:52:00,21:56:00,12.36
+StopPoint:OCETrain TER-87584052,Libourne,StopPoint:OCETrain TER-87582403,Gazinet - Cestas,193,05:52:00,21:56:00,5.02
+StopPoint:OCETrain TER-87584052,Libourne,StopPoint:OCETrain TER-87582445,Marcheprime,193,05:52:00,21:56:00,5.02
+StopPoint:OCETrain TER-87584052,Libourne,StopPoint:OCETrain TER-87582478,Biganos Facture,193,05:52:00,21:56:00,5.02
+StopPoint:OCETrain TER-87584052,Libourne,StopPoint:OCETrain TER-87582601,Le Teich,190,05:52:00,21:56:00,5.1
+StopPoint:OCETrain TER-87584052,Libourne,StopPoint:OCETrain TER-87582619,Gujan-Mestras,190,05:52:00,21:56:00,5.1
+StopPoint:OCETrain TER-87584052,Libourne,StopPoint:OCETrain TER-87582635,La Hume,190,05:52:00,21:56:00,5.1
+StopPoint:OCETrain TER-87584052,Libourne,StopPoint:OCETrain TER-87582668,Arcachon,190,05:52:00,21:56:00,5.1
+StopPoint:OCETrain TER-87584052,Libourne,StopPoint:OCETrain TER-87748350,Talence-Médoquine,193,05:52:00,21:56:00,5.02
+StopPoint:OCETrain TER-87738096,Le Bouscat Sainte-Germaine,StopPoint:OCETrain TER-87278259,Mérignac Arlac,78,06:26:00,22:19:00,12.38
+StopPoint:OCETrain TER-87738096,Le Bouscat Sainte-Germaine,StopPoint:OCETrain TER-87581181,Ludon,78,06:41:00,21:31:00,11.56
+StopPoint:OCETrain TER-87738096,Le Bouscat Sainte-Germaine,StopPoint:OCETrain TER-87581199,Macau,79,06:41:00,21:31:00,11.41
+StopPoint:OCETrain TER-87738096,Le Bouscat Sainte-Germaine,StopPoint:OCETrain TER-87581538,Caudéran-Mérignac,77,06:26:00,22:19:00,12.54
+StopPoint:OCETrain TER-87738096,Le Bouscat Sainte-Germaine,StopPoint:OCETrain TER-87581710,Parempuyre,78,06:41:00,21:31:00,11.56
+StopPoint:OCETrain TER-87738096,Le Bouscat Sainte-Germaine,StopPoint:OCETrain TER-87581728,Blanquefort,79,06:41:00,21:31:00,11.41
+StopPoint:OCETrain TER-87738096,Le Bouscat Sainte-Germaine,StopPoint:OCETrain TER-87581736,Bruges,78,06:41:00,21:31:00,11.56
+StopPoint:OCETrain TER-87738096,Le Bouscat Sainte-Germaine,StopPoint:OCETrain TER-87581751,Pessac,27,06:26:00,20:31:00,32.5
+StopPoint:OCETrain TER-87738096,Le Bouscat Sainte-Germaine,StopPoint:OCETrain TER-87748350,Talence-Médoquine,51,06:59:00,22:19:00,18.4
+StopPoint:OCETrain TER-87748350,Talence-Médoquine,StopPoint:OCETrain TER-87278259,Mérignac Arlac,54,06:29:00,20:51:00,16.26
+StopPoint:OCETrain TER-87748350,Talence-Médoquine,StopPoint:OCETrain TER-87581181,Ludon,53,06:29:00,20:51:00,16.58
+StopPoint:OCETrain TER-87748350,Talence-Médoquine,StopPoint:OCETrain TER-87581199,Macau,54,06:29:00,20:51:00,16.26
+StopPoint:OCETrain TER-87748350,Talence-Médoquine,StopPoint:OCETrain TER-87581538,Caudéran-Mérignac,53,06:29:00,20:51:00,16.58
+StopPoint:OCETrain TER-87748350,Talence-Médoquine,StopPoint:OCETrain TER-87581595,Cenon,199,06:23:00,21:57:00,4.72
+StopPoint:OCETrain TER-87748350,Talence-Médoquine,StopPoint:OCETrain TER-87581710,Parempuyre,53,06:29:00,20:51:00,16.58
+StopPoint:OCETrain TER-87748350,Talence-Médoquine,StopPoint:OCETrain TER-87581728,Blanquefort,54,06:29:00,20:51:00,16.26
+StopPoint:OCETrain TER-87748350,Talence-Médoquine,StopPoint:OCETrain TER-87581736,Bruges,53,06:29:00,20:51:00,16.58
+StopPoint:OCETrain TER-87748350,Talence-Médoquine,StopPoint:OCETrain TER-87581751,Pessac,254,06:07:00,23:06:00,4.03
+StopPoint:OCETrain TER-87748350,Talence-Médoquine,StopPoint:OCETrain TER-87581793,Pessac-Alouette,254,06:07:00,23:06:00,4.03
+StopPoint:OCETrain TER-87748350,Talence-Médoquine,StopPoint:OCETrain TER-87581850,Bassens,73,06:23:00,21:57:00,12.97
+StopPoint:OCETrain TER-87748350,Talence-Médoquine,StopPoint:OCETrain TER-87582403,Gazinet - Cestas,254,06:07:00,23:06:00,4.03
+StopPoint:OCETrain TER-87748350,Talence-Médoquine,StopPoint:OCETrain TER-87582445,Marcheprime,254,06:07:00,23:06:00,4.03
+StopPoint:OCETrain TER-87748350,Talence-Médoquine,StopPoint:OCETrain TER-87582478,Biganos Facture,254,06:07:00,23:06:00,4.03
+StopPoint:OCETrain TER-87748350,Talence-Médoquine,StopPoint:OCETrain TER-87582601,Le Teich,251,06:07:00,23:06:00,4.08
+StopPoint:OCETrain TER-87748350,Talence-Médoquine,StopPoint:OCETrain TER-87582619,Gujan-Mestras,251,06:07:00,23:06:00,4.08
+StopPoint:OCETrain TER-87748350,Talence-Médoquine,StopPoint:OCETrain TER-87582635,La Hume,251,06:07:00,23:06:00,4.08
+StopPoint:OCETrain TER-87748350,Talence-Médoquine,StopPoint:OCETrain TER-87582668,Arcachon,251,06:07:00,23:06:00,4.08
+StopPoint:OCETrain TER-87748350,Talence-Médoquine,StopPoint:OCETrain TER-87584052,Libourne,199,06:23:00,21:57:00,4.72
+StopPoint:OCETrain TER-87748350,Talence-Médoquine,StopPoint:OCETrain TER-87738096,Le Bouscat Sainte-Germaine,54,06:29:00,20:51:00,16.26
